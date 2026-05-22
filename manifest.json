@@ -1,7 +1,7 @@
 {
   "name": "مجرة اقتصاد الأفكار",
   "short_name": "المجرة",
-  "description": "منصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية تخدم البشرية",
+  "description": "placeholder descriptionمنصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية تخدم البشرية",
   "start_url": "/galaxy-ideas-economy/",
   "scope": "/galaxy-ideas-economy/",
   "display": "standalone",
@@ -17,13 +17,13 @@
   ],
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "https://drjamana-beep.github.io/galaxy-ideas-economy/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon.png",
+      "src": "https://drjamana-beep.github.io/galaxy-ideas-economy/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -32,20 +32,16 @@
   "shortcuts": [
     {
       "name": "أضف فكرة",
-      "short_name": "فكرة",
-      "url": "/galaxy-ideas-economy/#ai-sec"
+      "url": "/#ai-sec"
     },
     {
       "name": "Galaxy ID",
-      "short_name": "هويتي",
-      "url": "/galaxy-ideas-economy/#gid-sec"
+      "url": "/#gid-sec"
     },
     {
       "name": "وضع الأزمات",
-      "short_name": "أزمة",
-      "url": "/galaxy-ideas-economy/#crisis-sec"
+      "url": "/#crisis-sec"
     }
   ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  "id": "galaxy-ideas-economy"
 }
