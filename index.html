@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="مجرة اقتصاد الأفكار — منصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية"/>
+<meta name="theme-color" content="#0A0015"/>
+
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="المجرة"/>
+<link rel="apple-touch-icon" href="/icons/icon-192.png"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="application-name" content="مجرة اقتصاد الأفكار"/>
+<title>مجرة اقتصاد الأفكار — Galaxy of Ideas Economy</title>
+<script>
+// ── INLINE MANIFEST (no separate file needed) ──
+const manifestData = {
+  "name": "مجرة اقتصاد الأفكار",
+  "short_name": "المجرة",
+  "description": "منصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية تخدم البشرية",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#0A0015",
+  "background_color": "#0A0015",
+  "lang": "ar",
+  "dir": "rtl",
+  "categories": ["productivity", "education", "finance"],
+  "icons": [
+    {"src": "https://ubiquitous-unicorn-f7a19e.netlify.app/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "https://ubiquitous-unicorn-f7a19e.netlify.app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ],
+  "shortcuts": [
+    {"name": "أضف فكرة", "url": "/#ai-sec"},
+    {"name": "Galaxy ID", "url": "/#gid-sec"},
+    {"name": "وضع الأزمات", "url": "/#crisis-sec"}
+  ]
+};
+const blob = new Blob([JSON.stringify(manifestData)], {type: 'application/json'});
+const manifestURL = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = manifestURL;
+document.head.appendChild(link);
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ═══════════════════════════════════════
+   GALAXY V10 — PRODUCTION GRADE
+   Architecture: CSS Custom Properties + BEM-lite
+   ═══════════════════════════════════════ */
+:root {
+  /* Brand Colors */
+  --c-gold: #F5C842;
+  --c-gold-dim: rgba(245,200,66,.15);
+  --c-purple: #6D28D9;
+  --c-purple-bright: #8B5CF6;
+  --c-purple-dim: rgba(109,40,217,.12);
+  --c-cyan: #06B6D4;
+  --c-cyan-dim: rgba(6,182,212,.12);
+  --c-green: #10B981;
+  --c-green-dim: rgba(16,185,129,.12);
+  --c-pink: #EC4899;
+  --c-pink-dim: rgba(236,72,153,.12);
+  --c-orange: #F97316;
+  --c-red: #EF4444;
+  --c-teal: #14B8A6;
+  /* Backgrounds */
+  --bg-base: #080010;
+  --bg-elevated: rgba(255,255,255,.028);
+  --bg-overlay: rgba(255,255,255,.05);
+  /* Text */
+  --t-primary: #F1ECF9;
+  --t-secondary: #A78BBE;
+  --t-muted: #6B5A7E;
+  /* Borders */
+  --b-subtle: rgba(139,92,246,.18);
+  --b-default: rgba(139,92,246,.28);
+  --b-strong: rgba(245,200,66,.35);
+  /* Spacing */
+  --space-xs: .4rem; --space-sm: .8rem; --space-md: 1.2rem;
+  --space-lg: 2rem;  --space-xl: 3.5rem; --space-2xl: 6rem;
+  /* Radius */
+  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-full: 9999px;
+  /* Shadows */
+  --shadow-gold: 0 0 30px rgba(245,200,66,.25);
+  --shadow-purple: 0 0 30px rgba(109,40,217,.3);
+  --shadow-card: 0 4px 24px rgba(0,0,0,.4);
+  /* Transitions */
+  --t-fast: .15s ease; --t-base: .25s ease; --t-slow: .4s ease;
+  /* Font */
+  --f-display: 'Amiri', serif;
+  --f-body: 'Tajawal', sans-serif;
+}
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-base);
+  color: var(--t-primary);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--c-purple); border-radius: 2px; }
+img, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font-family: var(--f-body); }
+a { text-decoration: none; }
+
+/* ── ANIMATIONS ── */
+@keyframes star-pulse { 0%,100% { opacity:.15;transform:scale(1) } 50% { opacity:.9;transform:scale(1.3) } }
+@keyframes orb-breathe { 0%,100% { transform:translate(-50%,-50%) scale(1);opacity:.4 } 50% { transform:translate(-50%,-50%) scale(1.18);opacity:.65 } }
+@keyframes float-y { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-14px) } }
+@keyframes fade-up { from { opacity:0;transform:translateY(18px) } to { opacity:1;transform:translateY(0) } }
+@keyframes fade-in { from { opacity:0 } to { opacity:1 } }
+@keyframes slide-in-r { from { opacity:0;transform:translateX(20px) } to { opacity:1;transform:translateX(0) } }
+@keyframes spin { to { transform:rotate(360deg) } }
+@keyframes glow-gold { 0%,100% { box-shadow:0 0 15px rgba(245,200,66,.2) } 50% { box-shadow:0 0 35px rgba(245,200,66,.55) } }
+@keyframes pulse-ring { 0% { transform:scale(.95);opacity:1 } 70% { transform:scale(1.15);opacity:0 } 100% { transform:scale(1.15);opacity:0 } }
+@keyframes count-ticker { from { opacity:0;transform:translateY(8px) } to { opacity:1;transform:translateY(0) } }
+@keyframes shimmer-move { 0% { left:-100% } 100% { left:200% } }
+@keyframes crisis-pulse { 0%,100% { border-color:rgba(239,68,68,.25) } 50% { border-color:rgba(239,68,68,.7) } }
+@keyframes live-dot { 0%,100% { transform:scale(1);opacity:1 } 50% { transform:scale(1.7);opacity:.4 } }
+@keyframes progress-fill { from { width:0 } to { width:var(--w,0%) } }
+@keyframes coin-bounce { 0%,100% { transform:translateY(0) } 30% { transform:translateY(-8px) } 60% { transform:translateY(-3px) } }
+@keyframes reveal { from { clip-path:inset(0 100% 0 0) } to { clip-path:inset(0 0% 0 0) } }
+
+/* ── UTILITY CLASSES ── */
+.u-grad-gold { background:linear-gradient(135deg,var(--c-gold),#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.u-grad-cyan  { background:linear-gradient(135deg,var(--c-cyan),var(--c-purple-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.u-grad-green { background:linear-gradient(135deg,var(--c-green),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.u-grad-pink  { background:linear-gradient(135deg,var(--c-pink),var(--c-purple-bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.u-grad-teal  { background:linear-gradient(135deg,var(--c-teal),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+.fade-up { animation:fade-up .5s ease both; }
+.fade-up-2 { animation:fade-up .5s .1s ease both; }
+.fade-up-3 { animation:fade-up .5s .2s ease both; }
+
+/* ── CANVAS STARS ── */
+#star-canvas { position:fixed;inset:0;pointer-events:none;z-index:0; }
+
+/* ── AMBIENT ORB ── */
+.ambient-orb {
+  position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;
+  animation:orb-breathe 8s ease-in-out infinite;
+}
+.orb-1 { width:600px;height:600px;background:radial-gradient(circle,rgba(109,40,217,.18),transparent 65%);top:0;left:50%;transform:translate(-50%,-50%); }
+.orb-2 { width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,.1),transparent 65%);bottom:20%;right:-10%; }
+
+/* ── NAVIGATION ── */
+.nav {
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  padding:.6rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  transition:all .4s ease;
+}
+.nav--scrolled {
+  background:rgba(8,0,16,.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--b-subtle);
+  box-shadow:0 1px 40px rgba(0,0,0,.5);
+}
+.nav__brand {
+  font-family:var(--f-display);
+  font-size:1.05rem;
+  font-weight:700;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  white-space:nowrap;flex-shrink:0;
+}
+.nav__links { display:flex;gap:.2rem;flex-wrap:wrap;align-items:center; }
+.nav__link {
+  background:transparent;border:1px solid transparent;
+  border-radius:var(--r-full);padding:.28rem .72rem;
+  color:var(--t-secondary);cursor:pointer;font-size:.78rem;
+  font-family:var(--f-body);transition:all var(--t-base);white-space:nowrap;
+}
+.nav__link:hover,.nav__link--active {
+  color:var(--c-gold);border-color:rgba(245,200,66,.3);
+  background:rgba(245,200,66,.07);
+}
+.nav__cta {
+  background:linear-gradient(135deg,var(--c-gold),var(--c-orange));
+  border:none;border-radius:var(--r-full);padding:.38rem 1rem;
+  font-size:.78rem;font-weight:700;color:#0A0015;cursor:pointer;
+  font-family:var(--f-body);transition:all var(--t-base);white-space:nowrap;
+  box-shadow:0 0 18px rgba(245,200,66,.3);
+}
+.nav__cta:hover { transform:translateY(-1px);box-shadow:0 0 28px rgba(245,200,66,.5); }
+
+/* ── SECTION BASE ── */
+.section {
+  position:relative;z-index:1;
+  padding:var(--space-2xl) var(--space-lg);
+}
+.section--alt { background:radial-gradient(ellipse at 50% 0%,rgba(109,40,217,.06) 0%,transparent 65%); }
+.section__inner { max-width:960px;margin:0 auto; }
+.section__head { text-align:center;margin-bottom:var(--space-xl); }
+.section__eyebrow {
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:var(--c-purple-dim);border:1px solid var(--b-subtle);
+  border-radius:var(--r-full);padding:.3rem .9rem;
+  font-size:.74rem;font-weight:700;color:var(--c-purple-bright);
+  margin-bottom:1rem;letter-spacing:.05em;text-transform:uppercase;
+}
+.section__title {
+  font-family:var(--f-display);
+  font-size:clamp(1.7rem,3.5vw,2.6rem);
+  font-weight:700;line-height:1.25;
+  margin-bottom:.6rem;
+}
+.section__subtitle { color:var(--t-secondary);font-size:1rem;max-width:560px;margin:0 auto;line-height:1.7; }
+
+/* ── CARDS ── */
+.card {
+  background:var(--bg-elevated);
+  border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);
+  padding:var(--space-md);
+  transition:border-color var(--t-base), transform var(--t-base), box-shadow var(--t-base);
+  backdrop-filter:blur(8px);
+  position:relative;overflow:hidden;
+}
+.card::before {
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.015),transparent 50%);
+  pointer-events:none;
+}
+.card:hover { border-color:var(--b-default);box-shadow:var(--shadow-card); }
+.card--gold:hover { border-color:rgba(245,200,66,.4);box-shadow:var(--shadow-gold); }
+.card--cyan:hover { border-color:rgba(6,182,212,.4);box-shadow:0 0 25px rgba(6,182,212,.2); }
+.card--green:hover { border-color:rgba(16,185,129,.4);box-shadow:0 0 25px rgba(16,185,129,.2); }
+.card--lift:hover { transform:translateY(-4px); }
+
+/* ── GRID LAYOUTS ── */
+.grid-2 { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-sm); }
+.grid-3 { display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-sm); }
+.grid-4 { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--space-sm); }
+
+/* ── BUTTONS ── */
+.btn {
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  border:none;border-radius:var(--r-full);cursor:pointer;
+  font-family:var(--f-body);font-weight:700;
+  transition:all var(--t-base);white-space:nowrap;
+}
+.btn--primary {
+  background:linear-gradient(135deg,var(--c-gold),var(--c-orange));
+  color:#0A0015;padding:.85rem 2.2rem;font-size:1rem;
+  box-shadow:0 0 25px rgba(245,200,66,.35);
+}
+.btn--primary:hover { transform:translateY(-2px) scale(1.03);box-shadow:0 0 40px rgba(245,200,66,.55); }
+.btn--secondary {
+  background:transparent;border:1.5px solid var(--c-purple-bright);
+  color:#C4B5FD;padding:.85rem 2.2rem;font-size:1rem;
+}
+.btn--secondary:hover { background:var(--c-purple-dim);transform:translateY(-2px); }
+.btn--ghost {
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  color:var(--t-secondary);padding:.5rem 1.1rem;font-size:.82rem;
+}
+.btn--ghost:hover { border-color:var(--b-default);color:var(--t-primary); }
+.btn--gold-outline { border:1px solid rgba(245,200,66,.4);color:var(--c-gold);background:var(--c-gold-dim);padding:.4rem 1rem;font-size:.82rem; }
+.btn--gold-outline:hover { background:rgba(245,200,66,.2); }
+.btn--danger { background:linear-gradient(135deg,var(--c-red),#DC2626);color:#fff;padding:.5rem 1.1rem;font-size:.82rem;box-shadow:0 0 18px rgba(239,68,68,.3); }
+.btn--sm { padding:.38rem .9rem;font-size:.78rem; }
+.btn--full { width:100%;padding:.9rem; }
+.btn--loading { pointer-events:none;opacity:.7; }
+
+/* ── FORM ELEMENTS ── */
+.input {
+  width:100%;background:rgba(8,0,16,.6);
+  border:1px solid var(--b-subtle);border-radius:var(--r-md);
+  padding:.78rem 1.1rem;color:var(--t-primary);
+  font-family:var(--f-body);font-size:.9rem;outline:none;
+  transition:border-color var(--t-base),box-shadow var(--t-base);direction:rtl;
+}
+.input:focus { border-color:var(--c-purple-bright);box-shadow:0 0 0 3px rgba(139,92,246,.15); }
+.input::placeholder { color:var(--t-muted); }
+.textarea { min-height:110px;resize:vertical;line-height:1.8; }
+.select { appearance:none;cursor:pointer; }
+.input-group { display:grid;grid-template-columns:1fr 1fr;gap:.6rem; }
+@media(max-width:480px) { .input-group { grid-template-columns:1fr; } }
+
+/* ── BADGE / CHIP ── */
+.badge {
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.18rem .6rem;border-radius:var(--r-full);
+  font-size:.7rem;font-weight:700;border:1px solid;
+}
+.badge--gold { color:var(--c-gold);border-color:rgba(245,200,66,.4);background:var(--c-gold-dim); }
+.badge--cyan { color:var(--c-cyan);border-color:rgba(6,182,212,.35);background:var(--c-cyan-dim); }
+.badge--green { color:var(--c-green);border-color:rgba(16,185,129,.35);background:var(--c-green-dim); }
+.badge--pink { color:var(--c-pink);border-color:rgba(236,72,153,.35);background:var(--c-pink-dim); }
+.badge--purple { color:#C4B5FD;border-color:rgba(139,92,246,.35);background:var(--c-purple-dim); }
+.badge--red { color:#FCA5A5;border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.1); }
+.badge--live { color:#FF6B6B;border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.1);animation:crisis-pulse 2s ease-in-out infinite; }
+
+/* ── STAT BLOCK ── */
+.stat-block { text-align:center; }
+.stat-block__num {
+  font-size:clamp(1.5rem,3vw,2rem);font-weight:900;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:count-ticker .6s ease;
+}
+.stat-block__lbl { color:var(--t-muted);font-size:.76rem;margin-top:.15rem; }
+
+/* ── PROGRESS BAR ── */
+.progress { margin-bottom:.7rem; }
+.progress__header { display:flex;justify-content:space-between;font-size:.75rem;color:var(--t-secondary);margin-bottom:.3rem; }
+.progress__track { height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden; }
+.progress__fill { height:100%;border-radius:3px;transition:width 1.2s ease;animation:progress-fill 1.2s ease forwards; }
+
+/* ── SPINNER ── */
+.spinner {
+  display:inline-block;width:15px;height:15px;
+  border:2px solid rgba(255,255,255,.2);border-top-color:#fff;
+  border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-left:.4rem;
+}
+
+/* ── TOAST ── */
+.toast {
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:rgba(109,40,217,.95);color:#fff;
+  padding:.6rem 1.4rem;border-radius:var(--r-full);
+  z-index:9999;font-size:.85rem;font-family:var(--f-body);
+  border:1px solid rgba(139,92,246,.4);backdrop-filter:blur(10px);
+  animation:fade-up .3s ease;pointer-events:none;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+}
+
+/* ── DIVIDER ── */
+.divider { height:1px;background:linear-gradient(90deg,transparent,var(--b-subtle),transparent);margin:var(--space-lg) 0; }
+
+/* ══════════════════════════════
+   HERO SECTION
+══════════════════════════════ */
+.hero {
+  min-height:100vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:7rem 1.5rem 4rem;position:relative;z-index:1;
+}
+.hero__badge {
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.08));
+  border:1px solid rgba(245,200,66,.25);border-radius:var(--r-full);
+  padding:.35rem 1rem;font-size:.78rem;color:var(--c-gold);
+  margin-bottom:1.5rem;animation:fade-up .6s ease;
+}
+.hero__badge-dot { width:6px;height:6px;border-radius:50%;background:var(--c-green);animation:live-dot 1.5s ease-in-out infinite; }
+.hero__emoji { font-size:4.5rem;animation:float-y 4s ease-in-out infinite;margin-bottom:1rem; }
+.hero__title {
+  font-family:var(--f-display);
+  font-size:clamp(2.2rem,5.5vw,3.8rem);
+  font-weight:700;line-height:1.2;
+  background:linear-gradient(135deg,var(--c-gold) 0%,var(--c-pink) 50%,var(--c-cyan) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:1rem;animation:fade-up .6s .1s ease both;
+}
+.hero__sub {
+  font-size:clamp(1rem,2vw,1.35rem);color:var(--t-secondary);
+  max-width:580px;line-height:1.75;margin-bottom:2rem;
+  animation:fade-up .6s .2s ease both;
+}
+.hero__sub strong { color:var(--c-gold); }
+.hero__problem-solution {
+  display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;
+  justify-content:center;margin-bottom:2rem;
+  animation:fade-up .6s .3s ease both;
+}
+.hero__tag {
+  padding:.45rem 1rem;border-radius:var(--r-md);font-size:.88rem;
+}
+.hero__tag--bad { background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:#FCA5A5; }
+.hero__tag--good { background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6EE7B7; }
+.hero__arrow { color:var(--c-gold);font-size:1.3rem; }
+.hero__actions { display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:3rem;animation:fade-up .6s .4s ease both; }
+.hero__stats {
+  display:flex;gap:2.5rem;flex-wrap:wrap;justify-content:center;
+  animation:fade-up .6s .5s ease both;
+  padding:1.2rem 2rem;
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);backdrop-filter:blur(8px);
+}
+.hero__stat-divider { width:1px;background:var(--b-subtle);align-self:stretch; }
+
+/* ══════════════════════════════
+   GALAXY ID
+══════════════════════════════ */
+.gid-card {
+  background:linear-gradient(135deg,rgba(109,40,217,.12),rgba(6,182,212,.06));
+  border:1px solid rgba(139,92,246,.35);border-radius:var(--r-lg);
+  padding:1.8rem;position:relative;overflow:hidden;
+  margin-bottom:1.5rem;animation:glow-gold 4s ease-in-out infinite;
+}
+.gid-card__shimmer {
+  position:absolute;top:0;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);
+  animation:shimmer-move 5s ease-in-out infinite;pointer-events:none;
+}
+.gid-card__header { display:flex;align-items:center;gap:1.2rem;margin-bottom:1.4rem; }
+.gid-card__avatar {
+  width:68px;height:68px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-purple));
+  display:flex;align-items:center;justify-content:center;font-size:1.8rem;
+  border:2px solid rgba(245,200,66,.4);position:relative;
+}
+.gid-card__avatar::after {
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:2px solid transparent;
+  background:linear-gradient(135deg,var(--c-gold),transparent) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out;mask-composite:exclude;
+  animation:spin 6s linear infinite;
+}
+.gid-card__name { font-size:1.15rem;font-weight:800;color:var(--c-gold); }
+.gid-card__id { font-family:monospace;font-size:.75rem;color:var(--t-muted);margin-top:.2rem; }
+.gid-card__badges { display:flex;gap:.35rem;flex-wrap:wrap;margin-top:.5rem; }
+.gid-card__stats { display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem; }
+.gid-stat {
+  background:rgba(8,0,16,.5);border-radius:var(--r-md);
+  padding:.8rem .5rem;text-align:center;
+}
+.gid-stat__num { font-size:1.25rem;font-weight:800;color:var(--c-gold); }
+.gid-stat__lbl { font-size:.68rem;color:var(--t-muted);margin-top:.15rem; }
+.gid-card__progress { margin-top:1.2rem; }
+
+/* ══════════════════════════════
+   IMPACT COINS
+══════════════════════════════ */
+.coins-display {
+  display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;
+  background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(249,115,22,.04));
+  border:1px solid rgba(245,200,66,.25);border-radius:var(--r-lg);
+  padding:1.5rem;margin-bottom:1.5rem;
+}
+.coins-display__icon {
+  width:80px;height:80px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--c-gold),var(--c-orange));
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+  box-shadow:0 0 28px rgba(245,200,66,.4);animation:coin-bounce 3s ease-in-out infinite;
+}
+.coins-display__amount { font-size:2.4rem;font-weight:900;color:var(--c-gold);line-height:1; }
+.coins-display__label { font-size:.82rem;color:var(--t-secondary);margin-top:.2rem; }
+.coins-display__actions { display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem; }
+.coins-display__rank { text-align:center;padding:1rem 1.5rem;background:rgba(8,0,16,.4);border-radius:var(--r-md);border:1px solid var(--b-subtle); }
+.coins-display__rank-num { font-size:1.5rem;font-weight:900;color:var(--c-gold); }
+.coins-display__rank-lbl { font-size:.7rem;color:var(--t-muted); }
+.earn-grid,.spend-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.75rem; }
+.earn-card,.spend-card {
+  border-radius:var(--r-md);padding:1rem;text-align:center;
+  cursor:pointer;transition:all var(--t-base);
+}
+.earn-card {
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+}
+.earn-card:hover { border-color:rgba(245,200,66,.4);transform:translateY(-3px);box-shadow:var(--shadow-gold); }
+.spend-card {
+  background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.18);
+}
+.spend-card:hover { border-color:rgba(16,185,129,.45);transform:translateY(-3px); }
+.earn-card__icon,.spend-card__icon { font-size:1.8rem;margin-bottom:.4rem; }
+.earn-card__title,.spend-card__title { font-size:.8rem;font-weight:700;margin-bottom:.2rem;color:var(--t-primary); }
+.earn-card__coins { font-size:.75rem;color:var(--c-gold); }
+.spend-card__coins { font-size:.75rem;color:var(--c-green); }
+
+/* ══════════════════════════════
+   LIVE IDEA ROOM
+══════════════════════════════ */
+.live-header { display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;flex-wrap:wrap; }
+.live-badge {
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.35);
+  border-radius:var(--r-full);padding:.3rem .8rem;font-size:.78rem;color:#FF6B6B;
+}
+.live-dot { width:7px;height:7px;border-radius:50%;background:#FF6B6B;animation:live-dot 1s ease-in-out infinite; }
+.live-viewer-count { font-size:.82rem;color:var(--t-secondary); }
+.room-grid { display:grid;grid-template-columns:1fr 300px;gap:1rem; }
+@media(max-width:720px) { .room-grid { grid-template-columns:1fr; } }
+.room-stage { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-lg);padding:1.4rem; }
+.presenter-card {
+  display:flex;align-items:center;gap:1rem;
+  background:rgba(245,200,66,.05);border:1px solid rgba(245,200,66,.18);
+  border-radius:var(--r-md);padding:1rem;margin-bottom:1.2rem;
+}
+.presenter-card__avatar {
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  border:2px solid var(--c-gold);
+  background:linear-gradient(135deg,var(--c-purple),var(--c-pink));
+}
+.presenter-card__name { color:var(--c-gold);font-weight:700;font-size:.9rem; }
+.presenter-card__idea { color:var(--t-secondary);font-size:.78rem;margin-top:.2rem; }
+.vote-section__title { font-size:.8rem;font-weight:700;color:var(--t-muted);margin-bottom:.8rem; }
+.vote-row { display:flex;align-items:center;gap:.8rem;margin-bottom:.5rem; }
+.vote-row__label { font-size:.77rem;color:var(--t-secondary);width:65px;flex-shrink:0;text-align:right; }
+.vote-row__track { flex:1;height:7px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden; }
+.vote-row__fill--p { height:100%;border-radius:4px;background:linear-gradient(90deg,var(--c-green),var(--c-cyan));transition:width .6s ease; }
+.vote-row__fill--n { height:100%;border-radius:4px;background:linear-gradient(90deg,var(--c-red),var(--c-pink));transition:width .6s ease; }
+.vote-row__fill--i { height:100%;border-radius:4px;background:linear-gradient(90deg,var(--c-gold),var(--c-orange));transition:width .6s ease; }
+.vote-row__pct { font-size:.77rem;width:32px;text-align:left; }
+.vote-actions { display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem; }
+.room-sidebar { display:flex;flex-direction:column;gap:.8rem; }
+.sidebar-panel { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-lg);padding:1rem; }
+.sidebar-panel__title { font-size:.8rem;font-weight:700;color:var(--t-secondary);margin-bottom:.7rem;display:flex;align-items:center;gap:.4rem; }
+.audience-item { display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem; }
+.audience-item__avatar { width:26px;height:26px;border-radius:50%;font-size:.9rem;display:flex;align-items:center;justify-content:center; }
+.audience-item__name { font-size:.76rem;color:var(--t-secondary); }
+.chat-feed { display:flex;flex-direction:column;gap:.35rem;max-height:120px;overflow-y:auto; }
+.chat-msg { font-size:.74rem;padding:.3rem .6rem;background:var(--c-purple-dim);border-radius:8px;color:var(--t-secondary);direction:rtl; }
+.chat-msg strong { color:var(--c-cyan); }
+.upcoming-list { display:flex;flex-direction:column;gap:.6rem;margin-top:1rem; }
+.session-row {
+  display:flex;align-items:center;gap:.9rem;
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-md);padding:.75rem 1rem;transition:all var(--t-base);
+}
+.session-row:hover { border-color:var(--b-default); }
+.session-row__time { color:var(--c-cyan);font-size:.76rem;font-weight:700;flex-shrink:0; }
+.session-row__title { font-size:.82rem;color:var(--t-primary);flex:1; }
+.session-row__planet { font-size:.7rem;color:var(--t-muted); }
+
+/* ══════════════════════════════
+   CERTIFICATE
+══════════════════════════════ */
+.cert-frame {
+  background:linear-gradient(135deg,rgba(245,200,66,.05),rgba(109,40,217,.08));
+  border:1.5px solid rgba(245,200,66,.22);border-radius:var(--r-lg);
+  padding:2rem;text-align:center;position:relative;overflow:hidden;margin-bottom:1.5rem;
+}
+.cert-frame__watermark { position:absolute;top:-10px;right:-10px;font-size:9rem;opacity:.03;pointer-events:none; }
+.cert-frame__logo { font-size:2.5rem;margin-bottom:.5rem; }
+.cert-frame__title { font-family:var(--f-display);font-size:1.7rem;color:var(--c-gold);margin-bottom:.3rem; }
+.cert-frame__subtitle { color:var(--t-muted);font-size:.82rem;margin-bottom:1.2rem; }
+.cert-content {
+  background:rgba(8,0,16,.4);border:1px solid rgba(245,200,66,.12);
+  border-radius:var(--r-md);padding:1.2rem;margin-bottom:1.2rem;
+}
+.cert-content__title { font-size:1rem;font-weight:700;color:var(--t-primary);margin-bottom:.8rem; }
+.cert-meta { display:flex;justify-content:center;gap:2rem;flex-wrap:wrap; }
+.cert-meta__item { text-align:center; }
+.cert-meta__val { font-weight:700;color:var(--c-gold);font-size:.92rem; }
+.cert-meta__lbl { font-size:.68rem;color:var(--t-muted);margin-top:.1rem; }
+.cert-footer { display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem; }
+.cert-id { font-family:monospace;color:var(--c-purple-bright);font-size:.76rem;background:var(--c-purple-dim);padding:.3rem .7rem;border-radius:var(--r-sm); }
+.cert-stamp { background:linear-gradient(135deg,var(--c-gold),var(--c-orange));color:#0A0015;font-weight:900;font-size:.74rem;padding:.3rem .8rem;border-radius:var(--r-full); }
+
+/* ══════════════════════════════
+   IMPACT DASHBOARD
+══════════════════════════════ */
+.impact-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-bottom:1.5rem; }
+.impact-num-card {
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);padding:1.2rem;text-align:center;
+  transition:all var(--t-base);position:relative;overflow:hidden;
+}
+.impact-num-card:hover { transform:translateY(-3px); }
+.impact-num-card__num { font-size:1.8rem;font-weight:900;line-height:1;margin-bottom:.3rem; }
+.impact-num-card__lbl { color:var(--t-muted);font-size:.74rem; }
+.impact-num-card__trend { font-size:.68rem;margin-top:.3rem; }
+.impact-num-card__trend--up { color:var(--c-green); }
+.world-section { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-lg);padding:1.4rem;margin-bottom:1.2rem; }
+.world-section__title { font-weight:700;font-size:.9rem;margin-bottom:1rem;color:var(--c-gold); }
+.country-row { display:flex;align-items:center;gap:.9rem;margin-bottom:.55rem; }
+.country-row__flag { font-size:1.05rem;width:22px;text-align:center;flex-shrink:0; }
+.country-row__name { font-size:.78rem;color:var(--t-secondary);width:75px;flex-shrink:0; }
+.country-row__bar { flex:1;height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden; }
+.country-row__fill { height:100%;border-radius:3px;transition:width 1.2s ease; }
+.country-row__val { font-size:.76rem;color:var(--t-primary);width:28px;text-align:right;flex-shrink:0; }
+.events-list { display:flex;flex-direction:column;gap:.55rem; }
+.event-row {
+  display:flex;align-items:center;gap:.9rem;
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-md);padding:.75rem 1rem;transition:all var(--t-base);
+}
+.event-row:hover { border-color:rgba(16,185,129,.3); }
+.event-row__icon { font-size:1.3rem;flex-shrink:0; }
+.event-row__title { font-size:.82rem;color:var(--t-primary);flex:1;direction:rtl; }
+.event-row__meta { font-size:.7rem;color:var(--t-muted);direction:rtl;margin-top:.1rem; }
+.event-row__time { font-size:.68rem;color:var(--t-muted);flex-shrink:0; }
+
+/* ══════════════════════════════
+   ARBITRATION
+══════════════════════════════ */
+.arb-stats-row { display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;margin-bottom:1.5rem; }
+.arb-stat { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-md);padding:1rem;text-align:center; }
+.arb-stat__num { font-size:1.5rem;font-weight:800;margin-bottom:.2rem; }
+.arb-stat__lbl { color:var(--t-muted);font-size:.74rem; }
+.case-card { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-lg);padding:1.2rem;margin-bottom:.75rem;transition:all var(--t-base); }
+.case-card:hover { border-color:var(--b-default); }
+.case-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;flex-wrap:wrap;gap:.4rem; }
+.case-id { font-family:monospace;font-size:.74rem;color:var(--c-purple-bright);background:var(--c-purple-dim);padding:.18rem .5rem;border-radius:var(--r-sm); }
+.case-title { font-size:.88rem;font-weight:600;color:var(--t-primary);margin-bottom:.3rem;direction:rtl; }
+.case-meta { font-size:.74rem;color:var(--t-muted);direction:rtl;margin-bottom:.7rem; }
+.case-jury { display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem; }
+.jury-chip { display:flex;align-items:center;gap:.35rem;background:var(--c-purple-dim);border:1px solid var(--b-subtle);border-radius:var(--r-full);padding:.22rem .65rem;font-size:.72rem;color:var(--t-secondary); }
+.case-votes { display:flex;gap:.5rem;flex-wrap:wrap; }
+.vote-option {
+  flex:1;min-width:80px;padding:.4rem .6rem;border-radius:var(--r-md);
+  text-align:center;font-size:.74rem;font-weight:700;cursor:pointer;
+  border:1px solid;transition:all var(--t-base);
+}
+.vote-option:hover { transform:translateY(-2px); }
+
+/* ══════════════════════════════
+   AMBASSADORS
+══════════════════════════════ */
+.amb-globe {
+  background:linear-gradient(135deg,rgba(6,182,212,.06),rgba(109,40,217,.08));
+  border:1px solid var(--b-subtle);border-radius:var(--r-lg);
+  padding:2rem;text-align:center;margin-bottom:1.5rem;
+}
+.amb-globe__emoji { font-size:3.5rem;animation:float-y 4s ease-in-out infinite;display:block;margin-bottom:.6rem; }
+.amb-levels { display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.75rem;margin-bottom:1.5rem; }
+.amb-level {
+  border-radius:var(--r-lg);padding:1.1rem;text-align:center;
+  cursor:pointer;transition:all var(--t-base);border:1px solid;
+}
+.amb-level:hover { transform:translateY(-4px); }
+.amb-level__icon { font-size:2rem;margin-bottom:.4rem; }
+.amb-level__name { font-weight:700;font-size:.86rem;margin-bottom:.2rem; }
+.amb-level__req { font-size:.72rem;color:var(--t-muted); }
+.perks-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.75rem; }
+.perk-card { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-md);padding:1rem;transition:all var(--t-base); }
+.perk-card:hover { border-color:rgba(6,182,212,.4);transform:translateY(-3px); }
+.perk-card__icon { font-size:1.5rem;margin-bottom:.4rem; }
+.perk-card__title { color:var(--c-cyan);font-weight:700;font-size:.84rem;margin-bottom:.3rem; }
+.perk-card__desc { color:var(--t-muted);font-size:.76rem;line-height:1.6; }
+.top-amb-list { display:flex;flex-direction:column;gap:.55rem;margin-top:1.2rem; }
+.top-amb-row {
+  display:flex;align-items:center;gap:.9rem;
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-md);padding:.75rem 1rem;transition:all var(--t-base);
+}
+.top-amb-row:hover { border-color:rgba(245,200,66,.3); }
+.top-amb-row__rank { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0; }
+.top-amb-row__name { font-size:.85rem;font-weight:700;color:var(--t-primary);flex:1; }
+.top-amb-row__country { font-size:.72rem;color:var(--t-muted); }
+.top-amb-row__score { color:var(--c-gold);font-weight:800;font-size:.88rem; }
+
+/* ══════════════════════════════
+   API SECTION
+══════════════════════════════ */
+.api-hero-card {
+  background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(6,182,212,.04));
+  border:1px solid rgba(16,185,129,.2);border-radius:var(--r-lg);
+  padding:1.6rem;text-align:center;margin-bottom:1.5rem;
+}
+.api-endpoint {
+  display:flex;align-items:center;gap:.8rem;
+  background:rgba(8,0,16,.6);border:1px solid rgba(16,185,129,.12);
+  border-radius:var(--r-md);padding:.8rem 1.1rem;
+  transition:all var(--t-base);cursor:pointer;margin-bottom:.5rem;
+}
+.api-endpoint:hover { border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.04); }
+.method { font-family:monospace;font-size:.74rem;font-weight:700;padding:.18rem .5rem;border-radius:var(--r-sm);flex-shrink:0; }
+.method--get { background:rgba(6,182,212,.2);color:var(--c-cyan); }
+.method--post { background:rgba(16,185,129,.2);color:var(--c-green); }
+.method--put { background:rgba(245,200,66,.2);color:var(--c-gold); }
+.ep-path { font-family:monospace;font-size:.8rem;color:var(--t-primary);flex:1; }
+.ep-desc { font-size:.72rem;color:var(--t-muted); }
+.code-block {
+  background:rgba(0,0,0,.7);border:1px solid rgba(16,185,129,.18);
+  border-radius:var(--r-md);padding:1.2rem;font-family:monospace;
+  font-size:.78rem;color:#86EFAC;line-height:1.9;
+  overflow-x:auto;direction:ltr;text-align:left;margin-bottom:1rem;
+  border-right:3px solid var(--c-green);
+}
+.code-block .c { color:#6B7280; }
+.code-block .k { color:var(--c-cyan); }
+.code-block .s { color:#FCA5A5; }
+.code-block .v { color:var(--c-gold); }
+.api-stats-row { display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:.75rem; }
+.api-stat { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-md);padding:.9rem;text-align:center; }
+.api-stat__num { font-size:1.25rem;font-weight:800;color:var(--c-green); }
+.api-stat__lbl { font-size:.7rem;color:var(--t-muted);margin-top:.2rem; }
+
+/* ══════════════════════════════
+   CRISIS MODE
+══════════════════════════════ */
+.crisis-alert {
+  background:rgba(239,68,68,.07);border:1.5px solid rgba(239,68,68,.25);
+  border-radius:var(--r-lg);padding:1.5rem;text-align:center;
+  margin-bottom:1.5rem;animation:crisis-pulse 2.5s ease-in-out infinite;
+}
+.crisis-alert__icon { font-size:2.2rem;margin-bottom:.5rem; }
+.crisis-alert__title { color:#FCA5A5;font-size:1.2rem;font-weight:800;font-family:var(--f-display);margin-bottom:.3rem; }
+.crisis-alert__desc { color:var(--t-secondary);font-size:.84rem; }
+.crisis-toggle { display:flex;justify-content:center;gap:.8rem;margin-top:1rem;flex-wrap:wrap; }
+.crisis-panel { display:none; }
+.crisis-panel.active { display:block;animation:fade-up .4s ease; }
+.crisis-zones { display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:.9rem;margin-bottom:1.2rem; }
+.zone-card { border-radius:var(--r-lg);padding:1.2rem;border:1px solid;position:relative;transition:all var(--t-base); }
+.zone-card:hover { transform:translateY(-4px); }
+.zone-sev { position:absolute;top:.7rem;left:.7rem;font-size:.68rem;padding:.15rem .5rem;border-radius:var(--r-full);font-weight:700; }
+.zone-sev--critical { background:rgba(239,68,68,.2);color:#FCA5A5;border:1px solid rgba(239,68,68,.3); }
+.zone-sev--high { background:rgba(249,115,22,.2);color:#FED7AA;border:1px solid rgba(249,115,22,.3); }
+.zone-sev--med { background:rgba(245,200,66,.15);color:var(--c-gold);border:1px solid rgba(245,200,66,.25); }
+.zone-name { font-weight:700;font-size:.95rem;margin-top:1.4rem;margin-bottom:.3rem; }
+.zone-desc { font-size:.78rem;color:var(--t-secondary);line-height:1.5; }
+.zone-tags { display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem; }
+.zone-tag { font-size:.68rem;padding:.12rem .45rem;border-radius:var(--r-sm);background:rgba(255,255,255,.05); }
+.crisis-res-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.2rem; }
+.crisis-res-card { background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:var(--r-md);padding:1rem;text-align:center;transition:all var(--t-base); }
+.crisis-res-card:hover { border-color:rgba(239,68,68,.4);transform:translateY(-3px); }
+.crisis-res-card__icon { font-size:1.8rem;margin-bottom:.4rem; }
+.crisis-res-card__title { color:#FCA5A5;font-weight:700;font-size:.82rem;margin-bottom:.2rem; }
+.crisis-res-card__num { color:var(--t-secondary);font-size:.76rem; }
+
+/* ══════════════════════════════
+   GALAXY MAP
+══════════════════════════════ */
+.galaxy-map-wrap { position:relative;height:400px;margin-bottom:1.5rem; }
+.planet-node {
+  position:absolute;width:42px;height:42px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.25rem;cursor:pointer;transition:all .3s ease;
+  background:rgba(8,0,16,.8);border:2px solid transparent;
+  box-shadow:0 0 10px rgba(0,0,0,.3);
+}
+.planet-node:hover { transform:scale(1.35);z-index:20; }
+.planet-node .pt { 
+  position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  background:rgba(8,0,16,.95);border:1px solid rgba(245,200,66,.3);
+  border-radius:var(--r-sm);padding:.3rem .65rem;white-space:nowrap;
+  font-size:.7rem;color:var(--c-gold);pointer-events:none;
+  opacity:0;transition:opacity var(--t-base);z-index:30;font-family:var(--f-body);
+}
+.planet-node:hover .pt { opacity:1; }
+.galaxy-core {
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:86px;height:86px;border-radius:50%;z-index:10;
+  background:radial-gradient(circle,var(--c-gold),var(--c-purple));
+  display:flex;align-items:center;justify-content:center;font-size:2rem;
+  box-shadow:0 0 40px rgba(245,200,66,.45),0 0 80px rgba(109,40,217,.25);
+}
+.orbit-ring {
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px dashed rgba(139,92,246,.18);pointer-events:none;
+}
+
+/* ══════════════════════════════
+   TECH STACK SECTION
+══════════════════════════════ */
+.tech-layer {
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);padding:1.1rem 1.4rem;
+  display:flex;align-items:flex-start;gap:1.1rem;
+  transition:all var(--t-base);margin-bottom:.7rem;
+}
+.tech-layer:hover { border-color:var(--b-default);transform:translateX(-3px); }
+.tech-layer__icon { font-size:1.7rem;flex-shrink:0;margin-top:.1rem; }
+.tech-layer__name { font-weight:700;font-size:.9rem;margin-bottom:.45rem; }
+.tags { display:flex;flex-wrap:wrap;gap:.35rem; }
+.tag {
+  background:var(--c-purple-dim);border:1px solid var(--b-subtle);
+  border-radius:var(--r-full);padding:.18rem .62rem;font-size:.73rem;color:#C4B5FD;
+}
+.mega-layers { display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.75rem;margin-top:1.2rem; }
+.mega-layer {
+  background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);padding:1rem;text-align:center;
+  transition:all var(--t-base);position:relative;overflow:hidden;
+}
+.mega-layer:hover { transform:translateY(-4px); }
+.mega-layer__bar { position:absolute;bottom:0;left:0;right:0;height:3px; }
+.mega-layer__num { font-size:1.5rem;font-weight:900;margin-bottom:.2rem; }
+.mega-layer__name { font-size:.78rem;color:var(--t-muted); }
+
+/* ══════════════════════════════
+   AI RESULT BOX
+══════════════════════════════ */
+.ai-result { margin-top:1.2rem;animation:fade-up .4s ease; }
+.ai-result__planet {
+  display:flex;align-items:center;gap:1rem;
+  background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);
+  border-radius:var(--r-md);padding:.9rem 1.2rem;margin-bottom:1rem;
+}
+.ai-result__planet-name { color:var(--c-gold);font-weight:700;font-size:.88rem; }
+.ai-result__cert-id { font-size:.72rem;color:var(--t-muted);font-family:monospace;margin-top:.1rem; }
+.ai-result__scores { display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap; }
+.score-circle { flex:1;min-width:80px;text-align:center; }
+.score-circle__ring {
+  width:62px;height:62px;border-radius:50%;border:2.5px solid;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;font-weight:800;margin:0 auto .3rem;
+}
+.score-circle__label { font-size:.72rem;color:var(--t-muted); }
+.ai-result__summary {
+  background:rgba(6,182,212,.05);border:1px solid rgba(6,182,212,.15);
+  border-radius:var(--r-md);padding:.9rem 1.2rem;color:#BAE6FD;
+  line-height:1.9;margin-bottom:.8rem;direction:rtl;font-size:.88rem;
+}
+.ai-result__strength { display:flex;align-items:flex-start;gap:.4rem;color:var(--c-green);font-size:.83rem;margin-bottom:.3rem;direction:rtl; }
+.ai-result__suggestion {
+  background:rgba(245,200,66,.04);border:1px solid rgba(245,200,66,.15);
+  border-radius:var(--r-md);padding:.9rem 1.2rem;color:var(--c-gold);
+  direction:rtl;line-height:1.8;font-size:.85rem;
+}
+.err-box {
+  margin-top:.75rem;padding:.85rem;background:rgba(239,68,68,.08);
+  border:1px solid rgba(239,68,68,.22);border-radius:var(--r-md);
+  color:#FCA5A5;text-align:center;font-size:.84rem;
+}
+
+/* ══════════════════════════════
+   PIPELINE (ACADEMY)
+══════════════════════════════ */
+.pipeline { position:relative; }
+.pipeline::before {
+  content:'';position:absolute;right:27px;top:0;bottom:0;
+  width:1.5px;background:linear-gradient(to bottom,var(--c-purple),var(--c-cyan));opacity:.3;
+}
+.pipeline-step { display:flex;gap:1.1rem;align-items:flex-start;margin-bottom:1.1rem;position:relative; }
+.pipeline-step__num {
+  width:54px;height:54px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:1.3rem;flex-shrink:0;position:relative;z-index:2;
+}
+.pipeline-step__body {
+  flex:1;background:var(--bg-elevated);border:1px solid var(--b-subtle);
+  border-radius:var(--r-lg);padding:1rem 1.2rem;transition:all var(--t-base);
+}
+.pipeline-step__body:hover { border-color:rgba(245,200,66,.28);transform:translateX(-3px); }
+.pipeline-step__title { font-weight:700;font-size:.93rem;margin-bottom:.25rem; }
+.pipeline-step__desc { color:var(--t-muted);font-size:.8rem;line-height:1.6; }
+.outcome-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.75rem;margin-top:1.2rem; }
+.outcome-card {
+  background:linear-gradient(135deg,rgba(245,200,66,.05),rgba(109,40,217,.07));
+  border:1px solid rgba(245,200,66,.18);border-radius:var(--r-lg);
+  padding:1rem;text-align:center;transition:all var(--t-base);cursor:pointer;
+}
+.outcome-card:hover { transform:translateY(-4px);border-color:var(--c-gold); }
+.outcome-card__icon { font-size:1.8rem;margin-bottom:.4rem; }
+.outcome-card__title { color:var(--c-gold);font-weight:700;font-size:.82rem; }
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.footer {
+  padding:2.5rem var(--space-lg);text-align:center;
+  border-top:1px solid var(--b-subtle);position:relative;z-index:1;
+}
+.footer__logo { font-size:1.6rem;margin-bottom:.6rem; }
+.footer__quote { font-family:var(--f-display);color:var(--t-secondary);font-size:1rem;margin-bottom:.4rem; }
+.footer__info { color:var(--t-muted);font-size:.76rem;margin-bottom:1.1rem; }
+.footer__links { display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap; }
+.footer__link {
+  color:var(--c-purple-bright);text-decoration:none;font-size:.8rem;
+  padding:.28rem .8rem;border:1px solid var(--b-subtle);
+  border-radius:var(--r-full);transition:all var(--t-base);
+}
+.footer__link:hover { color:#C4B5FD;border-color:var(--b-default); }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media(max-width:600px) {
+  .section { padding:3.5rem 1rem; }
+  .hero { padding:5rem 1rem 3rem; }
+  .hero__stats { gap:1.2rem;padding:.9rem 1rem; }
+  .gid-card__stats { grid-template-columns:repeat(2,1fr); }
+  .coins-display { flex-direction:column;text-align:center; }
+  .nav__links { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- STARS CANVAS -->
+<canvas id="star-canvas"></canvas>
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="navbar">
+  <div class="nav__brand">🌌 مجرة اقتصاد الأفكار</div>
+  <div class="nav__links">
+    <button class="nav__link nav__link--active" onclick="goTo('hero')">الرئيسية</button>
+    <button class="nav__link" onclick="goTo('reg-sec')">التسجيل</button>
+    <button class="nav__link" onclick="goTo('gid-sec')">Galaxy ID</button>
+    <button class="nav__link" onclick="goTo('coins-sec')">Impact Coins</button>
+    <button class="nav__link" onclick="goTo('room-sec')">Live Room</button>
+    <button class="nav__link" onclick="goTo('cert-sec')">الشهادة</button>
+    <button class="nav__link" onclick="goTo('impact-sec')">التأثير</button>
+    <button class="nav__link" onclick="goTo('arb-sec')">التحكيم</button>
+    <button class="nav__link" onclick="goTo('amb-sec')">السفراء</button>
+    <button class="nav__link" onclick="goTo('api-sec')">API</button>
+    <button class="nav__link" onclick="goTo('crisis-sec')">🚨 الأزمات</button>
+    <button class="nav__link" onclick="goTo('tech-sec')">التقنية</button>
+  </div>
+  <button class="nav__cta" onclick="goTo('gid-sec')">🚀 ابدأ الآن</button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="hero">
+  <div class="hero__badge"><div class="hero__badge-dot"></div>منصة حضارية رقمية عالمية — V10 Production</div>
+  <div class="hero__emoji">🌌</div>
+  <h1 class="hero__title">مجرة اقتصاد الأفكار</h1>
+  <p class="hero__sub">
+    المنصة الأولى عالمياً التي تحوّل أفكارك إلى <strong>أصول اقتصادية محمية</strong>،
+    وتربطها بمستثمرين حقيقيين في 127 دولة
+  </p>
+  <div class="hero__problem-solution">
+    <div class="hero__tag hero__tag--bad">❌ الأفكار تضيع بلا حماية ولا قيمة</div>
+    <div class="hero__arrow">→</div>
+    <div class="hero__tag hero__tag--good">✅ أصول رقمية موثقة قابلة للاستثمار</div>
+  </div>
+  <div class="hero__actions">
+    <button class="btn btn--primary" onclick="goTo('gid-sec')">🪪 أنشئ Galaxy ID مجاناً</button>
+    <button class="btn btn--secondary" onclick="goTo('room-sec')">🎙️ شاهد عرضاً حياً</button>
+  </div>
+  <div class="hero__stats">
+    <div class="stat-block"><div class="stat-block__num" id="s1">0</div><div class="stat-block__lbl">فكرة موثقة</div></div>
+    <div class="hero__stat-divider"></div>
+    <div class="stat-block"><div class="stat-block__num" id="s2">0</div><div class="stat-block__lbl">Impact Coin</div></div>
+    <div class="hero__stat-divider"></div>
+    <div class="stat-block"><div class="stat-block__num" id="s3">0</div><div class="stat-block__lbl">دولة</div></div>
+    <div class="hero__stat-divider"></div>
+    <div class="stat-block"><div class="stat-block__num" id="s4">0</div><div class="stat-block__lbl">سفير نشط</div></div>
+    <div class="hero__stat-divider"></div>
+    <div class="stat-block"><div class="stat-block__num" id="s5">0</div><div class="stat-block__lbl">مستثمر</div></div>
+  </div>
+</section>
+
+<!-- ══ REGISTRATION ══ -->
+<section class="section section--alt" id="reg-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🔐 الخطوة الأولى</div>
+    <h2 class="section__title u-grad-cyan">نظام التسجيل الذكي</h2>
+    <p class="section__subtitle">4 خطوات يحللها AI لربطك بالكوكب المناسب من الـ14 تخصصاً</p>
+  </div>
+  <div class="grid-4" style="margin-bottom:1.8rem">
+    <div class="card card--lift" style="text-align:center">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--c-purple),var(--c-cyan));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin:0 auto .7rem;color:#fff">1</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.9rem;margin-bottom:.35rem">إنشاء الحساب</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.6">بريد إلكتروني أو هاتف + تحقق OTP فوري</div>
+    </div>
+    <div class="card card--lift" style="text-align:center">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--c-purple),var(--c-cyan));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin:0 auto .7rem;color:#fff">2</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.9rem;margin-bottom:.35rem">نوع المستخدم</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.6">9 أنواع — متطوع، طبيب، مستثمر، باحث...</div>
+    </div>
+    <div class="card card--lift" style="text-align:center">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--c-purple),var(--c-cyan));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin:0 auto .7rem;color:#fff">3</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.9rem;margin-bottom:.35rem">AI يحلل ملفك</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.6">تحليل الاهتمامات وبناء هوية رقمية فريدة</div>
+    </div>
+    <div class="card card--lift" style="text-align:center">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--c-purple),var(--c-cyan));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin:0 auto .7rem;color:#fff">4</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.9rem;margin-bottom:.35rem">ربط بالكوكب</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.6">توجيه تلقائي للكوكب الأنسب من الـ14</div>
+    </div>
+  </div>
+  <h3 style="color:var(--c-gold);font-size:.88rem;font-weight:700;margin-bottom:.8rem;text-align:center">اختر نوع حسابك</h3>
+  <div class="grid-4" id="user-types-grid" style="margin-bottom:1.5rem"></div>
+  <div class="grid-2" style="margin-bottom:0">
+    <div class="card">
+      <div style="font-weight:700;color:var(--c-purple-bright);margin-bottom:1rem;font-size:.88rem">🔒 نظام الخصوصية</div>
+      <div style="color:var(--t-muted);font-size:.8rem;line-height:2;direction:rtl">
+        🔐 تشفير كامل للبيانات<br>
+        👤 فصل الهوية عن النشاط<br>
+        🕶️ Anonymous Mode متاح<br>
+        🧒 حماية خاصة لبيانات الأطفال<br>
+        🩺 ملفات طبية مشفرة<br>
+        🤖 كشف الاحتيال بالـ AI
+      </div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;color:var(--c-green);margin-bottom:1rem;font-size:.88rem">✅ نظام الثقة</div>
+      <div style="color:var(--t-muted);font-size:.8rem;line-height:2;direction:rtl">
+        ⭐ نظام تقييم متعدد المستويات<br>
+        🏅 شارات موثوقية معتمدة<br>
+        📋 توثيق احترافي للشهادات<br>
+        ⛓️ Blockchain للمصداقية<br>
+        🔍 Audit Logs شاملة<br>
+        🌐 اعتراف دولي CC BY 4.0
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ GALAXY ID ══ -->
+<section class="section" id="gid-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🪪 هويتك الرقمية</div>
+    <h2 class="section__title u-grad-gold">Galaxy ID — هوية واحدة لكل المجرة</h2>
+    <p class="section__subtitle">هوية رقمية فريدة تحمل سمعتك وأفكارك وتأثيرك عبر كل الكواكب الـ14</p>
+  </div>
+  <div class="gid-card" id="gid-preview">
+    <div class="gid-card__shimmer"></div>
+    <div class="gid-card__header">
+      <div class="gid-card__avatar" id="gid-emoji-display">🧑‍🚀</div>
+      <div>
+        <div class="gid-card__name" id="gid-name-display">مستخدم المجرة</div>
+        <div class="gid-card__id">GAL-ID: <span id="gid-id-display">◆◆◆◆-◆◆◆◆-◆◆◆◆</span></div>
+        <div class="gid-card__badges" id="gid-badges-display">
+          <span class="badge badge--purple">⭐ عضو جديد</span>
+        </div>
+      </div>
+    </div>
+    <div class="gid-card__stats">
+      <div class="gid-stat"><div class="gid-stat__num" id="gs1">0</div><div class="gid-stat__lbl">فكرة</div></div>
+      <div class="gid-stat"><div class="gid-stat__num" id="gs2">0</div><div class="gid-stat__lbl">Coins</div></div>
+      <div class="gid-stat"><div class="gid-stat__num" id="gs3">0</div><div class="gid-stat__lbl">تصويت</div></div>
+      <div class="gid-stat"><div class="gid-stat__num" id="gs4">0</div><div class="gid-stat__lbl">سمعة %</div></div>
+    </div>
+    <div class="gid-card__progress" style="margin-top:1rem">
+      <div class="progress__header"><span>مستوى السمعة</span><span style="color:var(--c-gold)">مبتدئ</span></div>
+      <div class="progress__track"><div class="progress__fill" id="rep-bar" style="width:8%;background:linear-gradient(90deg,var(--c-gold),var(--c-orange));--w:8%"></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-weight:700;color:var(--c-cyan);margin-bottom:1rem;font-size:.9rem">🚀 أنشئ Galaxy ID الخاص بك — مجاناً</div>
+    <div style="display:flex;flex-direction:column;gap:.7rem">
+      <input class="input" id="gid-name" placeholder="الاسم الكامل" oninput="document.getElementById('gid-name-display').textContent=this.value||'مستخدم المجرة'"/>
+      <input class="input" id="gid-email" placeholder="البريد الإلكتروني أو الهاتف"/>
+      <div class="input-group">
+        <select class="input select" id="gid-type">
+          <option value="">نوع الحساب</option>
+          <option>متطوع 🙋</option><option>مستفيد 🤝</option><option>طبيب 👨‍⚕️</option>
+          <option>باحث 🔬</option><option>مستثمر 💼</option><option>طالب 📚</option>
+          <option>منظمة 🏢</option><option>حكومة 🏛️</option><option>شريك 🤜</option>
+        </select>
+        <select class="input select" id="gid-planet">
+          <option value="">الكوكب المفضل</option>
+          <option>💡 اقتصاد الأفكار</option><option>🎓 الأكاديمية</option>
+          <option>🌍 واجهة العطاء</option><option>🔬 العلوم</option>
+          <option>🩺 الطب</option><option>🌱 البيئة</option><option>🎨 الفنون</option>
+          <option>💼 العمل</option><option>🛡️ الحماية</option>
+        </select>
+      </div>
+      <button class="btn btn--primary btn--full" id="gid-btn" onclick="createGID()">✨ إنشاء Galaxy ID بالذكاء الاصطناعي</button>
+      <div id="gid-err" class="err-box" style="display:none"></div>
+      <div id="gid-result" style="display:none"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ GALAXY MAP ══ -->
+<section class="section section--alt" id="galaxy-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🪐 الهيكل المترابط</div>
+    <h2 class="section__title u-grad-pink">خريطة المجرة التفاعلية</h2>
+    <p class="section__subtitle">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق أي كوكب لاكتشافه</p>
+  </div>
+  <div class="galaxy-map-wrap" id="galaxy-map">
+    <div class="orbit-ring" style="width:310px;height:310px"></div>
+    <div class="galaxy-core">🌌</div>
+  </div>
+  <div class="grid-3">
+    <div class="card card--gold"><div style="color:var(--c-gold);font-weight:700;font-size:.86rem;margin-bottom:.6rem">⚙️ Galaxy Core Engine</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">إدارة البيانات الموحدة<br>نقل الموارد بين الكواكب<br>إدارة الذكاء الاصطناعي<br>تحليل الاحتياجات العالمية</div></div>
+    <div class="card card--cyan"><div style="color:var(--c-cyan);font-weight:700;font-size:.86rem;margin-bottom:.6rem">🔗 نموذج الربط الذكي</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">استقلالية تشغيلية لكل كوكب<br>قاعدة معرفة موحدة مشتركة<br>AI يربط الفرص تلقائياً<br>تدفق الموارد في الوقت الفعلي</div></div>
+    <div class="card card--green"><div style="color:var(--c-green);font-weight:700;font-size:.86rem;margin-bottom:.6rem">📡 الشراكات الدولية</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">شراكات حكومية معتمدة<br>شراكات أممية رسمية<br>منظمات غير ربحية<br>جامعات وأكاديميات عالمية</div></div>
+  </div>
+</div>
+</section>
+
+<!-- ══ IMPACT COINS ══ -->
+<section class="section" id="coins-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🪙 اقتصاد الإنسانية</div>
+    <h2 class="section__title u-grad-gold">Impact Coins — العملة الإنسانية</h2>
+    <p class="section__subtitle">تُكسب بالمساهمة الحقيقية وتُصرف كخدمات داخل المجرة — العطاء يتحول إلى اقتصاد</p>
+  </div>
+  <div class="coins-display">
+    <div class="coins-display__icon">🪙</div>
+    <div style="flex:1">
+      <div class="coins-display__amount" id="user-coins">1,250</div>
+      <div class="coins-display__label">Impact Coins — رصيدك الحالي</div>
+      <div style="font-size:.78rem;color:var(--t-muted);margin-top:.2rem">≈ $62.50 قيمة خدمات</div>
+      <div class="coins-display__actions">
+        <button class="btn btn--gold-outline" onclick="earnCoin()">+ اكسب Coins</button>
+        <button class="btn btn--ghost btn--sm" onclick="spendCoin()">− صرف</button>
+        <button class="btn btn--ghost btn--sm">↗ تبرع</button>
+      </div>
+    </div>
+    <div class="coins-display__rank">
+      <div class="coins-display__rank-num" id="coin-rank">#4,821</div>
+      <div class="coins-display__rank-lbl">ترتيبك عالمياً</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div style="font-size:.86rem;color:var(--c-gold);font-weight:700;margin-bottom:.8rem">💰 كيف تكسب Impact Coins</div>
+  <div class="earn-grid" id="earn-grid" style="margin-bottom:1.5rem"></div>
+  <div style="font-size:.86rem;color:var(--c-green);font-weight:700;margin-bottom:.8rem">🛍️ كيف تصرف Impact Coins</div>
+  <div class="spend-grid" id="spend-grid"></div>
+</div>
+</section>
+
+<!-- ══ LIVE ROOM ══ -->
+<section class="section section--alt" id="room-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🎙️ Shark Tank الرقمي</div>
+    <h2 class="section__title u-grad-pink">غرفة الأفكار الحية</h2>
+    <p class="section__subtitle">أصحاب الأفكار يعرضون، المجتمع يصوّت، المستثمرون يقررون — في الوقت الفعلي</p>
+  </div>
+  <div class="live-header">
+    <div class="live-badge"><div class="live-dot"></div>LIVE الآن</div>
+    <span class="live-viewer-count" id="viewer-count">● 1,847 مشاهد</span>
+  </div>
+  <div class="room-grid">
+    <div class="room-stage">
+      <div style="font-size:.82rem;color:var(--c-pink);font-weight:700;margin-bottom:.9rem">🎤 العرض الحالي</div>
+      <div class="presenter-card">
+        <div class="presenter-card__avatar">👩‍💼</div>
+        <div>
+          <div class="presenter-card__name">سارة المحمد — 🇸🇦 السعودية</div>
+          <div class="presenter-card__idea">منصة AI للكشف المبكر عن أمراض الأطفال</div>
+          <div style="display:flex;gap:.35rem;margin-top:.4rem;flex-wrap:wrap">
+            <span class="badge badge--cyan">🩺 الطب</span>
+            <span class="badge badge--gold">⏱ 8:42</span>
+          </div>
+        </div>
+      </div>
+      <div class="vote-section__title">📊 تصويت المجتمع المباشر</div>
+      <div class="vote-row">
+        <div class="vote-row__label">👍 أؤيد</div>
+        <div class="vote-row__track"><div class="vote-row__fill--p" id="vp" style="width:73%"></div></div>
+        <div class="vote-row__pct" style="color:var(--c-green)" id="vp-t">73%</div>
+      </div>
+      <div class="vote-row">
+        <div class="vote-row__label">👎 أعارض</div>
+        <div class="vote-row__track"><div class="vote-row__fill--n" id="vn" style="width:27%"></div></div>
+        <div class="vote-row__pct" style="color:var(--c-red)" id="vn-t">27%</div>
+      </div>
+      <div class="vote-row">
+        <div class="vote-row__label">💰 أستثمر</div>
+        <div class="vote-row__track"><div class="vote-row__fill--i" id="vi" style="width:18%"></div></div>
+        <div class="vote-row__pct" style="color:var(--c-gold)" id="vi-t">18%</div>
+      </div>
+      <div class="vote-actions">
+        <button class="btn btn--ghost btn--sm" style="color:var(--c-green);border-color:rgba(16,185,129,.3)" onclick="liveVote('p')">👍 أؤيد</button>
+        <button class="btn btn--ghost btn--sm" style="color:var(--c-red);border-color:rgba(239,68,68,.3)" onclick="liveVote('n')">👎 أعارض</button>
+        <button class="btn btn--ghost btn--sm" style="color:var(--c-gold);border-color:rgba(245,200,66,.3)" onclick="liveVote('i')">💰 مهتم بالاستثمار</button>
+        <button class="btn btn--ghost btn--sm">💬 تعليق</button>
+      </div>
+    </div>
+    <div class="room-sidebar">
+      <div class="sidebar-panel">
+        <div class="sidebar-panel__title">👥 الجمهور</div>
+        <div id="audience-list"></div>
+      </div>
+      <div class="sidebar-panel">
+        <div class="sidebar-panel__title">💬 الدردشة</div>
+        <div class="chat-feed" id="chat-feed"></div>
+      </div>
+    </div>
+  </div>
+  <div style="font-size:.85rem;color:var(--c-gold);font-weight:700;margin-top:1.5rem;margin-bottom:.7rem">📅 الجلسات القادمة</div>
+  <div class="upcoming-list" id="upcoming-list"></div>
+</div>
+</section>
+
+<!-- ══ CERTIFICATE ══ -->
+<section class="section" id="cert-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">📜 توثيق دولي</div>
+    <h2 class="section__title u-grad-gold">شهادة Galaxy الدولية</h2>
+    <p class="section__subtitle">توثيق رسمي معترف به عالمياً — CC BY 4.0 — طابع زمني لا يُمحى على Blockchain</p>
+  </div>
+  <div class="cert-frame" id="cert-preview">
+    <div class="cert-frame__watermark">🌌</div>
+    <div class="cert-frame__logo">🌌</div>
+    <div class="cert-frame__title">شهادة Galaxy الدولية</div>
+    <div class="cert-frame__subtitle">مجرة اقتصاد الأفكار · Creative Commons CC BY 4.0</div>
+    <div class="cert-content">
+      <div class="cert-content__title" id="cert-idea-show">أدخل فكرتك أدناه لتوليد الشهادة</div>
+      <div class="cert-meta">
+        <div class="cert-meta__item"><div class="cert-meta__val" id="cert-planet-show">—</div><div class="cert-meta__lbl">الكوكب</div></div>
+        <div class="cert-meta__item"><div class="cert-meta__val" id="cert-score-show">—</div><div class="cert-meta__lbl">تقييم AI</div></div>
+        <div class="cert-meta__item"><div class="cert-meta__val" id="cert-date-show">—</div><div class="cert-meta__lbl">تاريخ التوثيق</div></div>
+      </div>
+    </div>
+    <div class="cert-footer">
+      <div class="cert-id" id="cert-id-show">GAL-2026-????</div>
+      <div class="cert-stamp" id="cert-stamp-show">⏳ بانتظار التحليل</div>
+    </div>
+  </div>
+  <div class="card">
+    <textarea class="input textarea" id="cert-idea" placeholder="اكتب فكرتك هنا للحصول على شهادة Galaxy الدولية..."></textarea>
+    <div style="margin-top:.6rem">
+      <input class="input" id="cert-name" placeholder="اسمك الكامل (صاحب الفكرة)" style="margin-bottom:.6rem"/>
+      <button class="btn btn--primary btn--full" id="cert-btn" onclick="generateCert()">📜 توليد الشهادة بالذكاء الاصطناعي</button>
+    </div>
+    <div id="cert-err" class="err-box" style="display:none"></div>
+  </div>
+</div>
+</section>
+
+<!-- ══ IMPACT DASHBOARD ══ -->
+<section class="section section--alt" id="impact-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">📊 شفافية كاملة</div>
+    <h2 class="section__title u-grad-green">لوحة التأثير العالمي</h2>
+    <p class="section__subtitle">أرقام حية — كم فكرة نُفذت وكم إنسان استفاد في الوقت الفعلي</p>
+  </div>
+  <div class="impact-grid" id="impact-grid"></div>
+  <div class="world-section">
+    <div class="world-section__title">🗺️ أعلى الدول مشاركةً</div>
+    <div id="country-list"></div>
+  </div>
+  <div style="font-size:.85rem;color:var(--c-green);font-weight:700;margin-bottom:.7rem">⚡ آخر الأحداث المؤثرة</div>
+  <div class="events-list" id="events-list"></div>
+</div>
+</section>
+
+<!-- ══ ARBITRATION ══ -->
+<section class="section" id="arb-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">⚖️ عدالة رقمية</div>
+    <h2 class="section__title u-grad-cyan">نظام التحكيم والعدالة</h2>
+    <p class="section__subtitle">لجنة مجتمعية شفافة تفصل في النزاعات على الملكية الفكرية</p>
+  </div>
+  <div class="arb-stats-row" id="arb-stats"></div>
+  <div style="font-size:.85rem;color:var(--c-cyan);font-weight:700;margin-bottom:.8rem">📋 القضايا النشطة</div>
+  <div id="arb-cases"></div>
+</div>
+</section>
+
+<!-- ══ AMBASSADORS ══ -->
+<section class="section section--alt" id="amb-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🌍 انتشار عضوي</div>
+    <h2 class="section__title u-grad-cyan">نظام السفراء العالميين</h2>
+    <p class="section__subtitle">كل مؤثر يصبح سفيراً يجلب مجتمعه للمجرة — نمو بلا إعلانات</p>
+  </div>
+  <div class="amb-globe">
+    <span class="amb-globe__emoji">🌍</span>
+    <div style="color:var(--c-cyan);font-weight:700;font-size:1rem;margin-bottom:.3rem">847 سفير في 73 دولة</div>
+    <div style="color:var(--t-secondary);font-size:.82rem">يمثلون المجرة في جامعاتهم ومجتمعاتهم</div>
+  </div>
+  <div class="amb-levels" id="amb-levels"></div>
+  <h3 style="color:var(--c-cyan);font-size:.86rem;font-weight:700;margin-bottom:.8rem">🎁 مزايا السفراء</h3>
+  <div class="perks-grid" id="perks-grid"></div>
+  <h3 style="color:var(--c-gold);font-size:.86rem;font-weight:700;margin-top:1.3rem;margin-bottom:.7rem">🏆 أفضل السفراء</h3>
+  <div class="top-amb-list" id="top-amb-list"></div>
+</div>
+</section>
+
+<!-- ══ API ══ -->
+<section class="section" id="api-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🔌 منصة مفتوحة</div>
+    <h2 class="section__title u-grad-green">Galaxy API — ابنِ فوق المجرة</h2>
+    <p class="section__subtitle">ابنِ تطبيقاتك وأدواتك فوق بنيتنا — تحوّل المجرة من موقع إلى حضارة تقنية</p>
+  </div>
+  <div class="api-hero-card">
+    <div style="font-size:2rem;margin-bottom:.5rem">🔌</div>
+    <div style="color:var(--c-green);font-weight:700;font-size:1.1rem">Galaxy API v2.0</div>
+    <div style="color:var(--t-secondary);font-size:.82rem;margin-top:.3rem">Base URL: <code style="color:var(--c-cyan);font-family:monospace">https://api.ideagalaxy.com/v2</code></div>
+  </div>
+  <div style="font-size:.85rem;color:var(--c-green);font-weight:700;margin-bottom:.7rem">📡 Endpoints المتاحة</div>
+  <div id="api-endpoints"></div>
+  <div style="font-size:.85rem;color:var(--c-cyan);font-weight:700;margin:.9rem 0 .6rem">💻 مثال — تحليل فكرة</div>
+  <div class="code-block"><span class="c">// Galaxy API — تحليل فكرة واحدة</span>
+<span class="k">const</span> res = <span class="k">await</span> fetch(<span class="s">'https://api.ideagalaxy.com/v2/ideas/analyze'</span>, {
+  method: <span class="s">'POST'</span>,
+  headers: { <span class="s">'Authorization'</span>: <span class="s">'Bearer YOUR_GALAXY_KEY'</span> },
+  body: JSON.stringify({
+    <span class="k">idea</span>: <span class="s">'تطبيق ذكاء اصطناعي للكشف المبكر عن السرطان'</span>,
+    <span class="k">options</span>: { <span class="k">certify</span>: <span class="v">true</span>, <span class="k">notify_investors</span>: <span class="v">true</span> }
+  })
+});
+<span class="k">const</span> { planet, score, certId, matchedInvestors } = <span class="k">await</span> res.json();
+<span class="c">// certId: "GAL-2026-8421" — موثق على Blockchain</span></div>
+  <div class="api-stats-row" id="api-stats"></div>
+</div>
+</section>
+
+<!-- ══ CRISIS ══ -->
+<section class="section section--alt" id="crisis-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🚨 استجابة فورية</div>
+    <h2 class="section__title" style="background:linear-gradient(135deg,var(--c-red),var(--c-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">وضع الأزمات العالمي</h2>
+    <p class="section__subtitle">عند أي كارثة — المجرة تتفعّل تلقائياً وتوجّه 100% من مواردها للمنطقة المتضررة</p>
+  </div>
+  <div class="crisis-alert">
+    <div class="crisis-alert__icon">🚨</div>
+    <div class="crisis-alert__title">نظام الاستجابة للأزمات — جاهز للتفعيل</div>
+    <div class="crisis-alert__desc">AI يرصد الأزمات تلقائياً ويوجّه الموارد خلال دقائق</div>
+    <div class="crisis-toggle">
+      <button class="btn btn--danger" onclick="toggleCrisis(true)">🚨 تفعيل وضع الأزمات</button>
+      <button class="btn btn--ghost btn--sm" onclick="toggleCrisis(false)">✅ وضع عادي</button>
+    </div>
+  </div>
+  <div class="crisis-panel" id="crisis-panel">
+    <div style="font-size:.86rem;color:#FCA5A5;font-weight:700;margin-bottom:.8rem">📍 مناطق تحتاج مساعدة فورية</div>
+    <div class="crisis-zones" id="crisis-zones"></div>
+    <div style="font-size:.86rem;color:var(--c-orange);font-weight:700;margin-bottom:.7rem">⚡ الموارد المتاحة فوراً</div>
+    <div class="crisis-res-grid" id="crisis-res"></div>
+  </div>
+  <div class="grid-3" id="crisis-features" style="margin-top:1.2rem"></div>
+</div>
+</section>
+
+<!-- ══ ACADEMY PIPELINE ══ -->
+<section class="section" id="academy-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🎓 دورة اقتصادية معرفية</div>
+    <h2 class="section__title u-grad-gold">خط الأكاديمية ← الأفكار</h2>
+    <p class="section__subtitle">كيف يتحول الطالب إلى مبتكر يحرّك الاقتصاد العالمي — 6 مراحل متكاملة</p>
+  </div>
+  <div class="pipeline" id="pipeline"></div>
+  <div class="divider"></div>
+  <h3 style="color:var(--c-gold);text-align:center;font-size:.88rem;font-weight:700;margin-bottom:.9rem">🏆 النتائج الممكنة</h3>
+  <div class="outcome-grid" id="outcomes"></div>
+</div>
+</section>
+
+<!-- ══ TECH STACK ══ -->
+<section class="section section--alt" id="tech-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">⚙️ البنية التحتية</div>
+    <h2 class="section__title u-grad-pink">البنية التقنية الكاملة</h2>
+    <p class="section__subtitle">تقنيات عالمية مثبتة تضمن الأمان والسرعة والتوسع إلى مئات الملايين</p>
+  </div>
+  <div id="tech-layers"></div>
+  <div class="divider"></div>
+  <h3 style="color:var(--c-pink);text-align:center;font-size:.88rem;font-weight:700;margin-bottom:.9rem">🏗️ الهيكل الاستراتيجي الأعلى</h3>
+  <div class="mega-layers" id="mega-layers"></div>
+  <div class="card" style="text-align:center;margin-top:1.2rem;background:linear-gradient(135deg,rgba(245,200,66,.05),rgba(109,40,217,.08));border-color:rgba(245,200,66,.2)">
+    <div style="font-size:1.8rem;margin-bottom:.6rem">🎯</div>
+    <div style="color:var(--c-gold);font-weight:700;font-size:1rem;margin-bottom:.5rem">الهدف النهائي</div>
+    <div style="color:var(--t-secondary);font-size:.86rem;line-height:2">
+      بناء حضارة رقمية إنسانية مترابطة تتجاوز الحدود<br>
+      تحويل العطاء والمعرفة إلى اقتصاد مستدام للبشرية<br>
+      إنشاء شبكة عالمية تعاونية — <strong style="color:var(--c-gold)">≥30% مجاني للبشرية دائماً</strong>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer__logo">🌌</div>
+  <p class="footer__quote">"سيروا على نهجنا.. ليسير على نهجكم أجيالٌ تتلو أجيالاً"</p>
+  <p class="footer__info">المؤسس: JAM ANA — 21 مايو 2026 — Creative Commons CC BY 4.0 — Galaxy V10 Production</p>
+  <div class="footer__links">
+    <a class="footer__link" href="https://ubiquitous-unicorn-f7a19e.netlify.app/" target="_blank">🌌 المجرة</a>
+    <a class="footer__link" href="https://flourishing-squirrel-b16ae2.netlify.app/" target="_blank">🌸 رغد الحياة</a>
+    <a class="footer__link" href="https://mellow-palmier-03ea35.netlify.app/" target="_blank">🌍 أرسل للعالم</a>
+    <a class="footer__link" href="https://shiny-gingersnap-5a5c4e.netlify.app/" target="_blank">🤝 التسجيل</a>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+// GALAXY V10 — PRODUCTION JS
+// ═══════════════════════════════════════
+
+// ── STARS (Canvas for performance) ──
+(function(){
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, stars = [];
+  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+  function mkStar(){ return { x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.2+.2, o:Math.random(), speed:Math.random()*.4+.1, dir:Math.random()>.5?1:-1 }; }
+  function init(){ resize(); stars=[]; for(let i=0;i<160;i++) stars.push(mkStar()); }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    stars.forEach(s=>{
+      s.o += s.speed*s.dir*.008;
+      if(s.o>=1||s.o<=.1) s.dir*=-1;
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${s.o})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', init);
+  init(); draw();
+})();
+
+// ── NAV ──
+window.addEventListener('scroll', ()=> {
+  document.getElementById('navbar').classList.toggle('nav--scrolled', window.scrollY > 40);
+});
+function goTo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}); }
+
+// ── TYPEWRITER ──
+(function(){
+  const texts = [
+    'حوّل أفكارك إلى أصول اقتصادية تخدم البشرية',
+    'اقتصاد جديد قائم على الفكر والقيمة الإنسانية',
+    'لا فكرة تضيع — لا إنسان يجوع'
+  ];
+  let ti=0, ci=0, el=document.querySelector('.hero__sub');
+  // Just animate the subtitle differently
+  const base = el.innerHTML;
+})();
+
+// ── COUNTER ANIMATION ──
+function animCount(id, target, suffix='') {
+  const el = document.getElementById(id);
+  if(!el) return;
+  let n=0; const step=Math.ceil(target/80);
+  const t=setInterval(()=>{ n=Math.min(n+step,target); el.textContent=n.toLocaleString()+suffix; if(n>=target)clearInterval(t); },25);
+}
+const io = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    animCount('s1',47382); animCount('s2',2840000); animCount('s3',127);
+    animCount('s4',847); animCount('s5',3240);
+    io.disconnect();
+  }
+},{threshold:.3});
+const heroEl=document.getElementById('hero');
+if(heroEl) io.observe(heroEl);
+
+// ── TOAST ──
+function toast(msg){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2000);
+}
+
+// ── USER TYPES ──
+const USER_TYPES=[
+  {icon:'🙋',name:'متطوع'},{icon:'🤝',name:'مستفيد'},{icon:'👨‍⚕️',name:'طبيب'},
+  {icon:'🔬',name:'باحث'},{icon:'💼',name:'مستثمر'},{icon:'📚',name:'طالب'},
+  {icon:'🏢',name:'منظمة'},{icon:'🏛️',name:'حكومة'},{icon:'🤜',name:'شريك'}
+];
+(function(){
+  const g=document.getElementById('user-types-grid'); if(!g) return;
+  USER_TYPES.forEach((t,i)=>{
+    const d=document.createElement('div');
+    d.className='card card--lift'; d.style.cssText='text-align:center;padding:1rem .8rem;cursor:pointer';
+    d.innerHTML=`<div style="font-size:1.7rem;margin-bottom:.4rem">${t.icon}</div><div style="font-size:.8rem;color:var(--t-secondary)">${t.name}</div>`;
+    d.onclick=()=>{ document.querySelectorAll('#user-types-grid .card').forEach(c=>{ c.style.borderColor=''; c.querySelector('div:last-child').style.color=''; }); d.style.borderColor='var(--c-gold)'; d.querySelector('div:last-child').style.color='var(--c-gold)'; d.querySelector('div:last-child').style.fontWeight='700'; toast(`تم اختيار: ${t.name} ✅`); };
+    g.appendChild(d);
+  });
+})();
+
+// ── GALAXY ID ──
+async function createGID(){
+  const name=document.getElementById('gid-name').value.trim();
+  const type=document.getElementById('gid-type').value;
+  const planet=document.getElementById('gid-planet').value;
+  if(!name||!type){ toast('⚠️ الرجاء إدخال الاسم واختيار نوع الحساب'); return; }
+  const btn=document.getElementById('gid-btn');
+  const errEl=document.getElementById('gid-err');
+  const resEl=document.getElementById('gid-result');
+  btn.classList.add('btn--loading'); btn.innerHTML='<span class="spinner"></span> AI يبني هويتك...';
+  errEl.style.display='none'; resEl.style.display='none';
+  try{
+    const r=await callClaude(`أنت نظام Galaxy ID في "مجرة اقتصاد الأفكار". المستخدم: الاسم="${name}"، النوع="${type}"، الكوكب="${planet}". أجب بـJSON فقط:
+{"galaxyId":"GAL-${Date.now().toString().slice(-4)}-XXXX","level":"مبتدئ","badges":["شارة1","شارة2"],"planetMatch":"الكوكب الأنسب مع إيموجي","skills":["مهارة1","مهارة2","مهارة3"],"welcomeMsg":"رسالة ترحيب شخصية جملتين","startCoins":رقم100-300,"emoji":"إيموجي يمثل المستخدم"}`);
+    document.getElementById('gid-name-display').textContent=name;
+    document.getElementById('gid-id-display').textContent=r.galaxyId;
+    document.getElementById('gid-emoji-display').textContent=r.emoji||'🧑‍🚀';
+    document.getElementById('gid-badges-display').innerHTML=r.badges.map(b=>`<span class="badge badge--gold">${b}</span>`).join('');
+    document.getElementById('gs2').textContent=r.startCoins;
+    document.getElementById('gs4').textContent='10';
+    document.getElementById('user-coins').textContent=r.startCoins.toLocaleString();
+    resEl.style.display='block';
+    resEl.innerHTML=`<div style="background:var(--c-green-dim);border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1rem;direction:rtl;margin-top:.5rem">
+      <div style="color:var(--c-green);font-weight:700;margin-bottom:.4rem">✅ تم إنشاء Galaxy ID بنجاح!</div>
+      <div style="color:var(--c-gold);font-size:.84rem;margin-bottom:.3rem">🪐 ${r.planetMatch}</div>
+      <div style="color:var(--c-cyan);font-size:.82rem;margin-bottom:.3rem">💼 ${r.skills.join(' · ')}</div>
+      <div style="color:var(--t-secondary);font-size:.82rem;line-height:1.7">${r.welcomeMsg}</div>
+      <div style="margin-top:.6rem;color:var(--c-gold);font-size:.82rem">🪙 هدية الترحيب: <strong>${r.startCoins} Impact Coins</strong></div>
+    </div>`;
+    toast('🎉 تم إنشاء Galaxy ID!');
+  }catch(e){ errEl.textContent='حدث خطأ. تأكد من الاتصال وحاول مجدداً.'; errEl.style.display='block'; }
+  finally{ btn.classList.remove('btn--loading'); btn.innerHTML='✨ إنشاء Galaxy ID بالذكاء الاصطناعي'; }
+}
+
+// ── CLAUDE API HELPER ──
+async function callClaude(prompt, maxTokens=800){
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:maxTokens,
+      messages:[{role:'user',content:prompt}] })
+  });
+  const data=await resp.json();
+  const raw=data.content.map(b=>b.text||'').join('');
+  return JSON.parse(raw.replace(/```json|```/g,'').trim());
+}
+
+// ── GALAXY MAP ──
+const PLANETS=[
+  {icon:'💡',name:'اقتصاد الأفكار',c:'#F5C842'},{icon:'🎓',name:'الأكاديمية',c:'#06B6D4'},
+  {icon:'🌍',name:'واجهة العطاء',c:'#10B981'},{icon:'🧠',name:'الفكر',c:'#EC4899'},
+  {icon:'🕊️',name:'الروح',c:'#A78BBE'},{icon:'🔬',name:'العلوم',c:'#22D3EE'},
+  {icon:'🌱',name:'البيئة',c:'#84CC16'},{icon:'🏭',name:'الصناعة',c:'#F97316'},
+  {icon:'💼',name:'العمل',c:'#FCD34D'},{icon:'👵',name:'الرعاية',c:'#F472B6'},
+  {icon:'🛡️',name:'الحماية',c:'#6366F1'},{icon:'🚨',name:'الإغاثة',c:'#EF4444'},
+  {icon:'🩺',name:'الطب',c:'#14B8A6'},{icon:'🎨',name:'الفنون',c:'#C084FC'},
+];
+(function(){
+  const map=document.getElementById('galaxy-map'); if(!map) return;
+  const cx=map.offsetWidth/2||300, cy=200, r=155;
+  PLANETS.forEach((p,i)=>{
+    const angle=(i/14)*Math.PI*2 - Math.PI/2;
+    const x=cx+r*Math.cos(angle)-21, y=cy+r*Math.sin(angle)-21;
+    const node=document.createElement('div');
+    node.className='planet-node';
+    node.style.cssText=`left:${x}px;top:${y}px;border-color:${p.c}40;box-shadow:0 0 12px ${p.c}30`;
+    node.innerHTML=`${p.icon}<div class="pt">${p.name}</div>`;
+    node.onmouseenter=()=>{ node.style.borderColor=p.c; node.style.boxShadow=`0 0 20px ${p.c}60`; };
+    node.onmouseleave=()=>{ node.style.borderColor=p.c+'40'; node.style.boxShadow=`0 0 12px ${p.c}30`; };
+    map.appendChild(node);
+  });
+})();
+
+// ── IMPACT COINS ──
+const EARN=[
+  {icon:'💡',title:'نشر فكرة',coins:'+50'},{icon:'🤖',title:'تحليل AI',coins:'+20'},
+  {icon:'👥',title:'دعوة صديق',coins:'+100'},{icon:'⭐',title:'تصويت يومي',coins:'+5'},
+  {icon:'📚',title:'إتمام دورة',coins:'+200'},{icon:'🩺',title:'استشارة طبية',coins:'+150'},
+];
+const SPEND=[
+  {icon:'🎓',title:'دورة متقدمة',coins:'-200'},{icon:'📜',title:'شهادة مميزة',coins:'-100'},
+  {icon:'🌍',title:'تبرع لمنطقة',coins:'-50'},{icon:'⚖️',title:'فتح قضية',coins:'-300'},
+  {icon:'🚀',title:'ترقية الملف',coins:'-500'},{icon:'📡',title:'API وصول',coins:'-1000'},
+];
+document.getElementById('earn-grid').innerHTML=EARN.map(e=>`<div class="earn-card"><div class="earn-card__icon">${e.icon}</div><div class="earn-card__title">${e.title}</div><div class="earn-card__coins">${e.coins} Coins</div></div>`).join('');
+document.getElementById('spend-grid').innerHTML=SPEND.map(s=>`<div class="spend-card"><div class="spend-card__icon">${s.icon}</div><div class="spend-card__title">${s.title}</div><div class="spend-card__coins">${s.coins} Coins</div></div>`).join('');
+let coins=1250;
+function earnCoin(){ coins+=50; document.getElementById('user-coins').textContent=coins.toLocaleString(); toast('+50 Impact Coins 🪙'); }
+function spendCoin(){ if(coins>=50){ coins-=50; document.getElementById('user-coins').textContent=coins.toLocaleString(); toast('-50 Coins ✅'); } else toast('⚠️ رصيد غير كافٍ'); }
+
+// ── LIVE ROOM ──
+const AUDIENCE=[
+  {name:'محمد ع.',country:'🇸🇦',bg:'#7B2FFF'},{name:'Laura K.',country:'🇩🇪',bg:'#06B6D4'},
+  {name:'فاطمة ر.',country:'🇪🇬',bg:'#10B981'},{name:'James O.',country:'🇺🇸',bg:'#EC4899'},
+];
+document.getElementById('audience-list').innerHTML=AUDIENCE.map(a=>`<div class="audience-item"><div class="audience-item__avatar" style="background:${a.bg};color:#fff;font-size:.85rem">${a.name[0]}</div><div><div class="audience-item__name">${a.name}</div><div style="font-size:.68rem;color:var(--t-muted)">${a.country}</div></div></div>`).join('');
+const CHATS=[
+  {name:'محمد',msg:'فكرة رائعة! أريد الاستثمار فيها'},
+  {name:'Laura',msg:'Amazing concept for AI healthcare!'},
+  {name:'أحمد',msg:'كيف تطبق في المناطق النائية؟'},
+];
+document.getElementById('chat-feed').innerHTML=CHATS.map(c=>`<div class="chat-msg"><strong>${c.name}:</strong> ${c.msg}</div>`).join('');
+let vP=73,vN=27,vI=18;
+function liveVote(t){ if(t==='p'){vP=Math.min(vP+Math.floor(Math.random()*4+1),98);vN=100-vP;}else if(t==='n'){vN=Math.min(vN+Math.floor(Math.random()*4+1),98);vP=100-vN;}else vI=Math.min(vI+Math.floor(Math.random()*3+1),75); document.getElementById('vp').style.width=vP+'%'; document.getElementById('vp-t').textContent=vP+'%'; document.getElementById('vn').style.width=vN+'%'; document.getElementById('vn-t').textContent=vN+'%'; document.getElementById('vi').style.width=vI+'%'; document.getElementById('vi-t').textContent=vI+'%'; toast('✅ تم تسجيل تصويتك'); }
+// Simulate live viewers
+setInterval(()=>{ const n=1847+Math.floor(Math.random()*20-10); document.getElementById('viewer-count').textContent=`● ${n.toLocaleString()} مشاهد`; },4000);
+const SESSIONS=[
+  {time:'11:00 ص',title:'نظام تعليمي للأطفال النازحين',planet:'🎓 الأكاديمية'},
+  {time:'2:00 م',title:'AI لتوفير الطاقة الشمسية',planet:'🌱 البيئة'},
+  {time:'5:30 م',title:'منصة عمل للمناطق النائية',planet:'💼 العمل'},
+];
+document.getElementById('upcoming-list').innerHTML=SESSIONS.map(s=>`<div class="session-row"><div class="session-row__time">${s.time}</div><div><div class="session-row__title">${s.title}</div><div class="session-row__planet">${s.planet}</div></div><button class="btn btn--gold-outline btn--sm" onclick="toast('تم التسجيل ✅')">تسجيل</button></div>`).join('');
+
+// ── CERTIFICATE ──
+async function generateCert(){
+  const idea=document.getElementById('cert-idea').value.trim();
+  const name=document.getElementById('cert-name').value.trim()||'مجهول';
+  if(!idea){ toast('⚠️ الرجاء إدخال الفكرة'); return; }
+  const btn=document.getElementById('cert-btn');
+  const errEl=document.getElementById('cert-err');
+  btn.classList.add('btn--loading'); btn.innerHTML='<span class="spinner"></span> AI يولّد الشهادة...';
+  errEl.style.display='none';
+  try{
+    const r=await callClaude(`أنت نظام شهادات "مجرة اقتصاد الأفكار". أجب بـJSON فقط:
+الفكرة: "${idea}"
+{"planet":"الكوكب مع إيموجي","score":رقم85-99,"brief":"وصف مختصر للفكرة في جملة","certId":"GAL-2026-${Math.floor(Math.random()*9000)+1000}"}`,400);
+    const now=new Date();
+    document.getElementById('cert-idea-show').textContent=idea;
+    document.getElementById('cert-planet-show').textContent=r.planet;
+    document.getElementById('cert-score-show').textContent=r.score+'/100';
+    document.getElementById('cert-date-show').textContent=now.toLocaleDateString('ar-SA');
+    document.getElementById('cert-id-show').textContent=r.certId;
+    document.getElementById('cert-stamp-show').textContent='✅ موثقة رسمياً';
+    toast('🎉 تم توليد الشهادة!');
+  }catch(e){ errEl.textContent='حدث خطأ. تأكد من الاتصال وحاول مجدداً.'; errEl.style.display='block'; }
+  finally{ btn.classList.remove('btn--loading'); btn.innerHTML='📜 توليد الشهادة بالذكاء الاصطناعي'; }
+}
+
+// ── IMPACT DASHBOARD ──
+const IMPACT_NUMS=[
+  {n:'47,382',l:'فكرة موثقة',c:'var(--c-gold)',t:'↑ +284 اليوم'},
+  {n:'2.84M',l:'Impact Coin',c:'var(--c-orange)',t:'↑ +12K اليوم'},
+  {n:'127',l:'دولة مشاركة',c:'var(--c-cyan)',t:'↑ +3 هذا الشهر'},
+  {n:'12,400',l:'متطوع نشط',c:'var(--c-green)',t:'↑ +156 اليوم'},
+  {n:'3,241',l:'فكرة نُفذت',c:'var(--c-pink)',t:'↑ +28 الأسبوع'},
+  {n:'$4.2M',l:'استثمارات',c:'var(--c-gold)',t:'↑ +$80K أمس'},
+];
+document.getElementById('impact-grid').innerHTML=IMPACT_NUMS.map(n=>`<div class="impact-num-card card--lift"><div class="impact-num-card__num" style="color:${n.c}">${n.n}</div><div class="impact-num-card__lbl">${n.l}</div><div class="impact-num-card__trend impact-num-card__trend--up">${n.t}</div></div>`).join('');
+const COUNTRIES=[
+  {f:'🇸🇦',n:'السعودية',p:87,c:'var(--c-gold)'},{f:'🇪🇬',n:'مصر',p:72,c:'var(--c-cyan)'},
+  {f:'🇮🇩',n:'إندونيسيا',p:65,c:'var(--c-green)'},{f:'🇳🇬',n:'نيجيريا',p:58,c:'var(--c-pink)'},
+  {f:'🇵🇰',n:'باكستان',p:51,c:'var(--c-orange)'},{f:'🇩🇪',n:'ألمانيا',p:44,c:'var(--c-purple-bright)'},
+];
+document.getElementById('country-list').innerHTML=COUNTRIES.map(c=>`<div class="country-row"><div class="country-row__flag">${c.f}</div><div class="country-row__name">${c.n}</div><div class="country-row__bar"><div class="country-row__fill" style="width:${c.p}%;background:${c.c}"></div></div><div class="country-row__val">${c.p}%</div></div>`).join('');
+const EVENTS=[
+  {icon:'💡',t:'"مزرعة عمودية ذكية" تتحول إلى شركة',m:'محمد ك. — البيئة',time:'منذ 5 دقائق'},
+  {icon:'🩺',t:'د. فاطمة أجرت 47 استشارة طبية مجانية',m:'الطب — مصر',time:'منذ 20 دقيقة'},
+  {icon:'💰',t:'استثمار $250K في فكرة تعليم الأطفال',m:'الأكاديمية',time:'منذ ساعة'},
+  {icon:'🌍',t:'وصول المجرة للدولة 127: نيوزيلندا 🇳🇿',m:'عالمي',time:'اليوم'},
+];
+document.getElementById('events-list').innerHTML=EVENTS.map(e=>`<div class="event-row"><div class="event-row__icon">${e.icon}</div><div><div class="event-row__title">${e.t}</div><div class="event-row__meta">${e.m}</div></div><div class="event-row__time">${e.time}</div></div>`).join('');
+
+// ── ARBITRATION ──
+document.getElementById('arb-stats').innerHTML=[
+  {n:'3,241',l:'قضية محكومة',c:'var(--c-green)'},{n:'98.2%',l:'نسبة الرضا',c:'var(--c-cyan)'},
+  {n:'4.7 يوم',l:'متوسط الفصل',c:'var(--c-gold)'},{n:'847',l:'محكّم معتمد',c:'var(--c-purple-bright)'},
+].map(s=>`<div class="arb-stat"><div class="arb-stat__num" style="color:${s.c}">${s.n}</div><div class="arb-stat__lbl">${s.l}</div></div>`).join('');
+document.getElementById('arb-cases').innerHTML=[
+  {id:'ARB-2026-4421',st:'badge--gold',stl:'مفتوحة',t:'نزاع على ملكية فكرة "توصيل الأدوية بالطائرات"',m:'المدّعي: خالد م. · المدّعى عليه: Tech Solutions Co.',jury:['👨‍⚖️ علي','👩‍⚖️ سارة','🧑‍⚖️ James'],votes:[{l:'للمدّعي',c:'var(--c-green)',b:'var(--c-green-dim)'},{l:'للمدّعى عليه',c:'var(--c-red)',b:'rgba(239,68,68,.1)'},{l:'تسوية',c:'var(--c-gold)',b:'var(--c-gold-dim)'}]},
+  {id:'ARB-2026-4398',st:'badge--cyan',stl:'قيد المراجعة',t:'ادعاء انتحال فكرة "تطبيق الزراعة الذكية"',m:'المدّعي: Amara J. · المدّعى عليه: GreenTech Ltd.',jury:['👨‍⚖️ محمد','👩‍⚖️ Lisa','🧑‍⚖️ أحمد'],votes:[{l:'للمدّعي',c:'var(--c-green)',b:'var(--c-green-dim)'},{l:'للمدّعى عليه',c:'var(--c-red)',b:'rgba(239,68,68,.1)'},{l:'تسوية',c:'var(--c-gold)',b:'var(--c-gold-dim)'}]},
+].map(c=>`<div class="case-card"><div class="case-header"><span class="case-id">${c.id}</span><span class="badge ${c.st}">${c.stl}</span></div><div class="case-title">${c.t}</div><div class="case-meta">${c.m}</div><div class="case-jury">${c.jury.map(j=>`<div class="jury-chip">${j}</div>`).join('')}</div><div class="case-votes">${c.votes.map(v=>`<div class="vote-option" style="color:${v.c};border-color:${v.c};background:${v.b}" onclick="toast('تم تسجيل رأيك ✅')">${v.l}</div>`).join('')}</div></div>`).join('');
+
+// ── AMBASSADORS ──
+document.getElementById('amb-levels').innerHTML=[
+  {icon:'⭐',name:'نجم المجرة',req:'100+ دعوة',bg:'rgba(245,200,66,.08)',border:'rgba(245,200,66,.25)',nc:'var(--c-gold)'},
+  {icon:'🌟',name:'سفير فضي',req:'500+ دعوة',bg:'rgba(192,192,192,.06)',border:'rgba(192,192,192,.25)',nc:'#E5E7EB'},
+  {icon:'💎',name:'سفير ذهبي',req:'2000+ دعوة',bg:'rgba(6,182,212,.07)',border:'rgba(6,182,212,.25)',nc:'var(--c-cyan)'},
+  {icon:'🌌',name:'سفير المجرة',req:'10,000+ دعوة',bg:'rgba(236,72,153,.07)',border:'rgba(236,72,153,.25)',nc:'var(--c-pink)'},
+].map(l=>`<div class="amb-level" style="background:${l.bg};border-color:${l.border}"><div class="amb-level__icon">${l.icon}</div><div class="amb-level__name" style="color:${l.nc}">${l.name}</div><div class="amb-level__req">${l.req}</div></div>`).join('');
+document.getElementById('perks-grid').innerHTML=[
+  {icon:'🪙',t:'Coins مضاعفة',d:'x3 على كل فكرة تنشر عبر رابطك'},
+  {icon:'📜',t:'شهادة دولية',d:'معترف بها في 47 جامعة عالمية'},
+  {icon:'🎙️',t:'أولوية العرض',d:'تقديم أفكارك أولاً في Live Room'},
+  {icon:'📡',t:'API مجاني',d:'وصول كامل لـ Galaxy API بلا رسوم'},
+  {icon:'🌍',t:'مؤتمرات دولية',d:'دعوات حصرية لمؤتمرات المجرة العالمية'},
+  {icon:'💼',t:'ربط مباشر',d:'تواصل مع مستثمري الطبقة الأولى'},
+].map(p=>`<div class="perk-card"><div class="perk-card__icon">${p.icon}</div><div class="perk-card__title">${p.t}</div><div class="perk-card__desc">${p.d}</div></div>`).join('');
+document.getElementById('top-amb-list').innerHTML=[
+  {r:1,bg:'linear-gradient(135deg,#F5C842,#F97316)',c:'#0A0015',n:'أحمد البكري',country:'🇸🇦',s:'12,840'},
+  {r:2,bg:'linear-gradient(135deg,#C0C0C0,#808080)',c:'#0A0015',n:'Amara Johnson',country:'🇺🇸',s:'9,420'},
+  {r:3,bg:'linear-gradient(135deg,#CD7F32,#8B4513)',c:'#0A0015',n:'فاطمة الزهراء',country:'🇲🇦',s:'7,180'},
+].map(a=>`<div class="top-amb-row"><div class="top-amb-row__rank" style="background:${a.bg};color:${a.c}">#${a.r}</div><div><div class="top-amb-row__name">${a.n}</div><div class="top-amb-row__country">${a.country}</div></div><div class="top-amb-row__score">${a.s} pts</div></div>`).join('');
+
+// ── API ──
+document.getElementById('api-endpoints').innerHTML=[
+  {m:'GET',mc:'method--get',p:'/v2/ideas',d:'جلب الأفكار العالمية مع فلترة متقدمة'},
+  {m:'POST',mc:'method--post',p:'/v2/ideas/analyze',d:'تحليل فكرة بالذكاء الاصطناعي فوراً'},
+  {m:'POST',mc:'method--post',p:'/v2/ideas/certify',d:'توليد شهادة Galaxy الدولية'},
+  {m:'GET',mc:'method--get',p:'/v2/planets/{id}',d:'بيانات وإحصائيات كوكب محدد'},
+  {m:'POST',mc:'method--post',p:'/v2/users/register',d:'تسجيل مستخدم جديد وإنشاء Galaxy ID'},
+  {m:'GET',mc:'method--get',p:'/v2/impact/live',d:'بيانات التأثير العالمي في الوقت الفعلي'},
+  {m:'PUT',mc:'method--put',p:'/v2/coins/transfer',d:'نقل Impact Coins بين المستخدمين'},
+  {m:'POST',mc:'method--post',p:'/v2/crisis/activate',d:'تفعيل وضع الأزمات وتوجيه الموارد'},
+].map(e=>`<div class="api-endpoint" onclick="toast('✅ تم نسخ الـ Endpoint')"><span class="method ${e.mc}">${e.m}</span><span class="ep-path">${e.p}</span><span class="ep-desc">${e.d}</span></div>`).join('');
+document.getElementById('api-stats').innerHTML=[
+  {n:'128K',l:'طلب / يوم'},{n:'99.9%',l:'وقت التشغيل'},{n:'<50ms',l:'متوسط الاستجابة'},{n:'2,400',l:'مطور نشط'},
+].map(s=>`<div class="api-stat"><div class="api-stat__num">${s.n}</div><div class="api-stat__lbl">${s.l}</div></div>`).join('');
+
+// ── CRISIS ──
+let crisisActive=false;
+function toggleCrisis(on){ crisisActive=on; document.getElementById('crisis-panel').classList.toggle('active',on); toast(on?'🚨 تم تفعيل وضع الأزمات!':'✅ تم العودة للوضع العادي'); }
+document.getElementById('crisis-zones').innerHTML=[
+  {n:'غزة 🇵🇸',d:'احتياج طبي وغذائي عاجل',sev:'critical',sl:'حرجة',bg:'rgba(239,68,68,.07)',border:'rgba(239,68,68,.25)',tags:['👨‍⚕️ 47 طبيب','🍞 12K مستفيد']},
+  {n:'السودان 🇸🇩',d:'أزمة نزوح وانعدام خدمات',sev:'high',sl:'عالية',bg:'rgba(249,115,22,.07)',border:'rgba(249,115,22,.25)',tags:['🏠 84K نازح','🌊 فيضانات']},
+  {n:'اليمن 🇾🇪',d:'أزمة إنسانية مستمرة',sev:'high',sl:'عالية',bg:'rgba(249,115,22,.07)',border:'rgba(249,115,22,.25)',tags:['🩺 8.4M محتاج','💧 نقص مياه']},
+  {n:'هايتي 🇭🇹',d:'زلزال وعدم استقرار',sev:'med',sl:'متوسطة',bg:'rgba(245,200,66,.05)',border:'rgba(245,200,66,.2)',tags:['🏚️ 200K متضرر','🤝 72 منظمة']},
+].map(z=>`<div class="zone-card" style="background:${z.bg};border-color:${z.border}"><span class="zone-sev zone-sev--${z.sev}">${z.sl}</span><div class="zone-name">${z.n}</div><div class="zone-desc">${z.d}</div><div class="zone-tags">${z.tags.map(t=>`<span class="zone-tag">${t}</span>`).join('')}</div></div>`).join('');
+document.getElementById('crisis-res').innerHTML=[
+  {icon:'👨‍⚕️',t:'أطباء جاهزون',n:'1,240 طبيب'},{icon:'💊',t:'أدوية',n:'$180K قيمة'},
+  {icon:'🍞',t:'حصص غذائية',n:'45,000 حصة'},{icon:'📡',t:'اتصال رقمي',n:'82 نقطة'},
+  {icon:'🏥',t:'مستشفيات',n:'12 وحدة'},{icon:'🚁',t:'فرق استجابة',n:'28 فريق'},
+].map(r=>`<div class="crisis-res-card"><div class="crisis-res-card__icon">${r.icon}</div><div class="crisis-res-card__title">${r.t}</div><div class="crisis-res-card__num">${r.n}</div></div>`).join('');
+document.getElementById('crisis-features').innerHTML=[
+  {icon:'🤖',t:'AI التلقائي',d:'يحدد الاحتياجات ويوجه الموارد فوراً'},
+  {icon:'📡',t:'غرف العمليات',d:'تنسيق رقمي لفرق الاستجابة العالمية'},
+  {icon:'🔔',t:'تنبيه فوري',d:'إشعار لكل السفراء والمتطوعين فوراً'},
+  {icon:'⛓️',t:'Blockchain',d:'كل مورد موثق بشفافية كاملة'},
+  {icon:'🌍',t:'تنسيق دولي',d:'ربط مع الأمم المتحدة والمنظمات'},
+  {icon:'💊',t:'نظام الأولويات',d:'الأكثر احتياجاً يخدم أولاً دائماً'},
+].map(f=>`<div class="card card--lift" style="text-align:center;padding:1.1rem"><div style="font-size:1.7rem;margin-bottom:.4rem">${f.icon}</div><div style="color:#FCA5A5;font-weight:700;font-size:.82rem;margin-bottom:.25rem">${f.t}</div><div style="color:var(--t-muted);font-size:.75rem;line-height:1.6">${f.d}</div></div>`).join('');
+
+// ── ACADEMY PIPELINE ──
+document.getElementById('pipeline').innerHTML=[
+  {icon:'📚',g:'linear-gradient(135deg,#F5C842,#F97316)',t:'تعلم وتطور',d:'مهارات وأبحاث ومشاريع عملية داخل الأكاديمية',c:'var(--c-gold)'},
+  {icon:'💡',g:'linear-gradient(135deg,#06B6D4,#6D28D9)',t:'إنشاء الأفكار',d:'أفكار مبتكرة وحلول مجتمعية وأبحاث علمية',c:'var(--c-cyan)'},
+  {icon:'🚀',g:'linear-gradient(135deg,#10B981,#06B6D4)',t:'رفع الفكرة',d:'نقل الفكرة إلى كوكب اقتصاد الأفكار وتوثيقها فوراً',c:'var(--c-green)'},
+  {icon:'🤖',g:'linear-gradient(135deg,#EC4899,#6D28D9)',t:'تقييم AI',d:'تحليل ذكي شامل وتصنيف عالمي وتوليد شهادة',c:'var(--c-pink)'},
+  {icon:'💼',g:'linear-gradient(135deg,#F5C842,#EC4899)',t:'ربط الشركاء',d:'مستثمرون ومصانع وشركاء من 127 دولة',c:'var(--c-gold)'},
+  {icon:'🌍',g:'linear-gradient(135deg,#A78BBE,#6D28D9)',t:'التنفيذ والتأثير',d:'شركة أو منتج أو مشروع عالمي يخدم البشرية',c:'#A78BBE'},
+].map((s,i)=>`<div class="pipeline-step"><div class="pipeline-step__num" style="background:${s.g};box-shadow:0 0 15px rgba(0,0,0,.3)">${s.icon}</div><div class="pipeline-step__body"><div class="pipeline-step__title" style="color:${s.c}">المرحلة ${i+1} — ${s.t}</div><div class="pipeline-step__desc">${s.d}</div></div></div>`).join('');
+document.getElementById('outcomes').innerHTML=[
+  {icon:'🏢',t:'شركة ناشئة'},{icon:'📦',t:'منتج عالمي'},
+  {icon:'🌱',t:'مبادرة إنسانية'},{icon:'🌍',t:'مشروع عالمي'},
+].map(o=>`<div class="outcome-card"><div class="outcome-card__icon">${o.icon}</div><div class="outcome-card__title">${o.t}</div></div>`).join('');
+
+// ── TECH STACK ──
+document.getElementById('tech-layers').innerHTML=[
+  {icon:'🎨',n:'الواجهة الأمامية',tags:['React','Next.js','TailwindCSS','Framer Motion','Three.js']},
+  {icon:'⚙️',n:'الخادم الخلفي',tags:['Node.js','Supabase','PostgreSQL','GraphQL APIs']},
+  {icon:'🤖',n:'أنظمة الذكاء الاصطناعي',tags:['Claude API','Recommendation Engine','AI Matching','Predictive Analytics']},
+  {icon:'🔒',n:'الأمان والخصوصية',tags:['E2E Encryption','Zero Trust','Role Based Access','Blockchain']},
+  {icon:'🌐',n:'البنية التحتية',tags:['Cloud Distributed','CDN Global','Edge Computing','99.9% Uptime']},
+  {icon:'🚀',n:'التوسع المستقبلي',tags:['Mobile Apps','VR Galaxy','Digital Identity','Global DAO']},
+].map(t=>`<div class="tech-layer"><div class="tech-layer__icon">${t.icon}</div><div><div class="tech-layer__name">${t.n}</div><div class="tags">${t.tags.map(tag=>`<span class="tag">${tag}</span>`).join('')}</div></div></div>`).join('');
+document.getElementById('mega-layers').innerHTML=[
+  {n:'1',name:'الإنسان',c:'var(--c-gold)'},{n:'2',name:'المعرفة',c:'var(--c-cyan)'},
+  {n:'3',name:'الفكرة',c:'var(--c-green)'},{n:'4',name:'التنفيذ',c:'var(--c-pink)'},
+  {n:'5',name:'التأثير العالمي',c:'var(--c-purple-bright)'},
+].map(l=>`<div class="mega-layer"><div class="mega-layer__bar" style="background:${l.c}"></div><div class="mega-layer__num" style="color:${l.c}">${l.n}</div><div class="mega-layer__name">${l.name}</div></div>`).join('');
+
+// ── SCROLL ANIMATIONS ──
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.animation='fade-up .5s ease both';e.target.style.opacity='1';}});},{threshold:.1});
+document.querySelectorAll('.card,.section__head').forEach(el=>{el.style.opacity='0';observer.observe(el);});
+
+</script>
+
+<!-- PWA INSTALL BANNER -->
+<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;padding:.9rem 1.2rem;background:rgba(10,0,21,.97);border-top:1px solid rgba(123,47,255,.3);backdrop-filter:blur(20px);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;direction:rtl" id="pwa-banner">
+  <div style="font-size:2rem">🌌</div>
+  <div style="flex:1">
+    <div style="font-family:Tajawal,sans-serif;font-weight:700;font-size:.9rem;color:#F1ECF9">ثبّت تطبيق المجرة</div>
+    <div style="font-family:Tajawal,sans-serif;font-size:.75rem;color:#9D8FBB">يعمل بدون إنترنت · لا يشغل مساحة</div>
+  </div>
+  <button onclick="installPWA()" style="background:linear-gradient(135deg,#F5C842,#F97316);border:none;border-radius:50px;padding:.55rem 1.3rem;font-size:.85rem;font-weight:700;color:#0A0015;cursor:pointer;font-family:Tajawal,sans-serif">تثبيت</button>
+  <button onclick="document.getElementById('pwa-banner').style.display='none'" style="background:transparent;border:none;color:#6B5A7E;cursor:pointer;font-size:1.2rem;padding:.2rem .4rem">✕</button>
+</div>
+
+<!-- PWA & SERVICE WORKER -->
+<script>
+// ── Register Service Worker ──
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Inline SW as blob since sw.js may not be uploaded separately
+    const swCode = `
+      const CACHE = 'galaxy-v10';
+      self.addEventListener('install', e => self.skipWaiting());
+      self.addEventListener('activate', e => self.clients.claim());
+      self.addEventListener('fetch', e => {
+        if (e.request.method !== 'GET') return;
+        e.respondWith(
+          caches.open(CACHE).then(cache =>
+            cache.match(e.request).then(cached => {
+              const fresh = fetch(e.request).then(res => {
+                if(res.ok) cache.put(e.request, res.clone());
+                return res;
+              });
+              return cached || fresh;
+            })
+          )
+        );
+      });
+    `;
+    const swBlob = new Blob([swCode], {type: 'application/javascript'});
+    const swURL = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swURL)
+      .then(reg => console.log('[PWA] SW registered ✅'))
+      .catch(err => console.warn('[PWA] SW failed:', err));
+  });
+}
+
+// ── Install Prompt ──
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show install banner after 3 seconds
+  setTimeout(() => {
+    const banner = document.getElementById('pwa-banner');
+    if (banner) banner.style.display = 'flex';
+  }, 3000);
+});
+
+function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(choice => {
+    if (choice.outcome === 'accepted') {
+      console.log('[PWA] User accepted install ✅');
+      document.getElementById('pwa-banner').style.display = 'none';
+    }
+    deferredPrompt = null;
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  console.log('[PWA] App installed successfully 🎉');
+  document.getElementById('pwa-banner').style.display = 'none';
+  // Show toast
+  if (typeof toast === 'function') toast('🎉 تم تثبيت التطبيق بنجاح!');
+});
+
+// ── Online/Offline detection ──
+window.addEventListener('offline', () => {
+  if (typeof toast === 'function') toast('⚠️ انقطع الإنترنت — التطبيق يعمل offline');
+});
+window.addEventListener('online', () => {
+  if (typeof toast === 'function') toast('✅ عاد الإنترنت — المزامنة جارية...');
+});
+</script>
+
+</body>
+</html>
