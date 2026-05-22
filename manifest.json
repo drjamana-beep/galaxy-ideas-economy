@@ -1,7 +1,7 @@
 {
   "name": "مجرة اقتصاد الأفكار",
   "short_name": "المجرة",
-  "description": " عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية تخدم البشرية",
+  "description": "منصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية تخدم البشرية",
   "start_url": "/galaxy-ideas-economy/",
   "scope": "/galaxy-ideas-economy/",
   "display": "standalone",
@@ -10,38 +10,40 @@
   "background_color": "#0A0015",
   "lang": "ar",
   "dir": "rtl",
-  "categories": [
-    "productivity",
-    "education",
-    "finance"
-  ],
+  "id": "/galaxy-ideas-economy/",
   "icons": [
     {
-      "src": "https://drjamana-beep.github.io/galaxy-ideas-economy/icon-192.png",
+      "src": "/galaxy-ideas-economy/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "https://drjamana-beep.github.io/galaxy-ideas-economy/icon-512.png",
+      "src": "/galaxy-ideas-economy/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/galaxy-ideas-economy/icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "أضف فكرة",
-      "url": "/#ai-sec"
+      "purpose": "any"
     },
     {
-      "name": "Galaxy ID",
-      "url": "/#gid-sec"
-    },
-    {
-      "name": "وضع الأزمات",
-      "url": "/#crisis-sec"
+      "src": "/galaxy-ideas-economy/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "id": "galaxy-ideas-economy"
+  "screenshots": [
+    {
+      "src": "/galaxy-ideas-economy/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "مجرة اقتصاد الأفكار"
+    }
+  ]
 }
