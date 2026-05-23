@@ -1776,7 +1776,35 @@ window.addEventListener('online', () => {
   if (typeof toast === 'function') toast('✅ عاد الإنترنت — المزامنة جارية...');
 });
 </script>
-<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
+const firebaseConfig2 = {
+  apiKey: "AIzaSyCjI7nrD8LTr72B7RNTOkJzTl1f3OTk3BU",
+  authDomain: "ideagalaxy-84cfc.firebaseapp.com",
+  projectId: "ideagalaxy-84cfc"
+};
+if(!firebase.apps.length){ firebase.initializeApp(firebaseConfig2); }
+function registerUser(){
+  var email=document.getElementById('reg-email').value;
+  var pass=document.getElementById('reg-pass').value;
+  firebase.auth().createUserWithEmailAndPassword(email,pass)
+  .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">🎉 تم إنشاء الحساب!</span>'; })
+  .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
+}
+function loginUser(){
+  var email=document.getElementById('login-email').value;
+  var pass=document.getElementById('login-pass').value;
+  firebase.auth().signInWithEmailAndPassword(email,pass)
+  .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">✅ تم الدخول!</span>'; })
+  .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
+}
+function showTab(t){
+  document.getElementById('login-form').style.display=t==='login'?'block':'none';
+  document.getElementById('register-form').style.display=t==='register'?'block':'none';
+}
+</script>
+   <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
