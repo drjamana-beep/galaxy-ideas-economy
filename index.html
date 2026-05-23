@@ -1839,6 +1839,7 @@ function loginUser(){
   });
 }
 function registerUser(){
+  if(!window.firebaseAuth){ alert('Firebase لم يتحمّل بعد، انتظر ثانية وحاول مجدداً'); return; }
   var email=document.getElementById('reg-email').value;
   var pass=document.getElementById('reg-pass').value;
   import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
