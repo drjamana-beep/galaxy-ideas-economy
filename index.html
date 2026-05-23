@@ -1750,6 +1750,31 @@ window.addEventListener('online', () => {
   if (typeof toast === 'function') toast('✅ عاد الإنترنت — المزامنة جارية...');
 });
 </script>
-
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        
+          const firebaseConfig = {
+              apiKey: "AIzaSyCjI7nrD8LTr72B7RNTOkJzTl1f3OTk3BU",
+                  authDomain: "ideagalaxy-84cfc.firebaseapp.com",
+                      projectId: "ideagalaxy-84cfc",
+                          storageBucket: "ideagalaxy-84cfc.firebasestorage.app",
+                              messagingSenderId: "11603315113",
+                                  appId: "1:11603315113:web:ba9c551cc5ee61f42f1cb8",
+                                      measurementId: "G-F363H71C2Y"
+                                        };
+                                        
+                                          const app = initializeApp(firebaseConfig);
+                                            const auth = getAuth(app);
+                                              const db = getFirestore(app);
+                                                const analytics = getAnalytics(app);
+                                                
+                                                  window.firebaseApp = app;
+                                                    window.auth = auth;
+                                                      window.db = db;
+                                                      </script>-->
 </body>
 </html>
