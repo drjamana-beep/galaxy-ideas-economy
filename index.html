@@ -1824,5 +1824,29 @@ window.loginUser = async function(){
   }catch(e){ document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-red)">❌ '+e.message+'</span>'; }
 }                                                    window.db = db;
                                                       </script>
+<script>
+function showTab(t){
+  document.getElementById('login-form').style.display=t==='login'?'block':'none';
+  document.getElementById('register-form').style.display=t==='register'?'block':'none';
+}
+function loginUser(){
+  var email=document.getElementById('login-email').value;
+  var pass=document.getElementById('login-pass').value;
+  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
+    m.signInWithEmailAndPassword(window.auth,email,pass)
+    .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">✅ تم الدخول!</span>'; })
+    .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
+  });
+}
+function registerUser(){
+  var email=document.getElementById('reg-email').value;
+  var pass=document.getElementById('reg-pass').value;
+  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
+    m.createUserWithEmailAndPassword(window.auth,email,pass)
+    .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">🎉 تم إنشاء الحساب!</span>'; })
+    .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
+  });
+}
+</script>
 </body>
 </html>
