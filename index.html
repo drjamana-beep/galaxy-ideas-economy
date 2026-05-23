@@ -1324,7 +1324,33 @@ a { text-decoration: none; }
 </div>
 </section>
 
-<!-- FOOTER -->
+<!-- AUTH SECTION -->
+<section class="section" id="auth-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🔐 دخول آمن</div>
+    <h2 class="section__title u-grad-cyan">تسجيل الدخول / إنشاء حساب</h2>
+  </div>
+  <div class="card" style="max-width:420px;margin:0 auto">
+    <div style="display:flex;gap:.5rem;margin-bottom:1.2rem">
+      <button class="btn btn--primary" style="flex:1" onclick="showTab('login')">دخول</button>
+      <button class="btn btn--secondary" style="flex:1" onclick="showTab('register')">حساب جديد</button>
+    </div>
+    <div id="login-form">
+      <input class="input" id="login-email" placeholder="البريد الإلكتروني" style="margin-bottom:.6rem"/>
+      <input class="input" id="login-pass" type="password" placeholder="كلمة المرور" style="margin-bottom:.8rem"/>
+      <button class="btn btn--primary btn--full" onclick="loginUser()">🔑 دخول</button>
+    </div>
+    <div id="register-form" style="display:none">
+      <input class="input" id="reg-email" placeholder="البريد الإلكتروني" style="margin-bottom:.6rem"/>
+      <input class="input" id="reg-pass" type="password" placeholder="كلمة المرور" style="margin-bottom:.8rem"/>
+      <button class="btn btn--primary btn--full" onclick="registerUser()">🚀 إنشاء حساب</button>
+    </div>
+    <div id="auth-msg" style="margin-top:.8rem;text-align:center;font-size:.85rem"></div>
+  </div>
+</div>
+</section>
+   <!-- FOOTER -->
 <footer class="footer">
   <div class="footer__logo">🌌</div>
   <p class="footer__quote">"سيروا على نهجنا.. ليسير على نهجكم أجيالٌ تتلو أجيالاً"</p>
@@ -1774,7 +1800,29 @@ window.addEventListener('online', () => {
                                                 
                                                   window.firebaseApp = app;
                                                     window.auth = auth;
-                                                      window.db = db;
+   
+  function showTab(t){
+  document.getElementById('login-form').style.display=t==='login'?'block':'none';
+  document.getElementById('register-form').style.display=t==='register'?'block':'none';
+}
+async function loginUser(){
+  const {signInWithEmailAndPassword}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  const email=document.getElementById('login-email').value;
+  const pass=document.getElementById('login-pass').value;
+  try{
+    await signInWithEmailAndPassword(window.auth,email,pass);
+    document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-green)">✅ تم الدخول بنجاح!</span>';
+  }catch(e){ document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-red)">❌ '+e.message+'</span>'; }
+}
+async function registerUser(){
+  const {createUserWithEmailAndPassword}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+  const email=document.getElementById('reg-email').value;
+  const pass=document.getElementById('reg-pass').value;
+  try{
+    await createUserWithEmailAndPassword(window.auth,email,pass);
+    document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-green)">🎉 تم إنشاء الحساب!</span>';
+  }catch(e){ document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-red)">❌ '+e.message+'</span>'; }
+}                                                    window.db = db;
                                                       </script>
 </body>
 </html>
