@@ -1829,29 +1829,7 @@ function showTab(t){
                                                   window.firebaseApp = app;
                                                     window.auth = auth;
    window.firebaseAuth = auth;
-  window.showTab = function(t){
-  document.getElementById('login-form').style.display=t==='login'?'block':'none';
-  document.getElementById('register-form').style.display=t==='register'?'block':'none';
-}
-window.loginUser = async function(){
-  const {signInWithEmailAndPassword}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-  const email=document.getElementById('login-email').value;
-  const pass=document.getElementById('login-pass').value;
-  try{
-    await signInWithEmailAndPassword(window.auth,email,pass);
-    document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-green)">✅ تم الدخول بنجاح!</span>';
-  }catch(e){ document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-red)">❌ '+e.message+'</span>'; }
-}
-   window.registerUser = async function(){
-  const {createUserWithEmailAndPassword}=await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
-  const email=document.getElementById('reg-email').value;
-  const pass=document.getElementById('reg-pass').value;
-  try{
-    await createUserWithEmailAndPassword(window.auth,email,pass);
-    document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-green)">🎉 تم إنشاء الحساب!</span>';
-  }catch(e){ document.getElementById('auth-msg').innerHTML='<span style="color:var(--c-red)">❌ '+e.message+'</span>'; }
-}                                                    window.db = db;
-                                                      </script>
+</script>
 <script>
 function showTab(t){
   document.getElementById('login-form').style.display=t==='login'?'block':'none';
@@ -1860,21 +1838,16 @@ function showTab(t){
 function loginUser(){
   var email=document.getElementById('login-email').value;
   var pass=document.getElementById('login-pass').value;
-  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
-    m.signInWithEmailAndPassword(window.firebaseAuth,email,pass)
-    .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">✅ تم الدخول!</span>'; })
-    .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
-  });
+  firebase.auth().signInWithEmailAndPassword(email,pass)
+  .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">✅ تم الدخول!</span>'; })
+  .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
 }
 function registerUser(){
-  if(!window.firebaseAuth){ alert('Firebase لم يتحمّل بعد، انتظر ثانية وحاول مجدداً'); return; }
   var email=document.getElementById('reg-email').value;
   var pass=document.getElementById('reg-pass').value;
-  import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js').then(function(m){
-    m.createUserWithEmailAndPassword(window.firebaseAuth,email,pass)
-    .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">🎉 تم إنشاء الحساب!</span>'; })
-    .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
-  });
+  firebase.auth().createUserWithEmailAndPassword(email,pass)
+  .then(function(){ document.getElementById('auth-msg').innerHTML='<span style="color:#10B981">🎉 تم إنشاء الحساب!</span>'; })
+  .catch(function(e){ document.getElementById('auth-msg').innerHTML='<span style="color:#EF4444">❌ '+e.message+'</span>'; });
 }
 </script>
 </body>
