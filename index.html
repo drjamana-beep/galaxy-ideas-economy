@@ -394,6 +394,7 @@ a{text-decoration:none}
     <button class="nav__link nav__link--active" onclick="goTo('hero')">الرئيسية</button>
     <button class="nav__link" id="nav-auth-btn" onclick="goTo('auth-sec')">التسجيل</button>
     <button class="nav__link" onclick="goTo('quick-idea')">💡 الأفكار</button>
+    <button class="nav__link" onclick="goTo('launch-sec')" style="color:var(--c-gold);border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.07)">🌟 انضم</button>
     <button class="nav__link" onclick="goTo('deals-sec')">🤝 الصفقات</button>
     <button class="nav__link" onclick="goTo('manifesto-sec')">🌌 رسالتنا</button>
     <button class="nav__link" onclick="goTo('charter-sec')">📜 الميثاق</button>
@@ -1036,6 +1037,85 @@ a{text-decoration:none}
 </section>
 
 
+
+<!-- ══ LAUNCH SECTION ══ -->
+<section class="section section--alt" id="launch-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🚀 انطلاق المجرة</div>
+    <h2 class="section__title" style="background:linear-gradient(135deg,var(--c-gold),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">أول 1000 نجم في المجرة</h2>
+    <p class="section__subtitle">كل حضارة بدأت بأوائل آمنوا بها قبل أن يراها العالم — كن من الأوائل 🌟</p>
+  </div>
+
+  <!-- بطاقة السفير الأول -->
+  <div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(109,40,217,.08));border:1.5px solid rgba(245,200,66,.4);border-radius:24px;padding:2rem;text-align:center;margin-bottom:2rem;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.6),transparent)"></div>
+    <div style="font-size:3rem;margin-bottom:.8rem;animation:float-y 3s ease-in-out infinite">🌟</div>
+    <h3 style="font-family:var(--f-display);font-size:1.5rem;color:var(--c-gold);margin-bottom:.5rem">شارف النجوم الأوائل</h3>
+    <p style="color:var(--t-secondary);font-size:.9rem;margin-bottom:1.5rem;line-height:1.8">أول 1000 منضم للمجرة يحملون لقب <strong style="color:var(--c-gold)">"نجم المؤسسين"</strong><br>شارة لا تُمنح مرة أخرى — للأبد</p>
+    <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div style="text-align:center">
+        <div id="founders-count" style="font-size:2.5rem;font-weight:900;color:var(--c-gold)">2</div>
+        <div style="color:var(--t-muted);font-size:.75rem">انضموا حتى الآن</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:2.5rem;font-weight:900;color:var(--c-cyan)">998</div>
+        <div style="color:var(--t-muted);font-size:.75rem">مقعد متبقٍ</div>
+      </div>
+    </div>
+    <button onclick="goTo('quick-idea')" class="btn btn--primary" style="font-size:1rem;padding:.9rem 2.5rem;box-shadow:0 0 40px rgba(245,200,66,.4)">
+      🌟 انضم كمؤسس الآن — مجاناً للأبد
+    </button>
+  </div>
+
+  <!-- خطة الانتشار -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem">
+    <div style="background:var(--bg-elevated);border:1px solid rgba(245,200,66,.25);border-radius:18px;padding:1.5rem">
+      <div style="font-size:1.8rem;margin-bottom:.6rem">1️⃣</div>
+      <div style="color:var(--c-gold);font-weight:700;margin-bottom:.4rem">المرحلة الأولى</div>
+      <div style="color:var(--t-muted);font-size:.8rem;line-height:1.8">أول 1,000 مستخدم<br>المجتمعات العربية والإسلامية<br>الجامعات والمبتكرون</div>
+    </div>
+    <div style="background:var(--bg-elevated);border:1px solid rgba(6,182,212,.25);border-radius:18px;padding:1.5rem">
+      <div style="font-size:1.8rem;margin-bottom:.6rem">2️⃣</div>
+      <div style="color:var(--c-cyan);font-weight:700;margin-bottom:.4rem">المرحلة الثانية</div>
+      <div style="color:var(--t-muted);font-size:.8rem;line-height:1.8">10,000 مستخدم<br>منظمات دولية وحكومات<br>مستثمرون ومسرّعات</div>
+    </div>
+    <div style="background:var(--bg-elevated);border:1px solid rgba(16,185,129,.25);border-radius:18px;padding:1.5rem">
+      <div style="font-size:1.8rem;margin-bottom:.6rem">3️⃣</div>
+      <div style="color:var(--c-green);font-weight:700;margin-bottom:.4rem">المرحلة الثالثة</div>
+      <div style="color:var(--t-muted);font-size:.8rem;line-height:1.8">مليون مستخدم<br>127 دولة<br>الأمم المتحدة والشراكات الدولية</div>
+    </div>
+  </div>
+
+  <!-- نص المشاركة -->
+  <div style="background:rgba(8,0,16,.8);border:1px solid rgba(245,200,66,.25);border-radius:18px;padding:1.5rem;margin-bottom:1.5rem">
+    <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin-bottom:.8rem">📋 انسخ وشارك هذا النص</div>
+    <div id="share-text" style="color:var(--t-secondary);font-size:.85rem;line-height:1.9;direction:rtl;font-family:var(--f-display)">
+      🌌 اكتشفت شيئاً لم أره من قبل...<br><br>
+      مجرة اقتصاد الأفكار — منصة تحوّل فكرتك إلى إرث مالي مدى الحياة.<br>
+      انشر فكرتك مجاناً — واحتفظ بـ 80% من عائدها إلى الأبد.<br>
+      الباب مفتوح للعالم — لا قيود — لا رسوم — للبشرية جمعاء.<br><br>
+      كلما كنا أكثر — كان السعر أقل — والمستقبل أفضل 🌍<br><br>
+      🔗 galaxy-ideas-economy.drjamana.workers.dev
+    </div>
+    <button onclick="copyShareText()" style="margin-top:.8rem;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);border-radius:50px;padding:.5rem 1.2rem;color:var(--c-gold);font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">📋 نسخ النص</button>
+    <button onclick="shareGalaxy()" style="margin-top:.8rem;margin-right:.5rem;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);border-radius:50px;padding:.5rem 1.2rem;color:var(--c-green);font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">↗ مشاركة مباشرة</button>
+  </div>
+
+  <!-- منصات المشاركة -->
+  <div style="text-align:center">
+    <div style="color:var(--t-muted);font-size:.8rem;margin-bottom:.8rem">شارك المجرة على منصاتك</div>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+      <button onclick="shareOn('twitter')" style="background:rgba(29,161,242,.1);border:1px solid rgba(29,161,242,.3);border-radius:50px;padding:.45rem 1rem;color:#1DA1F2;font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">🐦 X/Twitter</button>
+      <button onclick="shareOn('whatsapp')" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:50px;padding:.45rem 1rem;color:#25D366;font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">💬 واتساب</button>
+      <button onclick="shareOn('telegram')" style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:50px;padding:.45rem 1rem;color:#0088cc;font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">✈️ تيليغرام</button>
+      <button onclick="shareOn('linkedin')" style="background:rgba(0,119,181,.1);border:1px solid rgba(0,119,181,.3);border-radius:50px;padding:.45rem 1rem;color:#0077B5;font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">💼 لينكد إن</button>
+      <button onclick="copyShareText()" style="background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);border-radius:50px;padding:.45rem 1rem;color:var(--c-gold);font-size:.8rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">📋 نسخ الرابط</button>
+    </div>
+  </div>
+
+</div>
+</section>
 <!-- ══ MANIFESTO SECTION ══ -->
 <section class="section" id="manifesto-sec" style="background:radial-gradient(ellipse at 50% 0%,rgba(109,40,217,.1) 0%,transparent 70%)">
 <div class="section__inner" style="max-width:800px">
@@ -1960,6 +2040,33 @@ function loadComments(ideaId) {
 }
 
 // ── مشاركة المجرة ──
+function copyShareText() {
+  var text = document.getElementById('share-text').innerText;
+  navigator.clipboard.writeText(text).then(function(){ toast('✅ تم نسخ النص — شاركيه مع العالم! 🌍'); });
+}
+
+function shareOn(platform) {
+  var url = encodeURIComponent('https://galaxy-ideas-economy.drjamana.workers.dev/');
+  var text = encodeURIComponent('🌌 اكتشفت مجرة اقتصاد الأفكار — انشر فكرتك مجاناً واحتفظ بـ 80% من عائدها مدى الحياة! لا قيود — للبشرية جمعاء 🌍');
+  var links = {
+    twitter: 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url,
+    whatsapp: 'https://wa.me/?text=' + text + '%20' + url,
+    telegram: 'https://t.me/share/url?url=' + url + '&text=' + text,
+    linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + url
+  };
+  if (links[platform]) window.open(links[platform], '_blank');
+}
+
+function loadFoundersCount() {
+  if (typeof db === 'undefined') return;
+  db.collection('users').get().then(function(snap) {
+    var el = document.getElementById('founders-count');
+    if (el) el.textContent = snap.size;
+  }).catch(function(){});
+}
+
+window.addEventListener('load', function(){ setTimeout(loadFoundersCount, 3000); });
+
 function shareGalaxy() {
   var url = 'https://galaxy-ideas-economy.drjamana.workers.dev/';
   var text = '🌌 اكتشفت مجرة اقتصاد الأفكار — المنصة التي تحوّل أفكارك إلى إرث مالي مدى الحياة! مجانية تماماً للجميع 💡';
