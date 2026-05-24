@@ -386,6 +386,7 @@ a{text-decoration:none}
     <button class="nav__link" onclick="goTo('arb-sec')">التحكيم</button>
     <button class="nav__link" onclick="goTo('amb-sec')">السفراء</button>
     <button class="nav__link" onclick="goTo('api-sec')">API</button>
+    <button class="nav__link" onclick="goTo('ideas-sec')">💡 الأفكار</button>
     <button class="nav__link" onclick="goTo('crisis-sec')">🚨 الأزمات</button>
     <button class="nav__link" onclick="goTo('tech-sec')">التقنية</button>
   </div>
@@ -813,12 +814,62 @@ a{text-decoration:none}
       </button>
     </div>
 
+    <!-- زر نشر فكرة -->
+    <button onclick="goTo('ideas-sec')" style="width:100%;background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1px solid rgba(245,200,66,.25);border-radius:14px;padding:1rem;cursor:pointer;margin-bottom:.75rem;font-family:var(--f-body);transition:all .25s ease" onmouseover="this.style.borderColor='var(--c-gold)'" onmouseout="this.style.borderColor='rgba(245,200,66,.25)'">
+      <div style="font-size:1.5rem;margin-bottom:.3rem">💡</div>
+      <div style="color:var(--c-gold);font-size:.88rem;font-weight:700">انشر فكرة جديدة + 50 🪙</div>
+    </button>
+
     <!-- آخر نشاط -->
     <div style="background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem">
       <div style="color:var(--c-cyan);font-size:.84rem;font-weight:700;margin-bottom:.7rem">⚡ آخر نشاط</div>
       <div id="dash-activity" style="color:var(--t-muted);font-size:.8rem;line-height:2">
         🌌 مرحباً بك في المجرة — ابدأ رحلتك الآن!
       </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ IDEAS SECTION ══ -->
+<section class="section section--alt" id="ideas-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">💡 أفكارك تصنع الفرق</div>
+    <h2 class="section__title u-grad-gold">نشر فكرة جديدة</h2>
+    <p class="section__subtitle">شارك فكرتك مع العالم — AI يحللها ويصنفها ويمنحك 50 Coin فوراً</p>
+  </div>
+
+  <!-- نموذج نشر الفكرة -->
+  <div id="idea-form-wrap" class="card" style="max-width:600px;margin:0 auto 2rem">
+    <div style="font-weight:700;color:var(--c-gold);margin-bottom:1rem;font-size:.9rem">✍️ اكتب فكرتك</div>
+    <textarea class="input textarea" id="idea-text" placeholder="اكتب فكرتك هنا... كلما كانت أوضح كان تحليل AI أدق!" style="min-height:140px;margin-bottom:.7rem"></textarea>
+    <div style="display:flex;gap:.6rem;margin-bottom:.7rem;flex-wrap:wrap">
+      <select class="input select" id="idea-category" style="flex:1">
+        <option value="">🌌 اختر تصنيف الفكرة</option>
+        <option>💡 اقتصاد وأعمال</option>
+        <option>🎓 تعليم وأكاديمية</option>
+        <option>🩺 طب وصحة</option>
+        <option>🌱 بيئة واستدامة</option>
+        <option>🔬 علوم وتكنولوجيا</option>
+        <option>🎨 فنون وإبداع</option>
+        <option>💼 عمل وتوظيف</option>
+        <option>🌍 مجتمع وإنسانية</option>
+      </select>
+    </div>
+    <button class="btn btn--primary btn--full" id="idea-btn" onclick="submitIdea()">🚀 نشر الفكرة والحصول على +50 Coin</button>
+    <div id="idea-msg" style="margin-top:.8rem;text-align:center;font-size:.85rem"></div>
+    <div id="idea-result" style="display:none;margin-top:1rem"></div>
+  </div>
+
+  <!-- قائمة الأفكار -->
+  <div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.88rem">🌌 آخر الأفكار المنشورة</div>
+      <span id="ideas-count-badge" class="badge badge--gold">0 فكرة</span>
+    </div>
+    <div id="ideas-list" style="display:flex;flex-direction:column;gap:.75rem">
+      <div style="text-align:center;color:var(--t-muted);font-size:.85rem;padding:2rem">لا توجد أفكار بعد — كن الأول! 🌟</div>
     </div>
   </div>
 </div>
@@ -948,6 +999,148 @@ document.getElementById('mega-layers').innerHTML=[{n:'1',name:'الإنسان',c
 // ── SCROLL ANIMATIONS ──
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.animation='fade-up .5s ease both';e.target.style.opacity='1';}});},{threshold:.1});
 document.querySelectorAll('.card,.section__head').forEach(el=>{el.style.opacity='0';observer.observe(el);});
+</script>
+
+<!-- ══ IDEAS JS ══ -->
+<script>
+// ── نشر فكرة جديدة ──
+async function submitIdea() {
+  var user = firebase.auth().currentUser;
+  if (!user) {
+    toast('⚠️ سجّل الدخول أولاً لنشر فكرتك!');
+    goTo('auth-sec');
+    return;
+  }
+  var text = document.getElementById('idea-text').value.trim();
+  var category = document.getElementById('idea-category').value;
+  if (!text) { toast('⚠️ اكتب فكرتك أولاً!'); return; }
+  if (!category) { toast('⚠️ اختر تصنيف الفكرة!'); return; }
+
+  var btn = document.getElementById('idea-btn');
+  var msg = document.getElementById('idea-msg');
+  var res = document.getElementById('idea-result');
+  btn.classList.add('btn--loading');
+  btn.innerHTML = '<span class="spinner"></span> AI يحلل فكرتك...';
+  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ التحليل...</span>';
+  res.style.display = 'none';
+
+  try {
+    // تحليل AI
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: [{role: 'user', content: `حلل هذه الفكرة: "${text}" في مجال "${category}". أجب بـJSON فقط:
+{"score":85,"planet":"الكوكب المناسب مع إيموجي","brief":"وصف مختصر جملة","strength":"نقطة قوة رئيسية","suggestion":"اقتراح تحسين"}`}]
+      })
+    });
+    var data = await resp.json();
+    var raw = data.content.map(function(b){return b.text||'';}).join('');
+    var r = JSON.parse(raw.replace(/```json|```/g,'').trim());
+
+    // حفظ في Firestore
+    var ideaRef = db.collection('ideas').doc();
+    var now = firebase.firestore.FieldValue.serverTimestamp();
+    await ideaRef.set({
+      uid: user.uid,
+      email: user.email,
+      text: text,
+      category: category,
+      score: r.score,
+      planet: r.planet,
+      brief: r.brief,
+      strength: r.strength,
+      suggestion: r.suggestion,
+      createdAt: now,
+      votes: 0,
+      ideaId: ideaRef.id
+    });
+
+    // تحديث Coins وعداد الأفكار
+    await db.collection('users').doc(user.uid).update({
+      coins: firebase.firestore.FieldValue.increment(50),
+      ideas: firebase.firestore.FieldValue.increment(1)
+    });
+
+    // تحديث الواجهة
+    var coinsEl = document.getElementById('user-coins');
+    var dashCoins = document.getElementById('dash-coins');
+    var dashIdeas = document.getElementById('dash-ideas');
+    if (coinsEl) coinsEl.textContent = (parseInt((coinsEl.textContent||'0').replace(/,/g,'')) + 50).toLocaleString();
+    if (dashCoins) dashCoins.textContent = (parseInt((dashCoins.textContent||'0').replace(/,/g,'')) + 50).toLocaleString();
+    if (dashIdeas) dashIdeas.textContent = parseInt(dashIdeas.textContent||'0') + 1;
+
+    // عرض النتيجة
+    res.style.display = 'block';
+    res.innerHTML = `
+      <div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1.2rem;direction:rtl">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+          <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#0A0015">${r.score}</div>
+          <div>
+            <div style="color:var(--c-gold);font-weight:700">🪐 ${r.planet}</div>
+            <div style="color:var(--t-muted);font-size:.78rem">تقييم AI / 100</div>
+          </div>
+        </div>
+        <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.6rem;line-height:1.7">📝 ${r.brief}</div>
+        <div style="color:var(--c-green);font-size:.82rem;margin-bottom:.4rem">✅ ${r.strength}</div>
+        <div style="color:var(--c-gold);font-size:.82rem;background:rgba(245,200,66,.05);border-radius:8px;padding:.5rem .8rem">💡 ${r.suggestion}</div>
+        <div style="margin-top:.8rem;color:var(--c-green);font-weight:700;font-size:.88rem">🪙 +50 Impact Coin أضيفت لرصيدك!</div>
+      </div>`;
+
+    msg.innerHTML = '<span style="color:#10B981">🎉 تم نشر فكرتك بنجاح!</span>';
+    document.getElementById('idea-text').value = '';
+    document.getElementById('idea-category').value = '';
+    toast('🎉 فكرتك نُشرت وحصلت على 50 Coin!');
+
+    // تحديث قائمة الأفكار
+    loadIdeas();
+
+  } catch(e) {
+    console.error(e);
+    msg.innerHTML = '<span style="color:#EF4444">❌ حدث خطأ، حاول مجدداً</span>';
+  } finally {
+    btn.classList.remove('btn--loading');
+    btn.innerHTML = '🚀 نشر الفكرة والحصول على +50 Coin';
+  }
+}
+
+// ── تحميل قائمة الأفكار ──
+function loadIdeas() {
+  var list = document.getElementById('ideas-list');
+  var badge = document.getElementById('ideas-count-badge');
+  if (!list) return;
+
+  db.collection('ideas').orderBy('createdAt', 'desc').limit(10).get()
+    .then(function(snap) {
+      if (badge) badge.textContent = snap.size + ' فكرة';
+      if (snap.empty) {
+        list.innerHTML = '<div style="text-align:center;color:var(--t-muted);font-size:.85rem;padding:2rem">لا توجد أفكار بعد — كن الأول! 🌟</div>';
+        return;
+      }
+      list.innerHTML = snap.docs.map(function(doc) {
+        var d = doc.data();
+        var name = d.email ? d.email.split('@')[0] : 'مجهول';
+        return `<div style="background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:14px;padding:1.1rem;transition:all .25s ease" onmouseover="this.style.borderColor='rgba(245,200,66,.3)'" onmouseout="this.style.borderColor='var(--b-subtle)'">
+          <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem;flex-wrap:wrap">
+            <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:#0A0015;flex-shrink:0">${d.score||'?'}</div>
+            <div style="flex:1">
+              <div style="color:var(--c-gold);font-size:.8rem;font-weight:700">${d.planet||''}</div>
+              <div style="color:var(--t-muted);font-size:.7rem">${name} · ${d.category||''}</div>
+            </div>
+            <span style="background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:50px;padding:.15rem .55rem;font-size:.7rem;color:var(--c-gold)">${d.category||''}</span>
+          </div>
+          <div style="color:var(--t-primary);font-size:.85rem;line-height:1.6;direction:rtl">${d.text||''}</div>
+          ${d.brief ? `<div style="color:var(--t-secondary);font-size:.78rem;margin-top:.4rem;direction:rtl">🤖 ${d.brief}</div>` : ''}
+        </div>`;
+      }).join('');
+    })
+    .catch(function(e){ console.log('خطأ تحميل الأفكار:', e); });
+}
+
+// تحميل الأفكار عند بدء الصفحة
+window.addEventListener('load', function(){ setTimeout(loadIdeas, 2000); });
 </script>
 
 <!-- ══════════════════════════════
