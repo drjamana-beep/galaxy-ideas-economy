@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -877,15 +876,14 @@ document.querySelectorAll('.card,.section__head').forEach(el=>{el.style.opacity=
 </script>
 
 <!-- ══════════════════════════════
-   FIREBASE — compat v9.23 فقط ✅
-   تم حذف النسخة module المتعارضة
+   FIREBASE — compat v9.23 + Firestore ✅
 ══════════════════════════════ -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-// ── Firebase Init (مرة واحدة فقط) ──
+// ── Firebase + Firestore Init ──
 var firebaseConfig = {
   apiKey: "AIzaSyCjI7nrD8LTr72B7RNTOkJzTl1f3OTk3BU",
   authDomain: "ideagalaxy-84cfc.firebaseapp.com",
@@ -896,12 +894,34 @@ var firebaseConfig = {
   measurementId: "G-F363H71C2Y"
 };
 if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+var db = firebase.firestore();
+
+// ── تحميل بيانات المستخدم من Firestore ──
+function loadUserProfile(uid) {
+  db.collection('users').doc(uid).get().then(function(doc) {
+    if (doc.exists) {
+      var d = doc.data();
+      var nameEl  = document.getElementById('gid-name-display');
+      var idEl    = document.getElementById('gid-id-display');
+      var coinsEl = document.getElementById('user-coins');
+      var gs2     = document.getElementById('gs2');
+      var gs4     = document.getElementById('gs4');
+      if (nameEl)  nameEl.textContent  = d.email ? d.email.split('@')[0] : 'مستخدم المجرة';
+      if (idEl)    idEl.textContent    = d.galaxyId || '----';
+      if (coinsEl) coinsEl.textContent = (d.coins || 0).toLocaleString();
+      if (gs2)     gs2.textContent     = d.coins || 0;
+      if (gs4)     gs4.textContent     = (d.reputation || 10) + '%';
+      if (typeof toast === 'function') toast('👋 أهلاً ' + (d.email ? d.email.split('@')[0] : ''));
+    }
+  }).catch(function(e){ console.log('خطأ Firestore:', e); });
+}
 
 // ── مراقبة حالة الدخول ──
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     var msg = document.getElementById('auth-msg');
-    if (msg) msg.innerHTML = '<span style="color:#10B981">✅ مرحباً ' + (user.email || 'بك') + '</span>';
+    if (msg) msg.innerHTML = '<span style="color:#10B981">✅ مرحباً ' + user.email + '</span>';
+    loadUserProfile(user.uid);
   }
 });
 
@@ -918,12 +938,21 @@ function loginUser() {
   if (!email || !pass) { msg.innerHTML = '<span style="color:#EF4444">⚠️ أدخل البريد وكلمة المرور</span>'; return; }
   msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ الدخول...</span>';
   firebase.auth().signInWithEmailAndPassword(email, pass)
-    .then(function() {
+    .then(function(result) {
+      db.collection('users').doc(result.user.uid).update({
+        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+      }).catch(function(){});
       msg.innerHTML = '<span style="color:#10B981">✅ تم الدخول بنجاح!</span>';
       if (typeof toast === 'function') toast('✅ مرحباً بك في المجرة!');
+      loadUserProfile(result.user.uid);
     })
     .catch(function(e) {
-      var errors = {'auth/user-not-found':'البريد غير مسجل','auth/wrong-password':'كلمة المرور خاطئة','auth/invalid-email':'صيغة البريد غير صحيحة','auth/too-many-requests':'محاولات كثيرة، انتظر قليلاً'};
+      var errors = {
+        'auth/user-not-found':'البريد غير مسجل',
+        'auth/wrong-password':'كلمة المرور خاطئة',
+        'auth/invalid-login-credentials':'البريد أو كلمة المرور غير صحيحة',
+        'auth/too-many-requests':'محاولات كثيرة، انتظر قليلاً'
+      };
       msg.innerHTML = '<span style="color:#EF4444">❌ ' + (errors[e.code] || e.message) + '</span>';
     });
 }
@@ -936,12 +965,27 @@ function registerUser() {
   if (pass.length < 6) { msg.innerHTML = '<span style="color:#EF4444">⚠️ كلمة المرور 6 أحرف على الأقل</span>'; return; }
   msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ إنشاء الحساب...</span>';
   firebase.auth().createUserWithEmailAndPassword(email, pass)
+    .then(function(result) {
+      return db.collection('users').doc(result.user.uid).set({
+        email: email, uid: result.user.uid,
+        coins: 100, ideas: 0, votes: 0, reputation: 10,
+        level: 'مبتدئ', planet: '', type: '',
+        galaxyId: 'GAL-' + Date.now().toString().slice(-8),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    })
     .then(function() {
-      msg.innerHTML = '<span style="color:#10B981">🎉 تم إنشاء الحساب بنجاح!</span>';
+      var u = firebase.auth().currentUser;
+      msg.innerHTML = '<span style="color:#10B981">🎉 تم إنشاء الحساب وحفظ البيانات!</span>';
       if (typeof toast === 'function') toast('🎉 مرحباً بك في مجرة اقتصاد الأفكار!');
+      if (u) loadUserProfile(u.uid);
     })
     .catch(function(e) {
-      var errors = {'auth/email-already-in-use':'البريد مستخدم مسبقاً','auth/invalid-email':'صيغة البريد غير صحيحة','auth/weak-password':'كلمة المرور ضعيفة جداً'};
+      var errors = {
+        'auth/email-already-in-use':'البريد مستخدم مسبقاً',
+        'auth/weak-password':'كلمة المرور ضعيفة جداً'
+      };
       msg.innerHTML = '<span style="color:#EF4444">❌ ' + (errors[e.code] || e.message) + '</span>';
     });
 }
