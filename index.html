@@ -397,6 +397,7 @@ a{text-decoration:none}
     <button class="nav__link" onclick="goTo('launch-sec')" style="color:var(--c-gold);border-color:rgba(245,200,66,.3);background:rgba(245,200,66,.07)">🌟 انضم</button>
     <button class="nav__link" onclick="goTo('deals-sec')">🤝 الصفقات</button>
     <button class="nav__link" onclick="goTo('manifesto-sec')">🌌 رسالتنا</button>
+    <button class="nav__link" onclick="goTo('campaign-sec')" style="color:#FF6B6B;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.07);animation:crisis-pulse 3s ease-in-out infinite">🚀 الإطلاق</button>
     <button class="nav__link" onclick="goTo('charter-sec')">📜 الميثاق</button>
     <button class="nav__link" onclick="goTo('room-sec')">Live Room</button>
     <button class="nav__link" onclick="goTo('coins-sec')">Impact Coins</button>
@@ -461,6 +462,94 @@ a{text-decoration:none}
     <div class="hero__stat-divider"></div>
     <div class="stat-block"><div class="stat-block__num" id="s5">0</div><div class="stat-block__lbl">مستثمر</div></div>
   </div>
+</section>
+
+<!-- ══ LAUNCH CAMPAIGN ══ -->
+<section style="position:relative;z-index:1;padding:4rem var(--space-lg);background:linear-gradient(135deg,rgba(245,200,66,.08),rgba(109,40,217,.1),rgba(6,182,212,.06));border-top:1px solid rgba(245,200,66,.2);border-bottom:1px solid rgba(245,200,66,.2)" id="campaign-sec">
+<div style="max-width:900px;margin:0 auto;text-align:center">
+
+  <!-- شعار الحملة -->
+  <div style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:50px;padding:.4rem 1.2rem;margin-bottom:1.5rem;animation:crisis-pulse 2s ease-in-out infinite">
+    <div style="width:8px;height:8px;border-radius:50%;background:#FF6B6B;animation:live-dot 1s ease-in-out infinite"></div>
+    <span style="color:#FF6B6B;font-size:.8rem;font-weight:700">🚀 حملة الإطلاق — جارية الآن</span>
+  </div>
+
+  <h2 style="font-family:var(--f-display);font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem;background:linear-gradient(135deg,var(--c-gold),var(--c-pink),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.3">
+    المجرة تنطلق اليوم<br>كن جزءاً من التاريخ
+  </h2>
+
+  <p style="color:var(--t-secondary);font-size:1.05rem;line-height:1.8;max-width:650px;margin:0 auto 2rem">
+    في <strong style="color:var(--c-gold)">٢١ مايو ٢٠٢٦</strong> — أطلقت امرأة من الدمام منصة ستغير قواعد الاقتصاد العالمي.<br>
+    أفكارك تستحق أن تُسمع — وعائدها يستحق أن يكون لك وحدك.
+  </p>
+
+  <!-- عداد المؤسسين -->
+  <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap">
+    <div style="background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.3);border-radius:18px;padding:1.2rem 2rem;text-align:center">
+      <div id="campaign-founders" style="font-size:2.5rem;font-weight:900;color:var(--c-gold)">2</div>
+      <div style="color:var(--t-muted);font-size:.75rem">نجم مؤسس حتى الآن</div>
+    </div>
+    <div style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.3);border-radius:18px;padding:1.2rem 2rem;text-align:center">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-cyan)">998</div>
+      <div style="color:var(--t-muted);font-size:.75rem">مقعد مؤسس متبقٍ</div>
+    </div>
+    <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:18px;padding:1.2rem 2rem;text-align:center">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-green)">100%</div>
+      <div style="color:var(--t-muted);font-size:.75rem">عائدك من فكرتك</div>
+    </div>
+  </div>
+
+  <!-- أزرار الإطلاق -->
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem">
+    <button onclick="goTo('quick-idea')" class="btn btn--primary" style="font-size:1.05rem;padding:1rem 2.5rem;box-shadow:0 0 50px rgba(245,200,66,.5);animation:glow-gold 2s ease-in-out infinite">
+      💡 انشر فكرتك الأولى الآن
+    </button>
+    <button onclick="shareOn('whatsapp')" style="background:rgba(37,211,102,.1);border:1.5px solid rgba(37,211,102,.4);border-radius:50px;padding:1rem 2rem;color:#25D366;font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">
+      💬 شارك المجرة على واتساب
+    </button>
+  </div>
+
+  <!-- رسائل الإطلاق -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem">
+    <div style="background:rgba(8,0,16,.6);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🌍</div>
+      <div style="color:var(--c-gold);font-weight:700;font-size:.85rem;margin-bottom:.3rem">للمبتكرين</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.7">فكرتك تستحق أن تصل للعالم — انشرها مجاناً واحتفظ بكل عائدها</div>
+    </div>
+    <div style="background:rgba(8,0,16,.6);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">💰</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.85rem;margin-bottom:.3rem">للمستثمرين</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.7">استثمر في أفكار محللة وموثقة من 127 دولة — بشفافية كاملة</div>
+    </div>
+    <div style="background:rgba(8,0,16,.6);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🛠️</div>
+      <div style="color:var(--c-green);font-weight:700;font-size:.85rem;margin-bottom:.3rem">للمطورين</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.7">طوّر أفكار العالم واحصل على نسبة من عائدها مدى الحياة</div>
+    </div>
+    <div style="background:rgba(8,0,16,.6);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem;text-align:right">
+      <div style="font-size:1.5rem;margin-bottom:.4rem">🏥</div>
+      <div style="color:var(--c-pink);font-weight:700;font-size:.85rem;margin-bottom:.3rem">للمنظمات</div>
+      <div style="color:var(--t-muted);font-size:.78rem;line-height:1.7">منتجات بأسعار إنسانية — 10% فقط للجمعيات الخيرية</div>
+    </div>
+  </div>
+
+  <!-- الشعار الختامي -->
+  <div style="border-top:1px solid var(--b-subtle);padding-top:1.5rem">
+    <p style="font-family:var(--f-display);font-size:1.2rem;color:var(--c-gold);font-weight:700;margin-bottom:.5rem">
+      "كلما كنا أكثر — كان السعر أقل — والمستقبل أفضل"
+    </p>
+    <p style="color:var(--t-muted);font-size:.82rem">
+      انضم اليوم — وكن جزءاً من الحضارة القادمة 🌌
+    </p>
+    <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
+      <button onclick="shareOn('twitter')" style="background:rgba(29,161,242,.1);border:1px solid rgba(29,161,242,.3);border-radius:50px;padding:.4rem 1rem;color:#1DA1F2;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">🐦 X/Twitter</button>
+      <button onclick="shareOn('whatsapp')" style="background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:50px;padding:.4rem 1rem;color:#25D366;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">💬 واتساب</button>
+      <button onclick="shareOn('telegram')" style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.3);border-radius:50px;padding:.4rem 1rem;color:#0088cc;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">✈️ تيليغرام</button>
+      <button onclick="shareOn('linkedin')" style="background:rgba(0,119,181,.1);border:1px solid rgba(0,119,181,.3);border-radius:50px;padding:.4rem 1rem;color:#0077B5;font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">💼 لينكد إن</button>
+    </div>
+  </div>
+
+</div>
 </section>
 <!-- ══ MANIFESTO SECTION ══ -->
 <section class="section" id="manifesto-sec" style="background:radial-gradient(ellipse at 50% 0%,rgba(109,40,217,.1) 0%,transparent 70%)">
@@ -622,7 +711,7 @@ a{text-decoration:none}
       </div>
       <div style="font-size:4rem;animation:float-y 3s ease-in-out infinite;display:inline-block;filter:drop-shadow(0 0 20px rgba(245,200,66,.4))">💡</div>
       <h2 style="font-family:var(--f-display);font-size:clamp(1.8rem,4vw,2.8rem);margin:.5rem 0 .5rem;background:linear-gradient(135deg,var(--c-gold),var(--c-pink),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2">أتحفونا بأفكاركم</h2>
-      <p style="color:var(--t-secondary);font-size:1rem;line-height:1.7">كل فكرة هنا <strong style="color:var(--c-gold)">إرث للبشرية</strong> — انشرها واحتفظ بـ <strong style="color:var(--c-cyan)">80% من عائدها مدى الحياة</strong> 🌌</p>
+      <p style="color:var(--t-secondary);font-size:1rem;line-height:1.7">كل فكرة هنا <strong style="color:var(--c-gold)">إرث للبشرية</strong> — انشرها واحتفظ بـ <strong style="color:var(--c-cyan)">100% من عائدها مدى الحياة</strong> 🌌</p>
     </div>
 
     <!-- الصندوق الرئيسي -->
@@ -692,13 +781,13 @@ a{text-decoration:none}
   <div class="section__head">
     <div class="section__eyebrow">🤝 سوق الأفكار</div>
     <h2 class="section__title u-grad-gold">نظام الصفقات والاستثمار</h2>
-    <p class="section__subtitle">صاحب الفكرة يحتفظ بـ 80% — المطورون 20% — والمجرة تعيش من إيمانكم بها 🌌</p>
+    <p class="section__subtitle">صاحب الفكرة يحتفظ بـ 100% — المطورون 20% — والمجرة تعيش من إيمانكم بها 🌌</p>
   </div>
 
   <!-- توزيع العائد -->
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem">
     <div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1.5px solid rgba(245,200,66,.35);border-radius:18px;padding:1.5rem;text-align:center">
-      <div style="font-size:2.5rem;font-weight:900;color:var(--c-gold);margin-bottom:.3rem">80%</div>
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-gold);margin-bottom:.3rem">100%</div>
       <div style="color:var(--c-gold);font-weight:700;font-size:.9rem">💡 صاحب الفكرة</div>
       <div style="color:var(--t-muted);font-size:.76rem;margin-top:.3rem">مضمون دائماً ومدى الحياة</div>
     </div>
@@ -774,9 +863,10 @@ a{text-decoration:none}
     <div style="color:var(--c-gold);font-weight:800;font-size:1rem;margin-bottom:1.2rem;font-family:var(--f-display)">💡 نظام توزيع العائد — مدى الحياة</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
       <div style="background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.25);border-radius:14px;padding:1.2rem;text-align:center">
-        <div style="font-size:2rem;font-weight:900;color:var(--c-gold)">80%</div>
+        <div style="font-size:2rem;font-weight:900;color:var(--c-gold)">100%</div>
         <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin:.3rem 0">💡 صاحب الفكرة</div>
-        <div style="color:var(--t-muted);font-size:.75rem">مضمون دائماً ومدى الحياة — لا ينتهي أبداً</div>
+        <div style="color:var(--t-muted);font-size:.75rem">كامل 100% — قبل التطوير
+        <div style="font-size:.7rem;color:var(--c-cyan);margin-top:.2rem">⬇️ 80% بعد انضمام المطورين</div></div>
       </div>
       <div style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);border-radius:14px;padding:1.2rem;text-align:center">
         <div style="font-size:2rem;font-weight:900;color:var(--c-cyan)">20%</div>
@@ -956,7 +1046,7 @@ a{text-decoration:none}
     <div id="share-text" style="color:var(--t-secondary);font-size:.85rem;line-height:1.9;direction:rtl;font-family:var(--f-display)">
       🌌 اكتشفت شيئاً لم أره من قبل...<br><br>
       مجرة اقتصاد الأفكار — منصة تحوّل فكرتك إلى إرث مالي مدى الحياة.<br>
-      انشر فكرتك مجاناً — واحتفظ بـ 80% من عائدها إلى الأبد.<br>
+      انشر فكرتك مجاناً — واحتفظ بـ 100% من عائدها إلى الأبد.<br>
       الباب مفتوح للعالم — لا قيود — لا رسوم — للبشرية جمعاء.<br><br>
       كلما كنا أكثر — كان السعر أقل — والمستقبل أفضل 🌍<br><br>
       🔗 galaxy-ideas-economy.drjamana.workers.dev
@@ -1635,7 +1725,7 @@ function loadInvestIdeas() {
             <div style="color:var(--t-muted);font-size:.72rem">${name} · ${d.category||''}</div>
           </div>
           <div style="text-align:left">
-            <div style="color:var(--c-green);font-size:.75rem;font-weight:700">💡 صاحب الفكرة: 80%</div>
+            <div style="color:var(--c-green);font-size:.75rem;font-weight:700">💡 صاحب الفكرة: 100%</div>
             <div style="color:var(--c-cyan);font-size:.72rem">🛠️ المطورون: 20%</div>
           </div>
         </div>
@@ -2037,7 +2127,7 @@ function copyShareText() {
 
 function shareOn(platform) {
   var url = encodeURIComponent('https://galaxy-ideas-economy.drjamana.workers.dev/');
-  var text = encodeURIComponent('🌌 اكتشفت مجرة اقتصاد الأفكار — انشر فكرتك مجاناً واحتفظ بـ 80% من عائدها مدى الحياة! لا قيود — للبشرية جمعاء 🌍');
+  var text = encodeURIComponent('🌌 اكتشفت مجرة اقتصاد الأفكار — انشر فكرتك مجاناً واحتفظ بـ 100% من عائدها مدى الحياة! لا قيود — للبشرية جمعاء 🌍');
   var links = {
     twitter: 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url,
     whatsapp: 'https://wa.me/?text=' + text + '%20' + url,
@@ -2048,6 +2138,16 @@ function shareOn(platform) {
 }
 
 function loadFoundersCount() {
+  if (typeof db === 'undefined') return;
+  db.collection('users').get().then(function(snap) {
+    var count = snap.size;
+    var el1 = document.getElementById('founders-count');
+    var el2 = document.getElementById('campaign-founders');
+    if (el1) el1.textContent = count;
+    if (el2) el2.textContent = count;
+  }).catch(function(){});
+}
+
   if (typeof db === 'undefined') return;
   db.collection('users').get().then(function(snap) {
     var el = document.getElementById('founders-count');
