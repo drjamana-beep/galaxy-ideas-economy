@@ -727,9 +727,11 @@ a{text-decoration:none}
 <div class="section__inner">
   <div class="section__head">
     <div class="section__eyebrow">🔐 دخول آمن</div>
-    <h2 class="section__title u-grad-cyan">تسجيل الدخول / إنشاء حساب</h2>
+    <h2 class="section__title u-grad-cyan" id="auth-title">تسجيل الدخول / إنشاء حساب</h2>
   </div>
-  <div class="card" style="max-width:420px;margin:0 auto">
+
+  <!-- نموذج الدخول/التسجيل -->
+  <div id="auth-forms" class="card" style="max-width:420px;margin:0 auto">
     <div style="display:flex;gap:.5rem;margin-bottom:1.2rem">
       <button class="btn btn--primary" style="flex:1" onclick="showTab('login')">دخول</button>
       <button class="btn btn--secondary" style="flex:1" onclick="showTab('register')">حساب جديد</button>
@@ -745,6 +747,79 @@ a{text-decoration:none}
       <button class="btn btn--primary btn--full" onclick="registerUser()">🚀 إنشاء حساب</button>
     </div>
     <div id="auth-msg" style="margin-top:.8rem;text-align:center;font-size:.85rem"></div>
+  </div>
+
+  <!-- لوحة تحكم المستخدم — تظهر بعد الدخول -->
+  <div id="user-dashboard" style="display:none;animation:fade-up .5s ease">
+    <!-- بطاقة الملف الشخصي -->
+    <div style="background:linear-gradient(135deg,rgba(109,40,217,.15),rgba(6,182,212,.08));border:1px solid rgba(139,92,246,.35);border-radius:22px;padding:2rem;margin-bottom:1.2rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);animation:shimmer-move 5s ease-in-out infinite;pointer-events:none"></div>
+      <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <div id="dash-avatar" style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--c-gold),var(--c-purple));display:flex;align-items:center;justify-content:center;font-size:2rem;border:2px solid rgba(245,200,66,.4);flex-shrink:0">🧑‍🚀</div>
+        <div style="flex:1">
+          <div id="dash-name" style="font-size:1.2rem;font-weight:800;color:var(--c-gold)">مستخدم المجرة</div>
+          <div id="dash-email" style="font-size:.8rem;color:var(--t-muted);margin-top:.2rem">---</div>
+          <div id="dash-gid" style="font-family:monospace;font-size:.75rem;color:var(--c-purple-bright);margin-top:.3rem">GAL-ID: ---</div>
+        </div>
+        <button onclick="logoutUser()" style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#FCA5A5;border-radius:50px;padding:.4rem 1rem;font-size:.78rem;cursor:pointer;font-family:var(--f-body)">🚪 خروج</button>
+      </div>
+      <!-- إحصائيات -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem">
+        <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:.8rem .5rem;text-align:center">
+          <div id="dash-coins" style="font-size:1.3rem;font-weight:800;color:var(--c-gold)">0</div>
+          <div style="font-size:.68rem;color:var(--t-muted);margin-top:.1rem">🪙 Coins</div>
+        </div>
+        <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:.8rem .5rem;text-align:center">
+          <div id="dash-ideas" style="font-size:1.3rem;font-weight:800;color:var(--c-cyan)">0</div>
+          <div style="font-size:.68rem;color:var(--t-muted);margin-top:.1rem">💡 فكرة</div>
+        </div>
+        <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:.8rem .5rem;text-align:center">
+          <div id="dash-votes" style="font-size:1.3rem;font-weight:800;color:var(--c-green)">0</div>
+          <div style="font-size:.68rem;color:var(--t-muted);margin-top:.1rem">⭐ تصويت</div>
+        </div>
+        <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:.8rem .5rem;text-align:center">
+          <div id="dash-rep" style="font-size:1.3rem;font-weight:800;color:var(--c-pink)">10%</div>
+          <div style="font-size:.68rem;color:var(--t-muted);margin-top:.1rem">🏅 سمعة</div>
+        </div>
+      </div>
+      <!-- شريط السمعة -->
+      <div style="margin-top:1rem">
+        <div style="display:flex;justify-content:space-between;font-size:.75rem;color:var(--t-secondary);margin-bottom:.3rem">
+          <span>مستوى السمعة</span><span id="dash-level" style="color:var(--c-gold)">مبتدئ</span>
+        </div>
+        <div style="height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden">
+          <div id="dash-rep-bar" style="height:100%;width:10%;border-radius:3px;background:linear-gradient(90deg,var(--c-gold),var(--c-orange));transition:width 1s ease"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- أزرار سريعة -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-bottom:1.2rem">
+      <button onclick="goTo('gid-sec')" style="background:var(--c-purple-dim);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem;cursor:pointer;transition:all .25s ease;font-family:var(--f-body)" onmouseover="this.style.borderColor='var(--c-purple-bright)'" onmouseout="this.style.borderColor='var(--b-subtle)'">
+        <div style="font-size:1.5rem;margin-bottom:.3rem">🪪</div>
+        <div style="color:var(--c-purple-bright);font-size:.8rem;font-weight:700">Galaxy ID</div>
+      </button>
+      <button onclick="goTo('cert-sec')" style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:14px;padding:1rem;cursor:pointer;transition:all .25s ease;font-family:var(--f-body)" onmouseover="this.style.borderColor='var(--c-gold)'" onmouseout="this.style.borderColor='rgba(245,200,66,.2)'">
+        <div style="font-size:1.5rem;margin-bottom:.3rem">📜</div>
+        <div style="color:var(--c-gold);font-size:.8rem;font-weight:700">شهادة Galaxy</div>
+      </button>
+      <button onclick="goTo('room-sec')" style="background:rgba(236,72,153,.06);border:1px solid rgba(236,72,153,.2);border-radius:14px;padding:1rem;cursor:pointer;transition:all .25s ease;font-family:var(--f-body)" onmouseover="this.style.borderColor='var(--c-pink)'" onmouseout="this.style.borderColor='rgba(236,72,153,.2)'">
+        <div style="font-size:1.5rem;margin-bottom:.3rem">🎙️</div>
+        <div style="color:var(--c-pink);font-size:.8rem;font-weight:700">Live Room</div>
+      </button>
+      <button onclick="goTo('coins-sec')" style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:1rem;cursor:pointer;transition:all .25s ease;font-family:var(--f-body)" onmouseover="this.style.borderColor='var(--c-green)'" onmouseout="this.style.borderColor='rgba(16,185,129,.2)'">
+        <div style="font-size:1.5rem;margin-bottom:.3rem">🪙</div>
+        <div style="color:var(--c-green);font-size:.8rem;font-weight:700">Impact Coins</div>
+      </button>
+    </div>
+
+    <!-- آخر نشاط -->
+    <div style="background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:14px;padding:1rem">
+      <div style="color:var(--c-cyan);font-size:.84rem;font-weight:700;margin-bottom:.7rem">⚡ آخر نشاط</div>
+      <div id="dash-activity" style="color:var(--t-muted);font-size:.8rem;line-height:2">
+        🌌 مرحباً بك في المجرة — ابدأ رحلتك الآن!
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -901,19 +976,70 @@ function loadUserProfile(uid) {
   db.collection('users').doc(uid).get().then(function(doc) {
     if (doc.exists) {
       var d = doc.data();
+      var name = d.email ? d.email.split('@')[0] : 'مستخدم المجرة';
+
+      // ── تحديث Galaxy ID Card ──
       var nameEl  = document.getElementById('gid-name-display');
       var idEl    = document.getElementById('gid-id-display');
       var coinsEl = document.getElementById('user-coins');
       var gs2     = document.getElementById('gs2');
       var gs4     = document.getElementById('gs4');
-      if (nameEl)  nameEl.textContent  = d.email ? d.email.split('@')[0] : 'مستخدم المجرة';
+      if (nameEl)  nameEl.textContent  = name;
       if (idEl)    idEl.textContent    = d.galaxyId || '----';
       if (coinsEl) coinsEl.textContent = (d.coins || 0).toLocaleString();
       if (gs2)     gs2.textContent     = d.coins || 0;
       if (gs4)     gs4.textContent     = (d.reputation || 10) + '%';
-      if (typeof toast === 'function') toast('👋 أهلاً ' + (d.email ? d.email.split('@')[0] : ''));
+
+      // ── تحديث لوحة التحكم ──
+      var el = function(id){ return document.getElementById(id); };
+      if (el('dash-name'))    el('dash-name').textContent    = name;
+      if (el('dash-email'))   el('dash-email').textContent   = d.email || '';
+      if (el('dash-gid'))     el('dash-gid').textContent     = 'GAL-ID: ' + (d.galaxyId || '----');
+      if (el('dash-coins'))   el('dash-coins').textContent   = (d.coins || 0).toLocaleString();
+      if (el('dash-ideas'))   el('dash-ideas').textContent   = d.ideas || 0;
+      if (el('dash-votes'))   el('dash-votes').textContent   = d.votes || 0;
+      if (el('dash-rep'))     el('dash-rep').textContent     = (d.reputation || 10) + '%';
+      if (el('dash-level'))   el('dash-level').textContent   = d.level || 'مبتدئ';
+      if (el('dash-rep-bar')) el('dash-rep-bar').style.width = (d.reputation || 10) + '%';
+
+      // ── إظهار لوحة التحكم وإخفاء النموذج ──
+      showDashboard();
+
+      if (typeof toast === 'function') toast('👋 أهلاً ' + name + '!');
     }
   }).catch(function(e){ console.log('خطأ Firestore:', e); });
+}
+
+// ── إظهار/إخفاء لوحة التحكم ──
+function showDashboard() {
+  var forms = document.getElementById('auth-forms');
+  var dash  = document.getElementById('user-dashboard');
+  var title = document.getElementById('auth-title');
+  if (forms) forms.style.display = 'none';
+  if (dash)  dash.style.display  = 'block';
+  if (title) title.textContent   = 'لوحة التحكم';
+}
+
+function showAuthForms() {
+  var forms = document.getElementById('auth-forms');
+  var dash  = document.getElementById('user-dashboard');
+  var title = document.getElementById('auth-title');
+  if (forms) forms.style.display = 'block';
+  if (dash)  dash.style.display  = 'none';
+  if (title) title.textContent   = 'تسجيل الدخول / إنشاء حساب';
+}
+
+// ── تسجيل الخروج ──
+function logoutUser() {
+  firebase.auth().signOut().then(function() {
+    showAuthForms();
+    if (typeof toast === 'function') toast('👋 تم تسجيل الخروج');
+    // إعادة تعيين Galaxy ID Card
+    var nameEl  = document.getElementById('gid-name-display');
+    var idEl    = document.getElementById('gid-id-display');
+    if (nameEl) nameEl.textContent = 'مستخدم المجرة';
+    if (idEl)   idEl.textContent   = '◆◆◆◆-◆◆◆◆-◆◆◆◆';
+  });
 }
 
 // ── مراقبة حالة الدخول ──
@@ -922,6 +1048,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     var msg = document.getElementById('auth-msg');
     if (msg) msg.innerHTML = '<span style="color:#10B981">✅ مرحباً ' + user.email + '</span>';
     loadUserProfile(user.uid);
+  } else {
+    showAuthForms();
   }
 });
 
