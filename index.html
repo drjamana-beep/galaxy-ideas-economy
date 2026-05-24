@@ -377,7 +377,7 @@ a{text-decoration:none}
   <div class="nav__brand">🌌 مجرة اقتصاد الأفكار</div>
   <div class="nav__links">
     <button class="nav__link nav__link--active" onclick="goTo('hero')">الرئيسية</button>
-    <button class="nav__link" onclick="goTo('reg-sec')">التسجيل</button>
+    <button class="nav__link" id="nav-auth-btn" onclick="goTo('auth-sec')">التسجيل</button>
     <button class="nav__link" onclick="goTo('gid-sec')">Galaxy ID</button>
     <button class="nav__link" onclick="goTo('coins-sec')">Impact Coins</button>
     <button class="nav__link" onclick="goTo('room-sec')">Live Room</button>
@@ -389,7 +389,7 @@ a{text-decoration:none}
     <button class="nav__link" onclick="goTo('crisis-sec')">🚨 الأزمات</button>
     <button class="nav__link" onclick="goTo('tech-sec')">التقنية</button>
   </div>
-  <button class="nav__cta" onclick="goTo('gid-sec')">🚀 ابدأ الآن</button>
+  <button class="nav__cta" id="nav-cta-btn" onclick="handleNavCTA()">🚀 ابدأ الآن</button>
 </nav>
 <section class="hero" id="hero">
   <div class="hero__badge"><div class="hero__badge-dot"></div>منصة حضارية رقمية عالمية — V10 Production</div>
@@ -1004,6 +1004,7 @@ function loadUserProfile(uid) {
 
       // ── إظهار لوحة التحكم وإخفاء النموذج ──
       showDashboard();
+      updateNavForUser(name);
 
       if (typeof toast === 'function') toast('👋 أهلاً ' + name + '!');
     }
@@ -1029,10 +1030,50 @@ function showAuthForms() {
   if (title) title.textContent   = 'تسجيل الدخول / إنشاء حساب';
 }
 
+// ── تحديث شريط التنقل ──
+function updateNavForUser(name) {
+  var authBtn = document.getElementById('nav-auth-btn');
+  var ctaBtn  = document.getElementById('nav-cta-btn');
+  if (authBtn) {
+    authBtn.textContent = '👤 ' + name;
+    authBtn.onclick = function(){ goTo('auth-sec'); };
+    authBtn.style.color = 'var(--c-gold)';
+    authBtn.style.borderColor = 'rgba(245,200,66,.3)';
+    authBtn.style.background = 'rgba(245,200,66,.07)';
+  }
+  if (ctaBtn) {
+    ctaBtn.textContent = '🌌 لوحتي';
+    ctaBtn.onclick = function(){ goTo('auth-sec'); };
+  }
+}
+
+function resetNav() {
+  var authBtn = document.getElementById('nav-auth-btn');
+  var ctaBtn  = document.getElementById('nav-cta-btn');
+  if (authBtn) {
+    authBtn.textContent = 'التسجيل';
+    authBtn.onclick = function(){ goTo('auth-sec'); };
+    authBtn.style.color = '';
+    authBtn.style.borderColor = '';
+    authBtn.style.background = '';
+  }
+  if (ctaBtn) {
+    ctaBtn.textContent = '🚀 ابدأ الآن';
+    ctaBtn.onclick = function(){ goTo('gid-sec'); };
+  }
+}
+
+function handleNavCTA() {
+  var user = firebase.auth().currentUser;
+  if (user) { goTo('auth-sec'); }
+  else      { goTo('gid-sec'); }
+}
+
 // ── تسجيل الخروج ──
 function logoutUser() {
   firebase.auth().signOut().then(function() {
     showAuthForms();
+    resetNav();
     if (typeof toast === 'function') toast('👋 تم تسجيل الخروج');
     // إعادة تعيين Galaxy ID Card
     var nameEl  = document.getElementById('gid-name-display');
