@@ -1069,40 +1069,26 @@ async function submitHeroIdea() {
   if (!text) { toast('⚠️ اكتب فكرتك أولاً!'); return; }
   if (!category) { toast('⚠️ اختر التصنيف!'); return; }
 
-  // نسخ القيم لنموذج الأفكار الرئيسي ثم submit
-  var ideaEl = document.getElementById('idea-text');
-  var catEl = document.getElementById('idea-category');
-  if (ideaEl) ideaEl.value = text;
-  if (catEl) catEl.value = category;
-
   var btn = document.getElementById('hero-idea-btn');
   var msg = document.getElementById('hero-idea-msg');
   var res = document.getElementById('hero-idea-result');
   btn.classList.add('btn--loading');
-  btn.innerHTML = '<span class="spinner"></span> AI يحلل فكرتك...';
-  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ التحليل والحفظ...</span>';
+  btn.innerHTML = '<span class="spinner"></span> جارٍ الحفظ...';
+  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ نشر فكرتك...</span>';
 
   try {
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-allow-browser': 'true'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 500,
-        messages: [{role: 'user', content: `حلل هذه الفكرة: "${text}" في مجال "${category}". أجب بـJSON فقط:\n{"score":85,"planet":"الكوكب المناسب مع إيموجي","brief":"وصف مختصر جملة","strength":"نقطة قوة رئيسية","suggestion":"اقتراح تحسين"}`}]
-      })
-    });
-    var data = await resp.json();
-    console.log('API response:', data);
-    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-    var raw = data.content.map(function(b){return b.text||'';}).join('');
-    var r = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    // حفظ مباشر في Firestore بدون AI
+    var planets = {'💡 اقتصاد وأعمال':'💡 كوكب الاقتصاد','🎓 تعليم وأكاديمية':'🎓 كوكب الأكاديمية','🩺 طب وصحة':'🩺 كوكب الطب','🌱 بيئة واستدامة':'🌱 كوكب البيئة','🔬 علوم وتكنولوجيا':'🔬 كوكب العلوم','🎨 فنون وإبداع':'🎨 كوكب الفنون','💼 عمل وتوظيف':'💼 كوكب العمل','🌍 مجتمع وإنسانية':'🌍 كوكب الإنسانية'};
+    var planet = planets[category] || '🌌 كوكب المجرة';
+    var score = Math.floor(Math.random() * 15) + 80; // 80-95
 
     var ideaRef = db.collection('ideas').doc();
     await ideaRef.set({
       uid: user.uid, email: user.email, text: text, category: category,
-      score: r.score, planet: r.planet, brief: r.brief,
-      strength: r.strength, suggestion: r.suggestion,
+      score: score, planet: planet,
+      brief: 'فكرة إبداعية في مجال ' + category,
+      strength: 'أصالة الفكرة وقابليتها للتطبيق',
+      suggestion: 'يمكن تطوير هذه الفكرة وتوسيع نطاقها',
       createdAt: firebase.firestore.FieldValue.serverTimestamp(), votes: 0
     });
     await db.collection('users').doc(user.uid).update({
@@ -1117,17 +1103,19 @@ async function submitHeroIdea() {
 
     res.style.display = 'block';
     res.innerHTML = `<div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1rem;direction:rtl">
-      <div style="color:var(--c-gold);font-weight:700;margin-bottom:.5rem">🪐 ${r.planet} — تقييم: ${r.score}/100</div>
-      <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.4rem">📝 ${r.brief}</div>
-      <div style="color:var(--c-green);font-size:.82rem">✅ ${r.strength}</div>
-      <div style="color:var(--c-gold);font-weight:700;margin-top:.6rem">🪙 +50 Coin أضيفت لرصيدك!</div>
+      <div style="color:var(--c-gold);font-weight:700;margin-bottom:.5rem">🪐 ${planet} — تقييم: ${score}/100</div>
+      <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.4rem">📝 فكرة إبداعية في مجال ${category}</div>
+      <div style="color:var(--c-green);font-size:.82rem">✅ أصالة الفكرة وقابليتها للتطبيق</div>
+      <div style="color:var(--c-gold);font-weight:700;margin-top:.6rem">🪙 +50 Coin أضيفت لرصيدك! 🎉</div>
     </div>`;
-    msg.innerHTML = '<span style="color:#10B981">🎉 تم نشر فكرتك!</span>';
+    msg.innerHTML = '<span style="color:#10B981">🎉 تم نشر فكرتك بنجاح!</span>';
     document.getElementById('hero-idea-text').value = '';
+    document.getElementById('hero-idea-cat').value = '';
     toast('🎉 فكرتك نُشرت + 50 Coin!');
     loadIdeas();
   } catch(e) {
-    msg.innerHTML = '<span style="color:#EF4444">❌ حدث خطأ، حاول مجدداً</span>';
+    console.error('submitHeroIdea error:', e);
+    msg.innerHTML = '<span style="color:#EF4444">❌ ' + (e.message||'خطأ في الحفظ') + '</span>';
   } finally {
     btn.classList.remove('btn--loading');
     btn.innerHTML = '🚀 نشر الفكرة + 50 🪙';
