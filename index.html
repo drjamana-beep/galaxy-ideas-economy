@@ -1536,13 +1536,68 @@ async function submitIdea() {
   }
 }
 
+// ── نظام التصويت والتقييم ──
+function voteIdea(ideaId) {
+  var user = firebase.auth().currentUser;
+  if (!user) { toast('⚠️ سجّل الدخول للتصويت!'); goTo('auth-sec'); return; }
+
+  var voteRef = db.collection('votes').doc(ideaId + '_' + user.uid);
+  voteRef.get().then(function(doc) {
+    if (doc.exists) { toast('✅ صوّتت على هذه الفكرة مسبقاً!'); return; }
+    var batch = db.batch();
+    batch.set(voteRef, { uid: user.uid, ideaId: ideaId, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    batch.update(db.collection('ideas').doc(ideaId), { votes: firebase.firestore.FieldValue.increment(1) });
+    batch.update(db.collection('users').doc(user.uid), { votes: firebase.firestore.FieldValue.increment(1), coins: firebase.firestore.FieldValue.increment(5) });
+    return batch.commit();
+  }).then(function() {
+    var el = document.getElementById('votes-' + ideaId);
+    if (el) el.textContent = parseInt(el.textContent||'0') + 1;
+    toast('👍 تم تصويتك! +5 Coins 🪙');
+    addNotification('offer', '👍 صوّتت على فكرة جديدة وكسبت 5 Coins!', ideaId);
+  }).catch(function(e){ if(e) console.log(e); });
+}
+
+function rateidea(ideaId, stars) {
+  var user = firebase.auth().currentUser;
+  if (!user) { toast('⚠️ سجّل الدخول للتقييم!'); goTo('auth-sec'); return; }
+
+  var rateRef = db.collection('ratings').doc(ideaId + '_' + user.uid);
+  rateRef.get().then(function(doc) {
+    if (doc.exists) { toast('⭐ قيّمت هذه الفكرة مسبقاً!'); return; }
+    var batch = db.batch();
+    batch.set(rateRef, { uid: user.uid, ideaId: ideaId, stars: stars, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+    batch.update(db.collection('ideas').doc(ideaId), { stars: stars });
+    return batch.commit();
+  }).then(function() {
+    toast('⭐ شكراً على تقييمك ' + stars + '/5!');
+  }).catch(function(e){ if(e) console.log(e); });
+}
+
+function shareIdea(ideaId) {
+  var url = window.location.href.split('#')[0] + '#ideas-sec';
+  if (navigator.share) {
+    navigator.share({ title: 'فكرة في مجرة اقتصاد الأفكار 🌌', url: url });
+  } else {
+    navigator.clipboard.writeText(url).then(function(){ toast('✅ تم نسخ الرابط!'); });
+  }
+}
+
+// ── قائمة أفضل الأفكار ──
+function loadTopIdeas() {
+  db.collection('ideas').orderBy('votes','desc').limit(5).get().then(function(snap) {
+    if (snap.empty) return;
+    var top = snap.docs[0].data();
+    if (top) toast('🏆 أكثر فكرة تأييداً: ' + (top.text||'').substring(0,30) + '...');
+  }).catch(function(){});
+}
+
 // ── تحميل قائمة الأفكار ──
 function loadIdeas() {
   var list = document.getElementById('ideas-list');
   var badge = document.getElementById('ideas-count-badge');
   if (!list) return;
 
-  db.collection('ideas').orderBy('createdAt', 'desc').limit(10).get()
+  db.collection('ideas').orderBy('votes', 'desc').limit(10).get()
     .then(function(snap) {
       if (badge) badge.textContent = snap.size + ' فكرة';
       if (snap.empty) {
@@ -1552,6 +1607,10 @@ function loadIdeas() {
       list.innerHTML = snap.docs.map(function(doc) {
         var d = doc.data();
         var name = d.email ? d.email.split('@')[0] : 'مجهول';
+        var voteCount = d.votes || 0;
+        var stars = d.stars || 0;
+        var starsHtml = '';
+        for(var s=1;s<=5;s++) starsHtml += `<span onclick="rateidea('${doc.id}',${s})" style="cursor:pointer;font-size:1rem;color:${s<=stars?'#F5C842':'#3D2E5A'};transition:color .2s"">★</span>`;
         return `<div style="background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:14px;padding:1.1rem;transition:all .25s ease" onmouseover="this.style.borderColor='rgba(245,200,66,.3)'" onmouseout="this.style.borderColor='var(--b-subtle)'">
           <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem;flex-wrap:wrap">
             <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;color:#0A0015;flex-shrink:0">${d.score||'?'}</div>
@@ -1561,8 +1620,16 @@ function loadIdeas() {
             </div>
             <span style="background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);border-radius:50px;padding:.15rem .55rem;font-size:.7rem;color:var(--c-gold)">${d.category||''}</span>
           </div>
-          <div style="color:var(--t-primary);font-size:.85rem;line-height:1.6;direction:rtl">${d.text||''}</div>
-          ${d.brief ? `<div style="color:var(--t-secondary);font-size:.78rem;margin-top:.4rem;direction:rtl">🤖 ${d.brief}</div>` : ''}
+          <div style="color:var(--t-primary);font-size:.85rem;line-height:1.6;direction:rtl;margin-bottom:.7rem">${d.text||''}</div>
+          ${d.brief ? `<div style="color:var(--t-secondary);font-size:.78rem;margin-top:.4rem;direction:rtl;margin-bottom:.7rem">🤖 ${d.brief}</div>` : ''}
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;border-top:1px solid var(--b-subtle);padding-top:.6rem">
+            <div style="display:flex;align-items:center;gap:.4rem">
+              <button onclick="voteIdea('${doc.id}')" style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:50px;padding:.25rem .7rem;color:var(--c-green);font-size:.75rem;font-weight:700;cursor:pointer;font-family:var(--f-body);transition:all .2s ease" onmouseover="this.style.background='rgba(16,185,129,.2)'" onmouseout="this.style.background='rgba(16,185,129,.08)'">👍 أؤيد</button>
+              <span id="votes-${doc.id}" style="color:var(--c-green);font-size:.75rem;font-weight:700">${voteCount}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:.2rem">${starsHtml}<span style="color:var(--t-muted);font-size:.7rem;margin-right:.3rem">(${stars>0?stars+'/5':'قيّم'})</span></div>
+            <button onclick="shareIdea('${doc.id}')" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.2);border-radius:50px;padding:.25rem .7rem;color:var(--c-purple-bright);font-size:.75rem;cursor:pointer;font-family:var(--f-body)">↗ شارك</button>
+          </div>
         </div>`;
       }).join('');
     })
@@ -1570,7 +1637,7 @@ function loadIdeas() {
 }
 
 // تحميل الأفكار عند بدء الصفحة
-window.addEventListener('load', function(){ setTimeout(loadIdeas, 2000); });
+window.addEventListener('load', function(){ setTimeout(loadIdeas, 2000); setTimeout(loadTopIdeas, 4000); });
 
 // ── تحميل بيانات المستخدم من Firestore ──
 function loadUserProfile(uid) {
