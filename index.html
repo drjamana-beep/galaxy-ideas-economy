@@ -387,6 +387,7 @@ a{text-decoration:none}
     <button class="nav__link" onclick="goTo('amb-sec')">السفراء</button>
     <button class="nav__link" onclick="goTo('api-sec')">API</button>
     <button class="nav__link" onclick="goTo('ideas-sec')">💡 الأفكار</button>
+    <button class="nav__link" onclick="goTo('deals-sec')">🤝 الصفقات</button>
     <button class="nav__link" onclick="goTo('crisis-sec')">🚨 الأزمات</button>
     <button class="nav__link" onclick="goTo('tech-sec')">التقنية</button>
   </div>
@@ -929,6 +930,81 @@ a{text-decoration:none}
 </div>
 </section>
 
+
+<!-- ══ DEALS SECTION ══ -->
+<section class="section" id="deals-sec">
+<div class="section__inner">
+  <div class="section__head">
+    <div class="section__eyebrow">🤝 سوق الأفكار</div>
+    <h2 class="section__title u-grad-gold">نظام الصفقات والاستثمار</h2>
+    <p class="section__subtitle">صاحب الفكرة يحتفظ بـ 80% — المطورون 20% — والمجرة تعيش من إيمانكم بها 🌌</p>
+  </div>
+
+  <!-- توزيع العائد -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:2rem">
+    <div style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1.5px solid rgba(245,200,66,.35);border-radius:18px;padding:1.5rem;text-align:center">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-gold);margin-bottom:.3rem">80%</div>
+      <div style="color:var(--c-gold);font-weight:700;font-size:.9rem">💡 صاحب الفكرة</div>
+      <div style="color:var(--t-muted);font-size:.76rem;margin-top:.3rem">مضمون دائماً ومدى الحياة</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(6,182,212,.1),rgba(16,185,129,.06));border:1.5px solid rgba(6,182,212,.35);border-radius:18px;padding:1.5rem;text-align:center">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-cyan);margin-bottom:.3rem">20%</div>
+      <div style="color:var(--c-cyan);font-weight:700;font-size:.9rem">🛠️ المطورون</div>
+      <div style="color:var(--t-muted);font-size:.76rem;margin-top:.3rem">إن وجدوا — يُوزَّع بالتراضي</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(109,40,217,.06));border:1.5px solid rgba(16,185,129,.35);border-radius:18px;padding:1.5rem;text-align:center">
+      <div style="font-size:2.5rem;font-weight:900;color:var(--c-green);margin-bottom:.3rem">🤲</div>
+      <div style="color:var(--c-green);font-weight:700;font-size:.9rem">🌌 صندوق المجرة</div>
+      <div style="color:var(--t-muted);font-size:.76rem;margin-top:.3rem">تبرع طوعي من القلب</div>
+    </div>
+  </div>
+
+  <!-- تبويبات -->
+  <div style="display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
+    <button class="btn btn--primary btn--sm" onclick="showDealsTab('invest')">💰 استثمر في فكرة</button>
+    <button class="btn btn--ghost btn--sm" onclick="showDealsTab('mydeals')">📋 عروض على أفكاري</button>
+    <button class="btn btn--ghost btn--sm" onclick="showDealsTab('donate')">🤲 تبرع طوعي</button>
+  </div>
+
+  <!-- تبويب: استثمر في فكرة -->
+  <div id="tab-invest" style="animation:fade-up .4s ease">
+    <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin-bottom:1rem">💡 أفكار مفتوحة للاستثمار</div>
+    <div id="invest-ideas-list">
+      <div style="text-align:center;color:var(--t-muted);padding:2rem">جارٍ تحميل الأفكار... 🌌</div>
+    </div>
+  </div>
+
+  <!-- تبويب: عروض على أفكاري -->
+  <div id="tab-mydeals" style="display:none;animation:fade-up .4s ease">
+    <div id="my-deals-list">
+      <div style="text-align:center;color:var(--t-muted);padding:2rem">سجّل الدخول لرؤية العروض على أفكارك 🔐</div>
+    </div>
+  </div>
+
+  <!-- تبويب: تبرع طوعي -->
+  <div id="tab-donate" style="display:none;animation:fade-up .4s ease">
+    <div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid rgba(16,185,129,.25);border-radius:18px;padding:2rem;text-align:center">
+      <div style="font-size:3rem;margin-bottom:.8rem">🌌</div>
+      <div style="color:var(--c-green);font-weight:800;font-size:1.1rem;font-family:var(--f-display);margin-bottom:.5rem">ساهم في استمرار المجرة</div>
+      <div style="color:var(--t-secondary);font-size:.88rem;margin-bottom:1.5rem;line-height:1.8">المجرة مجانية للجميع — إن آمنت بها وبرسالتها<br>ساهم بما تشاء من القلب 💚</div>
+      <div style="display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-bottom:1rem">
+        <button class="btn btn--ghost" onclick="donate(5)" style="color:var(--c-green);border-color:rgba(16,185,129,.3)">$5 ☕</button>
+        <button class="btn btn--ghost" onclick="donate(10)" style="color:var(--c-green);border-color:rgba(16,185,129,.3)">$10 🌱</button>
+        <button class="btn btn--ghost" onclick="donate(25)" style="color:var(--c-green);border-color:rgba(16,185,129,.3)">$25 🌟</button>
+        <button class="btn btn--ghost" onclick="donate(50)" style="color:var(--c-green);border-color:rgba(16,185,129,.3)">$50 🚀</button>
+        <button class="btn btn--ghost" onclick="donate(100)" style="color:var(--c-gold);border-color:rgba(245,200,66,.3)">$100 💎</button>
+      </div>
+      <div style="color:var(--t-muted);font-size:.78rem">أو أدخل مبلغاً من اختيارك</div>
+      <div style="display:flex;gap:.5rem;max-width:300px;margin:.8rem auto 0">
+        <input class="input" id="donate-amount" placeholder="المبلغ بالدولار" type="number" style="flex:1"/>
+        <button class="btn btn--primary" onclick="donate()">تبرع 🤲</button>
+      </div>
+      <div id="donate-msg" style="margin-top:.8rem;font-size:.85rem"></div>
+    </div>
+  </div>
+
+</div>
+</section>
 <footer class="footer">
   <div class="footer__logo">🌌</div>
   <p class="footer__quote">"سيروا على نهجنا.. ليسير على نهجكم أجيالٌ تتلو أجيالاً"</p>
@@ -953,6 +1029,91 @@ a{text-decoration:none}
 // ═══════════════════════════════════════
 // GALAXY V10 — PRODUCTION JS
 // ═══════════════════════════════════════
+
+// ── DEALS SYSTEM ──
+function showDealsTab(tab) {
+  ['invest','mydeals','donate'].forEach(t => {
+    var el = document.getElementById('tab-' + t);
+    if (el) el.style.display = t === tab ? 'block' : 'none';
+  });
+  if (tab === 'invest') loadInvestIdeas();
+  if (tab === 'mydeals') loadMyDeals();
+}
+
+function loadInvestIdeas() {
+  var list = document.getElementById('invest-ideas-list');
+  if (!list || typeof db === 'undefined') return;
+  db.collection('ideas').orderBy('createdAt','desc').limit(8).get().then(function(snap) {
+    if (snap.empty) { list.innerHTML = '<div style="text-align:center;color:var(--t-muted);padding:2rem">لا توجد أفكار بعد 🌟</div>'; return; }
+    list.innerHTML = snap.docs.map(function(doc) {
+      var d = doc.data();
+      var name = d.email ? d.email.split('@')[0] : 'مجهول';
+      return `<div style="background:var(--bg-elevated);border:1px solid var(--b-subtle);border-radius:14px;padding:1.2rem;margin-bottom:.75rem;transition:all .25s ease" onmouseover="this.style.borderColor='rgba(245,200,66,.3)'" onmouseout="this.style.borderColor='var(--b-subtle)'">
+        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem;flex-wrap:wrap">
+          <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#0A0015;flex-shrink:0">${d.score||'?'}</div>
+          <div style="flex:1">
+            <div style="color:var(--c-gold);font-size:.85rem;font-weight:700">${d.planet||''}</div>
+            <div style="color:var(--t-muted);font-size:.72rem">${name} · ${d.category||''}</div>
+          </div>
+          <div style="text-align:left">
+            <div style="color:var(--c-green);font-size:.75rem;font-weight:700">💡 صاحب الفكرة: 80%</div>
+            <div style="color:var(--c-cyan);font-size:.72rem">🛠️ المطورون: 20%</div>
+          </div>
+        </div>
+        <div style="color:var(--t-primary);font-size:.85rem;line-height:1.6;direction:rtl;margin-bottom:.8rem">${d.text||''}</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button onclick="makeOffer('${doc.id}','${name}')" style="background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1px solid rgba(245,200,66,.3);border-radius:50px;padding:.4rem 1rem;color:var(--c-gold);font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">💰 قدّم عرضاً</button>
+          <button onclick="joinDevelop('${doc.id}')" style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);border-radius:50px;padding:.4rem 1rem;color:var(--c-cyan);font-size:.78rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">🛠️ انضم كمطوّر</button>
+        </div>
+      </div>`;
+    }).join('');
+  }).catch(function(e){ console.log(e); });
+}
+
+function makeOffer(ideaId, ownerName) {
+  var user = firebase.auth().currentUser;
+  if (!user) { toast('⚠️ سجّل الدخول أولاً!'); goTo('auth-sec'); return; }
+  var amount = prompt('💰 أدخل قيمة عرضك بالدولار:');
+  if (!amount || isNaN(amount)) return;
+  db.collection('offers').add({
+    ideaId: ideaId, investorId: user.uid, investorEmail: user.email,
+    ownerName: ownerName, amount: parseFloat(amount),
+    distribution: { owner: 80, developers: 20, galaxy: 'طوعي' },
+    status: 'pending', createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    toast('✅ تم إرسال عرضك! سيصلك رد قريباً 🎉');
+  }).catch(function(e){ toast('❌ حدث خطأ: ' + e.message); });
+}
+
+function joinDevelop(ideaId) {
+  var user = firebase.auth().currentUser;
+  if (!user) { toast('⚠️ سجّل الدخول أولاً!'); goTo('auth-sec'); return; }
+  db.collection('developers').add({
+    ideaId: ideaId, devId: user.uid, devEmail: user.email,
+    status: 'pending', createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  }).then(function() {
+    toast('✅ تم تسجيلك كمطوّر! سيتواصل معك صاحب الفكرة 🛠️');
+  }).catch(function(e){ toast('❌ حدث خطأ'); });
+}
+
+function loadMyDeals() {
+  var user = firebase.auth().currentUser;
+  var list = document.getElementById('my-deals-list');
+  if (!user) { if(list) list.innerHTML = '<div style="text-align:center;color:var(--t-muted);padding:2rem">سجّل الدخول لرؤية العروض 🔐</div>'; return; }
+  db.collection('offers').where('ideaId','in',['placeholder']).get().then(function(){}).catch(function(){});
+  if(list) list.innerHTML = '<div style="text-align:center;color:var(--t-muted);padding:2rem">لا توجد عروض بعد — انشر فكرتك أولاً! 💡</div>';
+}
+
+function donate(amount) {
+  var val = amount || document.getElementById('donate-amount').value;
+  if (!val) { toast('⚠️ أدخل المبلغ'); return; }
+  var msg = document.getElementById('donate-msg');
+  if(msg) msg.innerHTML = '<span style="color:var(--c-green)">💚 شكراً من قلب المجرة! تبرعك $' + val + ' يُضيء طريق الأفكار 🌌</span>';
+  toast('💚 شكراً على تبرعك $' + val + '!');
+}
+
+// تحميل أفكار الاستثمار عند فتح الصفحة
+window.addEventListener('load', function(){ setTimeout(function(){ if(typeof db !== 'undefined') loadInvestIdeas(); }, 3000); });
 
 // ── STARS ──
 (function(){
