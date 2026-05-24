@@ -1034,8 +1034,28 @@ const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isInt
 document.querySelectorAll('.card,.section__head').forEach(el=>{el.style.opacity='0';observer.observe(el);});
 </script>
 
-<!-- ══ IDEAS JS ══ -->
+<!-- ══════════════════════════════
+   FIREBASE — compat v9.23 + Firestore ✅
+══════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
 <script>
+// ── Firebase + Firestore Init ──
+var firebaseConfig = {
+  apiKey: "AIzaSyCjI7nrD8LTr72B7RNTOkJzTl1f3OTk3BU",
+  authDomain: "ideagalaxy-84cfc.firebaseapp.com",
+  projectId: "ideagalaxy-84cfc",
+  storageBucket: "ideagalaxy-84cfc.firebasestorage.app",
+  messagingSenderId: "11603315113",
+  appId: "1:11603315113:web:ba9c551cc5ee61f42f1cb8",
+  measurementId: "G-F363H71C2Y"
+};
+if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+var db = firebase.firestore();
+
+// ── نشر فكرة من الصفحة الرئيسية ──
 // ── نشر فكرة من الصفحة الرئيسية ──
 async function submitHeroIdea() {
   var user = firebase.auth().currentUser;
@@ -1251,28 +1271,6 @@ function loadIdeas() {
 
 // تحميل الأفكار عند بدء الصفحة
 window.addEventListener('load', function(){ setTimeout(loadIdeas, 2000); });
-</script>
-
-<!-- ══════════════════════════════
-   FIREBASE — compat v9.23 + Firestore ✅
-══════════════════════════════ -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<script>
-// ── Firebase + Firestore Init ──
-var firebaseConfig = {
-  apiKey: "AIzaSyCjI7nrD8LTr72B7RNTOkJzTl1f3OTk3BU",
-  authDomain: "ideagalaxy-84cfc.firebaseapp.com",
-  projectId: "ideagalaxy-84cfc",
-  storageBucket: "ideagalaxy-84cfc.firebasestorage.app",
-  messagingSenderId: "11603315113",
-  appId: "1:11603315113:web:ba9c551cc5ee61f42f1cb8",
-  measurementId: "G-F363H71C2Y"
-};
-if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
-var db = firebase.firestore();
 
 // ── تحميل بيانات المستخدم من Firestore ──
 function loadUserProfile(uid) {
