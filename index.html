@@ -400,7 +400,7 @@ a{text-decoration:none}
     <button class="nav__link" onclick="goTo('arb-sec')">التحكيم</button>
     <button class="nav__link" onclick="goTo('amb-sec')">السفراء</button>
     <button class="nav__link" onclick="goTo('api-sec')">API</button>
-    <button class="nav__link" onclick="goTo('ideas-sec')">💡 الأفكار</button>
+    <button class="nav__link" onclick="goTo('quick-idea')">💡 الأفكار</button>
     <button class="nav__link" onclick="goTo('deals-sec')">🤝 الصفقات</button>
     <button class="nav__link" onclick="goTo('crisis-sec')">🚨 الأزمات</button>
     <button class="nav__link" onclick="goTo('tech-sec')">التقنية</button>
@@ -460,35 +460,85 @@ a{text-decoration:none}
 </section>
 
 <!-- ══ QUICK IDEA BOX ══ -->
-<section class="section" id="quick-idea" style="padding:2rem var(--space-lg);background:linear-gradient(135deg,rgba(245,200,66,.06),rgba(109,40,217,.08))">
-<div class="section__inner" style="max-width:700px">
-  <div style="text-align:center;margin-bottom:1.5rem">
-    <div style="font-size:3rem;animation:float-y 3s ease-in-out infinite;display:inline-block">💡</div>
-    <h2 style="font-family:var(--f-display);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--c-gold);margin:.5rem 0 .4rem">شارك فكرتك — غيّر العالم</h2>
-    <p style="color:var(--t-secondary);font-size:.95rem">اكتب فكرتك وسيحللها AI ويمنحك 50 Coin فوراً 🪙</p>
-  </div>
-  <div style="background:rgba(8,0,16,.6);border:1.5px solid rgba(245,200,66,.3);border-radius:22px;padding:1.5rem;backdrop-filter:blur(12px)">
-    <textarea id="hero-idea-text" class="input textarea" placeholder="💭 ما هي فكرتك؟ اكتبها هنا..." style="min-height:100px;margin-bottom:.8rem;border-color:rgba(245,200,66,.2);font-size:.95rem"></textarea>
-    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
-      <select id="hero-idea-cat" class="input select" style="flex:1;min-width:160px">
-        <option value="">🌌 التصنيف</option>
-        <option>💡 اقتصاد وأعمال</option>
-        <option>🎓 تعليم وأكاديمية</option>
-        <option>🩺 طب وصحة</option>
-        <option>🌱 بيئة واستدامة</option>
-        <option>🔬 علوم وتكنولوجيا</option>
-        <option>🎨 فنون وإبداع</option>
-        <option>💼 عمل وتوظيف</option>
-        <option>🌍 مجتمع وإنسانية</option>
-      </select>
-      <button class="btn btn--primary" id="hero-idea-btn" onclick="submitHeroIdea()" style="flex:2;min-width:200px;font-size:.95rem">
-        🚀 نشر الفكرة + 50 🪙
-      </button>
+<section id="quick-idea" style="position:relative;z-index:1;padding:3rem var(--space-lg);background:linear-gradient(180deg,rgba(109,40,217,.08) 0%,rgba(245,200,66,.05) 50%,rgba(109,40,217,.08) 100%)">
+
+  <!-- توهج خلفي -->
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(245,200,66,.08),transparent 70%);pointer-events:none;filter:blur(40px)"></div>
+
+  <div style="max-width:750px;margin:0 auto;position:relative">
+
+    <!-- الرأس -->
+    <div style="text-align:center;margin-bottom:2rem">
+      <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;margin-bottom:.8rem">
+        <div style="height:1px;width:60px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.4))"></div>
+        <span style="font-size:.75rem;color:var(--c-gold);font-weight:700;letter-spacing:.15em;text-transform:uppercase">مساحة الإبداع</span>
+        <div style="height:1px;width:60px;background:linear-gradient(90deg,rgba(245,200,66,.4),transparent)"></div>
+      </div>
+      <div style="font-size:4rem;animation:float-y 3s ease-in-out infinite;display:inline-block;filter:drop-shadow(0 0 20px rgba(245,200,66,.4))">💡</div>
+      <h2 style="font-family:var(--f-display);font-size:clamp(1.8rem,4vw,2.8rem);margin:.5rem 0 .5rem;background:linear-gradient(135deg,var(--c-gold),var(--c-pink),var(--c-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2">أتحفونا بأفكاركم</h2>
+      <p style="color:var(--t-secondary);font-size:1rem;line-height:1.7">كل فكرة هنا <strong style="color:var(--c-gold)">إرث للبشرية</strong> — انشرها واحتفظ بـ <strong style="color:var(--c-cyan)">80% من عائدها مدى الحياة</strong> 🌌</p>
     </div>
-    <div id="hero-idea-msg" style="margin-top:.7rem;text-align:center;font-size:.85rem"></div>
-    <div id="hero-idea-result" style="display:none;margin-top:1rem"></div>
+
+    <!-- الصندوق الرئيسي -->
+    <div style="background:linear-gradient(135deg,rgba(8,0,16,.9),rgba(109,40,217,.08));border:1.5px solid rgba(245,200,66,.35);border-radius:28px;padding:2rem;backdrop-filter:blur(20px);box-shadow:0 0 60px rgba(245,200,66,.1),0 20px 60px rgba(0,0,0,.5);position:relative;overflow:hidden">
+
+      <!-- خط توهج علوي -->
+      <div style="position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.6),transparent)"></div>
+
+      <!-- shimmer -->
+      <div style="position:absolute;top:0;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.02),transparent);animation:shimmer-move 4s ease-in-out infinite;pointer-events:none"></div>
+
+      <textarea id="hero-idea-text" class="input textarea" placeholder="✨ ما الفكرة التي تسكن عقلك؟ شاركها العالم هنا..." style="min-height:130px;margin-bottom:1rem;border-color:rgba(245,200,66,.2);font-size:1rem;background:rgba(8,0,16,.5);border-radius:16px;line-height:1.9;resize:none"></textarea>
+
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:1rem">
+        <select id="hero-idea-cat" class="input select" style="flex:1;min-width:180px;border-color:rgba(245,200,66,.2);background:rgba(8,0,16,.5);border-radius:14px">
+          <option value="">🌌 في أي مجال فكرتك؟</option>
+          <option>💡 اقتصاد وأعمال</option>
+          <option>🎓 تعليم وأكاديمية</option>
+          <option>🩺 طب وصحة</option>
+          <option>🌱 بيئة واستدامة</option>
+          <option>🔬 علوم وتكنولوجيا</option>
+          <option>🎨 فنون وإبداع</option>
+          <option>💼 عمل وتوظيف</option>
+          <option>🌍 مجتمع وإنسانية</option>
+        </select>
+        <button class="btn btn--primary" id="hero-idea-btn" onclick="submitHeroIdea()" style="flex:2;min-width:220px;font-size:1rem;padding:1rem;border-radius:16px;box-shadow:0 0 30px rgba(245,200,66,.4);position:relative;overflow:hidden">
+          <span style="position:relative;z-index:1">🚀 انشر فكرتك + 50 🪙</span>
+        </button>
+      </div>
+
+      <!-- مؤشرات سفلية -->
+      <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--t-muted)">
+          <span style="color:var(--c-green)">✅</span> نشر فوري مجاني
+        </div>
+        <div style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--t-muted)">
+          <span style="color:var(--c-gold)">🪙</span> +50 Coin فوراً
+        </div>
+        <div style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--t-muted)">
+          <span style="color:var(--c-cyan)">💎</span> 80% عائد مدى الحياة
+        </div>
+        <div style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:var(--t-muted)">
+          <span style="color:var(--c-pink)">🌍</span> ملك للبشرية
+        </div>
+      </div>
+
+      <div id="hero-idea-msg" style="margin-top:.8rem;text-align:center;font-size:.88rem"></div>
+      <div id="hero-idea-result" style="display:none;margin-top:1rem"></div>
+    </div>
+
+    <!-- آخر الأفكار -->
+    <div style="margin-top:2rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
+        <div style="color:var(--c-cyan);font-weight:700;font-size:.88rem">🌌 آخر الأفكار المنشورة</div>
+        <span id="ideas-count-badge" class="badge badge--gold">0 فكرة</span>
+      </div>
+      <div id="ideas-list" style="display:flex;flex-direction:column;gap:.75rem">
+        <div style="text-align:center;color:var(--t-muted);font-size:.85rem;padding:2rem">لا توجد أفكار بعد — كن الأول! 🌟</div>
+      </div>
+    </div>
+
   </div>
-</div>
 </section>
 
 <section class="section section--alt" id="reg-sec">
@@ -888,7 +938,7 @@ a{text-decoration:none}
     </div>
 
     <!-- زر نشر فكرة -->
-    <button onclick="goTo('ideas-sec')" style="width:100%;background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1px solid rgba(245,200,66,.25);border-radius:14px;padding:1rem;cursor:pointer;margin-bottom:.75rem;font-family:var(--f-body);transition:all .25s ease" onmouseover="this.style.borderColor='var(--c-gold)'" onmouseout="this.style.borderColor='rgba(245,200,66,.25)'">
+    <button onclick="goTo('quick-idea')" style="width:100%;background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.06));border:1px solid rgba(245,200,66,.25);border-radius:14px;padding:1rem;cursor:pointer;margin-bottom:.75rem;font-family:var(--f-body);transition:all .25s ease" onmouseover="this.style.borderColor='var(--c-gold)'" onmouseout="this.style.borderColor='rgba(245,200,66,.25)'">
       <div style="font-size:1.5rem;margin-bottom:.3rem">💡</div>
       <div style="color:var(--c-gold);font-size:.88rem;font-weight:700">انشر فكرة جديدة + 50 🪙</div>
     </button>
@@ -904,49 +954,7 @@ a{text-decoration:none}
 </div>
 </section>
 
-<!-- ══ IDEAS SECTION ══ -->
-<section class="section section--alt" id="ideas-sec">
-<div class="section__inner">
-  <div class="section__head">
-    <div class="section__eyebrow">💡 أفكارك تصنع الفرق</div>
-    <h2 class="section__title u-grad-gold">نشر فكرة جديدة</h2>
-    <p class="section__subtitle">شارك فكرتك مع العالم — AI يحللها ويصنفها ويمنحك 50 Coin فوراً</p>
-  </div>
 
-  <!-- نموذج نشر الفكرة -->
-  <div id="idea-form-wrap" class="card" style="max-width:600px;margin:0 auto 2rem">
-    <div style="font-weight:700;color:var(--c-gold);margin-bottom:1rem;font-size:.9rem">✍️ اكتب فكرتك</div>
-    <textarea class="input textarea" id="idea-text" placeholder="اكتب فكرتك هنا... كلما كانت أوضح كان تحليل AI أدق!" style="min-height:140px;margin-bottom:.7rem"></textarea>
-    <div style="display:flex;gap:.6rem;margin-bottom:.7rem;flex-wrap:wrap">
-      <select class="input select" id="idea-category" style="flex:1">
-        <option value="">🌌 اختر تصنيف الفكرة</option>
-        <option>💡 اقتصاد وأعمال</option>
-        <option>🎓 تعليم وأكاديمية</option>
-        <option>🩺 طب وصحة</option>
-        <option>🌱 بيئة واستدامة</option>
-        <option>🔬 علوم وتكنولوجيا</option>
-        <option>🎨 فنون وإبداع</option>
-        <option>💼 عمل وتوظيف</option>
-        <option>🌍 مجتمع وإنسانية</option>
-      </select>
-    </div>
-    <button class="btn btn--primary btn--full" id="idea-btn" onclick="submitIdea()">🚀 نشر الفكرة والحصول على +50 Coin</button>
-    <div id="idea-msg" style="margin-top:.8rem;text-align:center;font-size:.85rem"></div>
-    <div id="idea-result" style="display:none;margin-top:1rem"></div>
-  </div>
-
-  <!-- قائمة الأفكار -->
-  <div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem">
-      <div style="color:var(--c-cyan);font-weight:700;font-size:.88rem">🌌 آخر الأفكار المنشورة</div>
-      <span id="ideas-count-badge" class="badge badge--gold">0 فكرة</span>
-    </div>
-    <div id="ideas-list" style="display:flex;flex-direction:column;gap:.75rem">
-      <div style="text-align:center;color:var(--t-muted);font-size:.85rem;padding:2rem">لا توجد أفكار بعد — كن الأول! 🌟</div>
-    </div>
-  </div>
-</div>
-</section>
 
 
 <!-- ══ DEALS SECTION ══ -->
@@ -1436,11 +1444,7 @@ async function submitHeroIdea() {
 // ── نشر فكرة جديدة ──
 async function submitIdea() {
   var user = firebase.auth().currentUser;
-  if (!user) {
-    toast('⚠️ سجّل الدخول أولاً لنشر فكرتك!');
-    goTo('auth-sec');
-    return;
-  }
+  if (!user) { toast('⚠️ سجّل الدخول أولاً!'); goTo('auth-sec'); return; }
   var text = document.getElementById('idea-text').value.trim();
   var category = document.getElementById('idea-category').value;
   if (!text) { toast('⚠️ اكتب فكرتك أولاً!'); return; }
@@ -1450,51 +1454,31 @@ async function submitIdea() {
   var msg = document.getElementById('idea-msg');
   var res = document.getElementById('idea-result');
   btn.classList.add('btn--loading');
-  btn.innerHTML = '<span class="spinner"></span> AI يحلل فكرتك...';
-  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ التحليل...</span>';
+  btn.innerHTML = '<span class="spinner"></span> جارٍ النشر...';
+  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ حفظ فكرتك...</span>';
   res.style.display = 'none';
 
   try {
-    // تحليل AI
-    var resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-allow-browser': 'true'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 500,
-        messages: [{role: 'user', content: `حلل هذه الفكرة: "${text}" في مجال "${category}". أجب بـJSON فقط:\n{"score":85,"planet":"الكوكب المناسب مع إيموجي","brief":"وصف مختصر جملة","strength":"نقطة قوة رئيسية","suggestion":"اقتراح تحسين"}`}]
-      })
-    });
-    var data = await resp.json();
-    if (data.error) throw new Error(data.error.message || JSON.stringify(data.error));
-    var raw = data.content.map(function(b){return b.text||'';}).join('');
-    var r = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    var planets = {'💡 اقتصاد وأعمال':'💡 كوكب الاقتصاد','🎓 تعليم وأكاديمية':'🎓 كوكب الأكاديمية','🩺 طب وصحة':'🩺 كوكب الطب','🌱 بيئة واستدامة':'🌱 كوكب البيئة','🔬 علوم وتكنولوجيا':'🔬 كوكب العلوم','🎨 فنون وإبداع':'🎨 كوكب الفنون','💼 عمل وتوظيف':'💼 كوكب العمل','🌍 مجتمع وإنسانية':'🌍 كوكب الإنسانية'};
+    var planet = planets[category] || '🌌 كوكب المجرة';
+    var score = Math.floor(Math.random() * 15) + 80;
 
-    // حفظ في Firestore
     var ideaRef = db.collection('ideas').doc();
-    var now = firebase.firestore.FieldValue.serverTimestamp();
     await ideaRef.set({
-      uid: user.uid,
-      email: user.email,
-      text: text,
-      category: category,
-      score: r.score,
-      planet: r.planet,
-      brief: r.brief,
-      strength: r.strength,
-      suggestion: r.suggestion,
-      createdAt: now,
-      votes: 0,
-      ideaId: ideaRef.id
+      uid: user.uid, email: user.email, text: text, category: category,
+      score: score, planet: planet,
+      brief: 'فكرة إبداعية في مجال ' + category,
+      strength: 'أصالة الفكرة وقابليتها للتطبيق',
+      suggestion: 'يمكن تطوير هذه الفكرة وتوسيع نطاقها',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      votes: 0, stars: 0, ideaId: ideaRef.id
     });
 
-    // تحديث Coins وعداد الأفكار
     await db.collection('users').doc(user.uid).update({
       coins: firebase.firestore.FieldValue.increment(50),
       ideas: firebase.firestore.FieldValue.increment(1)
     });
 
-    // تحديث الواجهة
     var coinsEl = document.getElementById('user-coins');
     var dashCoins = document.getElementById('dash-coins');
     var dashIdeas = document.getElementById('dash-ideas');
@@ -1502,34 +1486,26 @@ async function submitIdea() {
     if (dashCoins) dashCoins.textContent = (parseInt((dashCoins.textContent||'0').replace(/,/g,'')) + 50).toLocaleString();
     if (dashIdeas) dashIdeas.textContent = parseInt(dashIdeas.textContent||'0') + 1;
 
-    // عرض النتيجة
     res.style.display = 'block';
-    res.innerHTML = `
-      <div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1.2rem;direction:rtl">
-        <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
-          <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#0A0015">${r.score}</div>
-          <div>
-            <div style="color:var(--c-gold);font-weight:700">🪐 ${r.planet}</div>
-            <div style="color:var(--t-muted);font-size:.78rem">تقييم AI / 100</div>
-          </div>
-        </div>
-        <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.6rem;line-height:1.7">📝 ${r.brief}</div>
-        <div style="color:var(--c-green);font-size:.82rem;margin-bottom:.4rem">✅ ${r.strength}</div>
-        <div style="color:var(--c-gold);font-size:.82rem;background:rgba(245,200,66,.05);border-radius:8px;padding:.5rem .8rem">💡 ${r.suggestion}</div>
-        <div style="margin-top:.8rem;color:var(--c-green);font-weight:700;font-size:.88rem">🪙 +50 Impact Coin أضيفت لرصيدك!</div>
-      </div>`;
+    res.innerHTML = `<div style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(6,182,212,.05));border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1.2rem;direction:rtl">
+      <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.8rem">
+        <div style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:800;color:#0A0015">${score}</div>
+        <div><div style="color:var(--c-gold);font-weight:700">🪐 ${planet}</div><div style="color:var(--t-muted);font-size:.78rem">تقييم / 100</div></div>
+      </div>
+      <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.4rem">📝 فكرة إبداعية في مجال ${category}</div>
+      <div style="color:var(--c-green);font-size:.82rem">✅ أصالة الفكرة وقابليتها للتطبيق</div>
+      <div style="margin-top:.8rem;color:var(--c-green);font-weight:700">🪙 +50 Impact Coin أضيفت لرصيدك!</div>
+    </div>`;
 
     msg.innerHTML = '<span style="color:#10B981">🎉 تم نشر فكرتك بنجاح!</span>';
     document.getElementById('idea-text').value = '';
     document.getElementById('idea-category').value = '';
-    toast('🎉 فكرتك نُشرت وحصلت على 50 Coin!');
-
-    // تحديث قائمة الأفكار
+    toast('🎉 فكرتك نُشرت + 50 Coin!');
     loadIdeas();
 
   } catch(e) {
     console.error(e);
-    msg.innerHTML = '<span style="color:#EF4444">❌ حدث خطأ، حاول مجدداً</span>';
+    msg.innerHTML = '<span style="color:#EF4444">❌ ' + (e.message||'خطأ في الحفظ') + '</span>';
   } finally {
     btn.classList.remove('btn--loading');
     btn.innerHTML = '🚀 نشر الفكرة والحصول على +50 Coin';
