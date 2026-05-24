@@ -403,8 +403,8 @@ a{text-decoration:none}
     <div class="hero__tag hero__tag--good">✅ أصول رقمية موثقة قابلة للاستثمار</div>
   </div>
   <div class="hero__actions">
-    <button class="btn btn--primary" onclick="goTo('gid-sec')">🪪 أنشئ Galaxy ID مجاناً</button>
-    <button class="btn btn--secondary" onclick="goTo('room-sec')">🎙️ شاهد عرضاً حياً</button>
+    <button class="btn btn--primary" style="font-size:1.15rem;padding:1rem 2.5rem;box-shadow:0 0 40px rgba(245,200,66,.5)" onclick="goTo('ideas-sec')">💡 انشر فكرتك الآن</button>
+    <button class="btn btn--secondary" onclick="goTo('gid-sec')">🪪 أنشئ Galaxy ID</button>
   </div>
   <div class="hero__stats">
     <div class="stat-block"><div class="stat-block__num" id="s1">0</div><div class="stat-block__lbl">فكرة موثقة</div></div>
@@ -418,6 +418,39 @@ a{text-decoration:none}
     <div class="stat-block"><div class="stat-block__num" id="s5">0</div><div class="stat-block__lbl">مستثمر</div></div>
   </div>
 </section>
+
+<!-- ══ QUICK IDEA BOX ══ -->
+<section class="section" id="quick-idea" style="padding:2rem var(--space-lg);background:linear-gradient(135deg,rgba(245,200,66,.06),rgba(109,40,217,.08))">
+<div class="section__inner" style="max-width:700px">
+  <div style="text-align:center;margin-bottom:1.5rem">
+    <div style="font-size:3rem;animation:float-y 3s ease-in-out infinite;display:inline-block">💡</div>
+    <h2 style="font-family:var(--f-display);font-size:clamp(1.5rem,3vw,2.2rem);color:var(--c-gold);margin:.5rem 0 .4rem">شارك فكرتك — غيّر العالم</h2>
+    <p style="color:var(--t-secondary);font-size:.95rem">اكتب فكرتك وسيحللها AI ويمنحك 50 Coin فوراً 🪙</p>
+  </div>
+  <div style="background:rgba(8,0,16,.6);border:1.5px solid rgba(245,200,66,.3);border-radius:22px;padding:1.5rem;backdrop-filter:blur(12px)">
+    <textarea id="hero-idea-text" class="input textarea" placeholder="💭 ما هي فكرتك؟ اكتبها هنا..." style="min-height:100px;margin-bottom:.8rem;border-color:rgba(245,200,66,.2);font-size:.95rem"></textarea>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+      <select id="hero-idea-cat" class="input select" style="flex:1;min-width:160px">
+        <option value="">🌌 التصنيف</option>
+        <option>💡 اقتصاد وأعمال</option>
+        <option>🎓 تعليم وأكاديمية</option>
+        <option>🩺 طب وصحة</option>
+        <option>🌱 بيئة واستدامة</option>
+        <option>🔬 علوم وتكنولوجيا</option>
+        <option>🎨 فنون وإبداع</option>
+        <option>💼 عمل وتوظيف</option>
+        <option>🌍 مجتمع وإنسانية</option>
+      </select>
+      <button class="btn btn--primary" id="hero-idea-btn" onclick="submitHeroIdea()" style="flex:2;min-width:200px;font-size:.95rem">
+        🚀 نشر الفكرة + 50 🪙
+      </button>
+    </div>
+    <div id="hero-idea-msg" style="margin-top:.7rem;text-align:center;font-size:.85rem"></div>
+    <div id="hero-idea-result" style="display:none;margin-top:1rem"></div>
+  </div>
+</div>
+</section>
+
 <section class="section section--alt" id="reg-sec">
 <div class="section__inner">
   <div class="section__head">
@@ -1003,6 +1036,83 @@ document.querySelectorAll('.card,.section__head').forEach(el=>{el.style.opacity=
 
 <!-- ══ IDEAS JS ══ -->
 <script>
+// ── نشر فكرة من الصفحة الرئيسية ──
+async function submitHeroIdea() {
+  var user = firebase.auth().currentUser;
+  if (!user) {
+    toast('⚠️ سجّل الدخول أولاً!');
+    goTo('auth-sec');
+    return;
+  }
+  var text = document.getElementById('hero-idea-text').value.trim();
+  var category = document.getElementById('hero-idea-cat').value;
+  if (!text) { toast('⚠️ اكتب فكرتك أولاً!'); return; }
+  if (!category) { toast('⚠️ اختر التصنيف!'); return; }
+
+  // نسخ القيم لنموذج الأفكار الرئيسي ثم submit
+  var ideaEl = document.getElementById('idea-text');
+  var catEl = document.getElementById('idea-category');
+  if (ideaEl) ideaEl.value = text;
+  if (catEl) catEl.value = category;
+
+  var btn = document.getElementById('hero-idea-btn');
+  var msg = document.getElementById('hero-idea-msg');
+  var res = document.getElementById('hero-idea-result');
+  btn.classList.add('btn--loading');
+  btn.innerHTML = '<span class="spinner"></span> AI يحلل فكرتك...';
+  msg.innerHTML = '<span style="color:#A78BBE">⏳ جارٍ التحليل والحفظ...</span>';
+
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 500,
+        messages: [{role: 'user', content: `حلل هذه الفكرة: "${text}" في مجال "${category}". أجب بـJSON فقط:
+{"score":85,"planet":"الكوكب المناسب مع إيموجي","brief":"وصف مختصر جملة","strength":"نقطة قوة رئيسية","suggestion":"اقتراح تحسين"}`}]
+      })
+    });
+    var data = await resp.json();
+    var raw = data.content.map(function(b){return b.text||'';}).join('');
+    var r = JSON.parse(raw.replace(/```json|```/g,'').trim());
+
+    var ideaRef = db.collection('ideas').doc();
+    await ideaRef.set({
+      uid: user.uid, email: user.email, text: text, category: category,
+      score: r.score, planet: r.planet, brief: r.brief,
+      strength: r.strength, suggestion: r.suggestion,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(), votes: 0
+    });
+    await db.collection('users').doc(user.uid).update({
+      coins: firebase.firestore.FieldValue.increment(50),
+      ideas: firebase.firestore.FieldValue.increment(1)
+    });
+
+    var dashCoins = document.getElementById('dash-coins');
+    var dashIdeas = document.getElementById('dash-ideas');
+    if (dashCoins) dashCoins.textContent = parseInt(dashCoins.textContent||'0') + 50;
+    if (dashIdeas) dashIdeas.textContent = parseInt(dashIdeas.textContent||'0') + 1;
+
+    res.style.display = 'block';
+    res.innerHTML = `<div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1rem;direction:rtl">
+      <div style="color:var(--c-gold);font-weight:700;margin-bottom:.5rem">🪐 ${r.planet} — تقييم: ${r.score}/100</div>
+      <div style="color:#BAE6FD;font-size:.85rem;margin-bottom:.4rem">📝 ${r.brief}</div>
+      <div style="color:var(--c-green);font-size:.82rem">✅ ${r.strength}</div>
+      <div style="color:var(--c-gold);font-weight:700;margin-top:.6rem">🪙 +50 Coin أضيفت لرصيدك!</div>
+    </div>`;
+    msg.innerHTML = '<span style="color:#10B981">🎉 تم نشر فكرتك!</span>';
+    document.getElementById('hero-idea-text').value = '';
+    toast('🎉 فكرتك نُشرت + 50 Coin!');
+    loadIdeas();
+  } catch(e) {
+    msg.innerHTML = '<span style="color:#EF4444">❌ حدث خطأ، حاول مجدداً</span>';
+  } finally {
+    btn.classList.remove('btn--loading');
+    btn.innerHTML = '🚀 نشر الفكرة + 50 🪙';
+  }
+}
+
 // ── نشر فكرة جديدة ──
 async function submitIdea() {
   var user = firebase.auth().currentUser;
