@@ -3,7 +3,25 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="مجرة اقتصاد الأفكار — منصة عالمية لحماية الأفكار وتحويلها إلى أصول اقتصادية"/>
+<meta name="description" content="مجرة اقتصاد الأفكار — انشر فكرتك مجاناً واحتفظ بـ 100% من عائدها مدى الحياة. المنصة الأولى عالمياً لتحويل الأفكار إلى أصول اقتصادية محمية في 127 دولة"/>
+<meta name="keywords" content="اقتصاد الأفكار, نشر الأفكار, استثمار الأفكار, حماية الملكية الفكرية, Impact Coins, Galaxy ID, مجرة الأفكار"/>
+<meta name="author" content="JAM ANA — جمانا"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- Open Graph للمشاركة على وسائل التواصل -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://galaxy-ideas-economy.drjamana.workers.dev/"/>
+<meta property="og:title" content="مجرة اقتصاد الأفكار — انشر فكرتك واحتفظ بـ 100% من عائدها"/>
+<meta property="og:description" content="المنصة الأولى عالمياً التي تحوّل أفكارك إلى أصول اقتصادية محمية. انشر مجاناً — واحتفظ بكل أرباحك — للبشرية جمعاء 🌌"/>
+<meta property="og:image" content="https://galaxy-ideas-economy.drjamana.workers.dev/icons/icon-512.png"/>
+<meta property="og:locale" content="ar_SA"/>
+<meta property="og:site_name" content="مجرة اقتصاد الأفكار"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="🌌 مجرة اقتصاد الأفكار"/>
+<meta name="twitter:description" content="انشر فكرتك مجاناً واحتفظ بـ 100% من عائدها مدى الحياة — للبشرية جمعاء"/>
+<meta name="twitter:image" content="https://galaxy-ideas-economy.drjamana.workers.dev/icons/icon-512.png"/>
 <meta name="theme-color" content="#0A0015"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -1144,6 +1162,16 @@ a{text-decoration:none}
   <!-- نص المشاركة -->
   <div style="background:rgba(8,0,16,.8);border:1px solid rgba(245,200,66,.25);border-radius:18px;padding:1.5rem;margin-bottom:1.5rem">
     <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin-bottom:.8rem">📋 انسخ وشارك هذا النص</div>
+    <!-- رابط الدعوة الشخصي -->
+    <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:14px;padding:1rem;margin-bottom:1rem;direction:rtl">
+      <div style="color:var(--c-gold);font-weight:700;font-size:.82rem;margin-bottom:.5rem">🔗 رابط دعوتك الشخصي</div>
+      <div id="personal-link" style="font-family:monospace;font-size:.78rem;color:var(--c-cyan);background:rgba(8,0,16,.5);border-radius:8px;padding:.5rem .8rem;margin-bottom:.5rem;word-break:break-all">
+        galaxy-ideas-economy.drjamana.workers.dev
+      </div>
+      <button onclick="copyPersonalLink()" style="background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);border-radius:50px;padding:.3rem .9rem;color:var(--c-gold);font-size:.75rem;font-weight:700;cursor:pointer;font-family:var(--f-body)">📋 نسخ الرابط</button>
+      <span style="color:var(--t-muted);font-size:.72rem;margin-right:.5rem">كل من ينضم عبر رابطك = +100 Coins لك! 🪙</span>
+    </div>
+
     <div id="share-text" style="color:var(--t-secondary);font-size:.85rem;line-height:1.9;direction:rtl;font-family:var(--f-display)">
       🌌 اكتشفت شيئاً لم أره من قبل...<br><br>
       مجرة اقتصاد الأفكار — منصة تحوّل فكرتك إلى إرث مالي مدى الحياة.<br>
@@ -2269,6 +2297,36 @@ function loadFoundersCount() {
 }
 
 window.addEventListener('load', function(){ setTimeout(loadFoundersCount, 3000); });
+
+function copyPersonalLink() {
+  var user = firebase.auth().currentUser;
+  var base = 'https://galaxy-ideas-economy.drjamana.workers.dev/';
+  var link = user ? base + '?ref=' + user.uid.slice(0,8) : base;
+  var el = document.getElementById('personal-link');
+  if (el) el.textContent = link;
+  navigator.clipboard.writeText(link).then(function(){
+    toast('✅ تم نسخ رابطك الشخصي! شاركيه مع العالم 🌍');
+  });
+}
+
+// تحديث الرابط الشخصي عند تسجيل الدخول
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    var el = document.getElementById('personal-link');
+    var base = 'https://galaxy-ideas-economy.drjamana.workers.dev/';
+    if (el) el.textContent = base + '?ref=' + user.uid.slice(0,8);
+  }
+});
+
+// رصد رابط الإحالة
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var ref = params.get('ref');
+  if (ref) {
+    localStorage.setItem('galaxy_ref', ref);
+    console.log('إحالة من:', ref);
+  }
+})();
 
 function shareGalaxy() {
   var url = 'https://galaxy-ideas-economy.drjamana.workers.dev/';
