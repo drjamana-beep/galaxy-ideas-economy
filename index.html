@@ -64,7 +64,7 @@ a{text-decoration:none}
 .ambient-orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orb-breathe 8s ease-in-out infinite}
 .orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(109,40,217,.18),transparent 65%);top:0;left:50%;transform:translate(-50%,-50%)}
 .orb-2{width:400px;height:400px;background:radial-gradient(circle,rgba(6,182,212,.1),transparent 65%);bottom:20%;right:-10%}
-.nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;transition:all .4s ease}
+.nav{position:fixed;top:36px;left:0;right:0;z-index:500;padding:.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;transition:all .4s ease}
 .nav--scrolled{background:rgba(8,0,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--b-subtle);box-shadow:0 1px 40px rgba(0,0,0,.5)}
 .nav__brand{font-family:var(--f-display);font-size:1.05rem;font-weight:700;background:linear-gradient(135deg,var(--c-gold),var(--c-pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;white-space:nowrap;flex-shrink:0}
 .nav__links{display:flex;gap:.2rem;flex-wrap:wrap;align-items:center}
@@ -125,7 +125,7 @@ a{text-decoration:none}
 .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-left:.4rem}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:rgba(109,40,217,.95);color:#fff;padding:.6rem 1.4rem;border-radius:var(--r-full);z-index:9999;font-size:.85rem;font-family:var(--f-body);border:1px solid rgba(139,92,246,.4);backdrop-filter:blur(10px);animation:fade-up .3s ease;pointer-events:none;box-shadow:0 8px 32px rgba(0,0,0,.4)}
 .divider{height:1px;background:linear-gradient(90deg,transparent,var(--b-subtle),transparent);margin:var(--space-lg) 0}
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 1.5rem 4rem;position:relative;z-index:1}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 1.5rem 4rem;position:relative;z-index:1}
 .hero__badge{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,rgba(245,200,66,.1),rgba(249,115,22,.08));border:1px solid rgba(245,200,66,.25);border-radius:var(--r-full);padding:.35rem 1rem;font-size:.78rem;color:var(--c-gold);margin-bottom:1.5rem;animation:fade-up .6s ease}
 .hero__badge-dot{width:6px;height:6px;border-radius:50%;background:var(--c-green);animation:live-dot 1.5s ease-in-out infinite}
 .hero__emoji{font-size:4.5rem;animation:float-y 4s ease-in-out infinite;margin-bottom:1rem}
@@ -371,6 +371,18 @@ a{text-decoration:none}
 </head>
 <body>
 <canvas id="star-canvas"></canvas>
+<!-- ══ ANNOUNCEMENT BAR ══ -->
+<div id="announce-bar" style="background:linear-gradient(135deg,rgba(245,200,66,.15),rgba(109,40,217,.15));border-bottom:1px solid rgba(245,200,66,.3);padding:.5rem 1.5rem;text-align:center;position:fixed;top:0;left:0;right:0;z-index:600;backdrop-filter:blur(10px)">
+  <div style="display:flex;align-items:center;justify-content:center;gap:.8rem;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:.4rem">
+      <div style="width:7px;height:7px;border-radius:50%;background:#FF6B6B;animation:live-dot 1s ease-in-out infinite"></div>
+      <span style="color:#FF6B6B;font-size:.75rem;font-weight:700">مباشر</span>
+    </div>
+    <span style="color:var(--c-gold);font-size:.78rem;font-weight:700;font-family:var(--f-display)">🌌 المجرة تنطلق اليوم — انضم كمؤسس واحتفظ بـ 100% من أرباحك مدى الحياة!</span>
+    <button onclick="goTo('quick-idea');document.getElementById('announce-bar').style.display='none'" style="background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border:none;border-radius:50px;padding:.25rem .8rem;font-size:.72rem;font-weight:700;color:#0A0015;cursor:pointer;font-family:var(--f-body)">انضم الآن ←</button>
+    <button onclick="document.getElementById('announce-bar').style.display='none'" style="background:transparent;border:none;color:var(--t-muted);cursor:pointer;font-size:.9rem;padding:0 .2rem">✕</button>
+  </div>
+</div>
 
 <!-- ══ NOTIFICATIONS PANEL ══ -->
 <div id="notif-panel" style="display:none;position:fixed;top:60px;left:20px;width:340px;background:rgba(8,0,16,.97);border:1px solid rgba(139,92,246,.35);border-radius:18px;z-index:9000;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.6);animation:fade-up .3s ease;max-height:80vh;overflow-y:auto">
@@ -498,10 +510,33 @@ a{text-decoration:none}
     المجرة تنطلق اليوم<br>كن جزءاً من التاريخ
   </h2>
 
-  <p style="color:var(--t-secondary);font-size:1.05rem;line-height:1.8;max-width:650px;margin:0 auto 2rem">
+  <p style="color:var(--t-secondary);font-size:1.05rem;line-height:1.8;max-width:650px;margin:0 auto 1.5rem">
     في <strong style="color:var(--c-gold)">٢١ مايو ٢٠٢٦</strong> — أطلقت امرأة من الدمام منصة ستغير قواعد الاقتصاد العالمي.<br>
     أفكارك تستحق أن تُسمع — وعائدها يستحق أن يكون لك وحدك.
   </p>
+
+  <!-- عداد المدة منذ الإطلاق -->
+  <div style="margin-bottom:1.5rem">
+    <div style="color:var(--t-muted);font-size:.75rem;margin-bottom:.6rem">⏱️ منذ انطلاق المجرة</div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" id="launch-timer">
+      <div style="background:rgba(8,0,16,.7);border:1px solid rgba(245,200,66,.25);border-radius:12px;padding:.6rem 1rem;min-width:60px;text-align:center">
+        <div id="timer-days" style="font-size:1.5rem;font-weight:900;color:var(--c-gold)">0</div>
+        <div style="font-size:.65rem;color:var(--t-muted)">يوم</div>
+      </div>
+      <div style="background:rgba(8,0,16,.7);border:1px solid rgba(6,182,212,.25);border-radius:12px;padding:.6rem 1rem;min-width:60px;text-align:center">
+        <div id="timer-hours" style="font-size:1.5rem;font-weight:900;color:var(--c-cyan)">0</div>
+        <div style="font-size:.65rem;color:var(--t-muted)">ساعة</div>
+      </div>
+      <div style="background:rgba(8,0,16,.7);border:1px solid rgba(16,185,129,.25);border-radius:12px;padding:.6rem 1rem;min-width:60px;text-align:center">
+        <div id="timer-mins" style="font-size:1.5rem;font-weight:900;color:var(--c-green)">0</div>
+        <div style="font-size:.65rem;color:var(--t-muted)">دقيقة</div>
+      </div>
+      <div style="background:rgba(8,0,16,.7);border:1px solid rgba(236,72,153,.25);border-radius:12px;padding:.6rem 1rem;min-width:60px;text-align:center">
+        <div id="timer-secs" style="font-size:1.5rem;font-weight:900;color:var(--c-pink)">0</div>
+        <div style="font-size:.65rem;color:var(--t-muted)">ثانية</div>
+      </div>
+    </div>
+  </div>
 
   <!-- عداد المؤسسين -->
   <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:2rem;flex-wrap:wrap">
@@ -1565,6 +1600,18 @@ a{text-decoration:none}
   </div>
 </footer>
 
+
+<!-- ══ SCROLL TO TOP ══ -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="display:none;position:fixed;bottom:90px;left:20px;z-index:800;background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border:none;border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 20px rgba(245,200,66,.4);transition:all .3s ease;animation:glow-gold 3s ease-in-out infinite" title="العودة للأعلى">↑</button>
+
+<script>
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('scroll-top');
+  if (btn) btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  if (btn) btn.style.alignItems = 'center';
+  if (btn) btn.style.justifyContent = 'center';
+});
+</script>
 <!-- PWA BANNER -->
 <div id="pwa-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;padding:.9rem 1.2rem;background:rgba(10,0,21,.97);border-top:1px solid rgba(123,47,255,.3);backdrop-filter:blur(20px);align-items:center;gap:1rem;flex-wrap:wrap;direction:rtl">
   <div style="font-size:2rem">🌌</div>
@@ -2549,6 +2596,27 @@ function registerUser() {
 
 <!-- PWA -->
 <script>
+// ── عداد منذ الإطلاق ──
+function updateLaunchTimer() {
+  var launch = new Date('2026-05-21T00:00:00');
+  var now = new Date();
+  var diff = Math.max(0, now - launch);
+  var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  var secs = Math.floor((diff % (1000 * 60)) / 1000);
+  var d=document.getElementById('timer-days');
+  var h=document.getElementById('timer-hours');
+  var m=document.getElementById('timer-mins');
+  var s=document.getElementById('timer-secs');
+  if(d) d.textContent = days;
+  if(h) h.textContent = hours;
+  if(m) m.textContent = mins;
+  if(s) s.textContent = secs;
+}
+updateLaunchTimer();
+setInterval(updateLaunchTimer, 1000);
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/galaxy-ideas-economy/sw.js')
