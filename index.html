@@ -1658,18 +1658,23 @@ a{text-decoration:none}
       <div style="background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.25);border-radius:14px;padding:1.2rem;text-align:center">
         <div style="font-size:2rem;font-weight:900;color:var(--c-gold)">100%</div>
         <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin:.3rem 0">💡 صاحب الفكرة</div>
-        <div style="color:var(--t-muted);font-size:.75rem">كامل 100% — قبل التطوير
-        <div style="font-size:.7rem;color:var(--c-cyan);margin-top:.2rem">⬇️ 20% للمطورين من مبلغ الاتفاق إن وجدوا — و100% لك إن لم يوجدوا</div></div>
+        <div style="color:var(--t-muted);font-size:.75rem">ملكية الفكرة 100% — للأبد
+        <div style="font-size:.7rem;color:var(--c-cyan);margin-top:.2rem">✅ 100% من مبلغ الاتفاق عند كل تعاقد — و$1 من عائد كل مبيع مدى الحياة</div></div>
       </div>
       <div style="background:rgba(6,182,212,.08);border:1px solid rgba(6,182,212,.25);border-radius:14px;padding:1.2rem;text-align:center">
         <div style="font-size:2rem;font-weight:900;color:var(--c-cyan)">20%</div>
         <div style="color:var(--c-cyan);font-weight:700;font-size:.88rem;margin:.3rem 0">🛠️ المطورون</div>
-        <div style="color:var(--t-muted);font-size:.75rem">الباب مفتوح تلقائياً للعالم — بحجم المساهمة</div>
+        <div style="color:var(--t-muted);font-size:.75rem">20% من مبلغ الاتفاق عند كل تعاقد — من حصة صاحب الفكرة<br>$0.20 من عائد كل مبيع مدى الحياة — من الـ$1 حصة صاحب الفكرة</div>
       </div>
       <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);border-radius:14px;padding:1.2rem;text-align:center">
         <div style="font-size:2rem;font-weight:900;color:var(--c-green)">🤲</div>
         <div style="color:var(--c-green);font-weight:700;font-size:.88rem;margin:.3rem 0">🌌 صندوق المجرة</div>
-        <div style="color:var(--t-muted);font-size:.75rem">تبرع طوعي من القلب — لا إلزام أبداً</div>
+        <div style="color:var(--t-muted);font-size:.75rem">خدماتها <strong style="color:var(--c-green)">مجانية</strong> للجميع — تعيش من إيمان مجتمعها بها<br>
+          🤲 تبرع طوعي من القلب — لا إلزام أبداً<br><br>
+          <strong style="color:var(--c-gold)">الشارات الإنسانية:</strong><br>
+          🌍 <strong>شارة الإنسانية</strong> — لصاحب الفكرة إن تبرع بالـ$1 أو جزء منها للاجئين عند البيع لطالبي الإغاثة<br>
+          🌱 <strong>شارة العطاء</strong> — للمطورين إن وجدوا وتبرعوا بالـ$0.20 أو جزء منها<br>
+          <em style="color:var(--t-muted);font-size:.75rem">"المجرة بحاجة لدعمكم للاستمرار في خدمة البشرية مجاناً — كل تبرع يُبقي الباب مفتوحاً للجميع" — رسالة تصلك مرة أو مرتين في العام</em></div>
       </div>
     </div>
   </div>
@@ -1682,63 +1687,10 @@ a{text-decoration:none}
   </div>
 
   <!-- عداد حي -->
-  <div class="card" style="margin-bottom:1.5rem;background:linear-gradient(135deg,rgba(245,200,66,.06),rgba(109,40,217,.08));border-color:rgba(245,200,66,.3)">
-    <div style="color:var(--c-gold);font-weight:800;font-size:1rem;margin-bottom:1.2rem;font-family:var(--f-display)">📊 العداد الحي — يتحدث تلقائياً</div>
-    <div id="live-counter" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem">
-      <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:1rem;text-align:center">
-        <div id="counter-interested" style="font-size:1.8rem;font-weight:900;color:var(--c-gold);animation:count-ticker .6s ease">0</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.2rem">🌍 الراغبون في المنتج</div>
-      </div>
-      <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:1rem;text-align:center">
-        <div id="counter-profit" style="font-size:1.8rem;font-weight:900;color:var(--c-green)">30%</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.2rem">💰 نسبة الربح الحالية</div>
-      </div>
-      <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:1rem;text-align:center">
-        <div id="counter-deposit" style="font-size:1.8rem;font-weight:900;color:var(--c-cyan)">$100</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.2rem">📦 المبلغ المبدئي الآن</div>
-      </div>
-      <div style="background:rgba(8,0,16,.5);border-radius:14px;padding:1rem;text-align:center">
-        <div id="counter-next" style="font-size:1.8rem;font-weight:900;color:var(--c-pink)">100</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.2rem">⏳ حتى السعر التالي</div>
-      </div>
-    </div>
-    <div style="margin-top:1rem">
-      <div style="display:flex;justify-content:space-between;font-size:.72rem;color:var(--t-muted);margin-bottom:.4rem">
-        <span>التقدم نحو السعر التالي</span>
-        <span id="counter-pct">0%</span>
-      </div>
-      <div style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden">
-        <div id="counter-bar" style="height:100%;width:0%;background:linear-gradient(90deg,var(--c-gold),var(--c-orange));border-radius:4px;transition:width 1s ease"></div>
-      </div>
-    </div>
-    <button onclick="joinInterest()" style="width:100%;margin-top:1rem;background:linear-gradient(135deg,var(--c-gold),var(--c-orange));border:none;border-radius:14px;padding:.9rem;font-size:.9rem;font-weight:700;color:#0A0015;cursor:pointer;font-family:var(--f-body);box-shadow:0 0 20px rgba(245,200,66,.3)">🔔 أنا مهتم — أريد هذا المنتج!</button>
-    <div id="interest-msg" style="text-align:center;font-size:.8rem;margin-top:.5rem"></div>
-  </div>
+  
 
   <!-- نظام الأسعار حسب المشتري -->
-  <div class="card" style="margin-bottom:1.5rem;padding:1.8rem;border-color:rgba(16,185,129,.3)">
-    <div style="color:var(--c-green);font-weight:800;font-size:1rem;margin-bottom:1.2rem;font-family:var(--f-display)">🌍 السعر حسب المشتري — عدالة حقيقية</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem">
-      <div style="background:rgba(245,200,66,.06);border:1px solid rgba(245,200,66,.2);border-radius:14px;padding:1.2rem;text-align:center">
-        <div style="font-size:1.8rem;margin-bottom:.4rem">🏪</div>
-        <div style="color:var(--c-gold);font-weight:700;font-size:.88rem;margin-bottom:.3rem">السوق العام</div>
-        <div style="font-size:1.3rem;font-weight:800;color:var(--c-gold)">30% ربح</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.3rem">السعر الكامل</div>
-      </div>
-      <div style="background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);border-radius:14px;padding:1.2rem;text-align:center">
-        <div style="font-size:1.8rem;margin-bottom:.4rem">🏥</div>
-        <div style="color:var(--c-cyan);font-weight:700;font-size:.88rem;margin-bottom:.3rem">جمعيات خيرية</div>
-        <div style="font-size:1.3rem;font-weight:800;color:var(--c-cyan)">10% ربح فقط</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.3rem">خصم 66% تلقائياً</div>
-      </div>
-      <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:1.2rem;text-align:center">
-        <div style="font-size:1.8rem;margin-bottom:.4rem">🆘</div>
-        <div style="color:var(--c-green);font-weight:700;font-size:.88rem;margin-bottom:.3rem">مخيمات اللاجئين</div>
-        <div style="font-size:1.3rem;font-weight:800;color:var(--c-green)">أجور الشحن فقط</div>
-        <div style="color:var(--t-muted);font-size:.72rem;margin-top:.3rem">لا ربح — فقط التكلفة</div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- ميثاق المستثمر -->
   <div class="card" style="margin-bottom:1.5rem;padding:1.8rem;background:linear-gradient(135deg,rgba(6,182,212,.05),rgba(109,40,217,.06));border-color:rgba(6,182,212,.25)">
