@@ -474,9 +474,9 @@ a{text-decoration:none}
   </div>
   <div class="hero__emoji">🌌</div>
   <h1 class="hero__title">مجرة اقتصاد الأفكار</h1>
-  <p class="hero__sub">المنصة الأولى عالمياً التي تحوّل أفكارك إلى <strong>أصول اقتصادية محمية</strong>، وتربطها بمستثمرين حقيقيين في 127 دولة</p>
+  <p class="hero__sub">المنصة الأولى عالمياً التي تحوّل أفكارك إلى <strong>أصول اقتصادية محمية</strong>، وتربطها بمجتمع عالمي من المبتكرين</p>
   <div class="hero__problem-solution">
-    <div class="hero__tag hero__tag--bad">❌ الأفكار تضيع بلا حماية ولا قيمة</div>
+    <div class="hero__tag hero__tag--bad">❌ لا مزيد من الأفكار التي تضيع بلا حماية ولا قيمة</div>
     <div class="hero__arrow">→</div>
     <div class="hero__tag hero__tag--good">✅ أصول رقمية موثقة قابلة للاستثمار</div>
   </div>
@@ -2141,7 +2141,7 @@ a{text-decoration:none}
     <h2 class="section__title u-grad-cyan">نظام السفراء العالميين</h2>
     <p class="section__subtitle">كل مؤثر يصبح سفيراً يجلب مجتمعه للمجرة — نمو بلا إعلانات</p>
   </div>
-  <div class="amb-globe"><span class="amb-globe__emoji">🌍</span><div style="color:var(--c-cyan);font-weight:700;font-size:1rem;margin-bottom:.3rem">847 سفير في 73 دولة</div><div style="color:var(--t-secondary);font-size:.82rem">يمثلون المجرة في جامعاتهم ومجتمعاتهم</div></div>
+  <div class="amb-globe"><span class="amb-globe__emoji">🌍</span><div style="color:var(--c-cyan);font-weight:700;font-size:1rem;margin-bottom:.3rem">0 سفير</div><div style="color:var(--t-secondary);font-size:.82rem">يمثلون المجرة في جامعاتهم ومجتمعاتهم</div></div>
   <div class="amb-levels" id="amb-levels"></div>
   <h3 style="color:var(--c-cyan);font-size:.86rem;font-weight:700;margin-bottom:.8rem">🎁 مزايا السفراء</h3>
   <div class="perks-grid" id="perks-grid"></div>
@@ -2681,7 +2681,7 @@ async function generateCert(){
 }
 
 // ── IMPACT DASHBOARD ──
-const IMPACT_NUMS=[{n:'47,382',l:'فكرة موثقة',c:'var(--c-gold)',t:'↑ +284 اليوم'},{n:'2.84M',l:'Impact Coin',c:'var(--c-orange)',t:'↑ +12K اليوم'},{n:'127',l:'دولة مشاركة',c:'var(--c-cyan)',t:'↑ +3 هذا الشهر'},{n:'12,400',l:'متطوع نشط',c:'var(--c-green)',t:'↑ +156 اليوم'},{n:'3,241',l:'فكرة نُفذت',c:'var(--c-pink)',t:'↑ +28 الأسبوع'},{n:'$4.2M',l:'استثمارات',c:'var(--c-gold)',t:'↑ +$80K أمس'}];
+const IMPACT_NUMS=[{n:'0',l:'فكرة موثقة',c:'var(--c-gold)',t:'↑ '},{n:'0',l:'Impact Coin',c:'var(--c-orange)',t:'↑ '},{n:'127',l:'دولة مشاركة',c:'var(--c-cyan)',t:'↑ '},{n:'0',l:'متطوع نشط',c:'var(--c-green)',t:'↑ '},{n:'0',l:'فكرة نُفذت',c:'var(--c-pink)',t:'↑ '},{n:'$0',l:'استثمارات',c:'var(--c-gold)',t:'↑ '}];
 document.getElementById('impact-grid').innerHTML=IMPACT_NUMS.map(n=>`<div class="impact-num-card card--lift"><div class="impact-num-card__num" style="color:${n.c}">${n.n}</div><div class="impact-num-card__lbl">${n.l}</div><div class="impact-num-card__trend impact-num-card__trend--up">${n.t}</div></div>`).join('');
 const COUNTRIES=[{f:'🇸🇦',n:'السعودية',p:87,c:'var(--c-gold)'},{f:'🇪🇬',n:'مصر',p:72,c:'var(--c-cyan)'},{f:'🇮🇩',n:'إندونيسيا',p:65,c:'var(--c-green)'},{f:'🇳🇬',n:'نيجيريا',p:58,c:'var(--c-pink)'},{f:'🇵🇰',n:'باكستان',p:51,c:'var(--c-orange)'},{f:'🇩🇪',n:'ألمانيا',p:44,c:'var(--c-purple-bright)'}];
 document.getElementById('country-list').innerHTML=COUNTRIES.map(c=>`<div class="country-row"><div class="country-row__flag">${c.f}</div><div class="country-row__name">${c.n}</div><div class="country-row__bar"><div class="country-row__fill" style="width:${c.p}%;background:${c.c}"></div></div><div class="country-row__val">${c.p}%</div></div>`).join('');
@@ -2689,7 +2689,7 @@ const EVENTS=[{icon:'💡',t:'"مزرعة عمودية ذكية" تتحول إل
 document.getElementById('events-list').innerHTML=EVENTS.map(e=>`<div class="event-row"><div class="event-row__icon">${e.icon}</div><div><div class="event-row__title">${e.t}</div><div class="event-row__meta">${e.m}</div></div><div class="event-row__time">${e.time}</div></div>`).join('');
 
 // ── ARBITRATION ──
-document.getElementById('arb-stats').innerHTML=[{n:'3,241',l:'قضية محكومة',c:'var(--c-green)'},{n:'98.2%',l:'نسبة الرضا',c:'var(--c-cyan)'},{n:'4.7 يوم',l:'متوسط الفصل',c:'var(--c-gold)'},{n:'847',l:'محكّم معتمد',c:'var(--c-purple-bright)'}].map(s=>`<div class="arb-stat"><div class="arb-stat__num" style="color:${s.c}">${s.n}</div><div class="arb-stat__lbl">${s.l}</div></div>`).join('');
+document.getElementById('arb-stats').innerHTML=[{n:'0',l:'قضية محكومة',c:'var(--c-green)'},{n:'98.2%',l:'نسبة الرضا',c:'var(--c-cyan)'},{n:'4.7 يوم',l:'متوسط الفصل',c:'var(--c-gold)'},{n:'847',l:'محكّم معتمد',c:'var(--c-purple-bright)'}].map(s=>`<div class="arb-stat"><div class="arb-stat__num" style="color:${s.c}">${s.n}</div><div class="arb-stat__lbl">${s.l}</div></div>`).join('');
 document.getElementById('arb-cases').innerHTML=[{id:'ARB-2026-4421',st:'badge--gold',stl:'مفتوحة',t:'نزاع على ملكية فكرة "توصيل الأدوية بالطائرات"',m:'المدّعي: خالد م. · المدّعى عليه: Tech Solutions Co.',jury:['👨‍⚖️ علي','👩‍⚖️ سارة','🧑‍⚖️ James'],votes:[{l:'للمدّعي',c:'var(--c-green)',b:'var(--c-green-dim)'},{l:'للمدّعى عليه',c:'var(--c-red)',b:'rgba(239,68,68,.1)'},{l:'تسوية',c:'var(--c-gold)',b:'var(--c-gold-dim)'}]},{id:'ARB-2026-4398',st:'badge--cyan',stl:'قيد المراجعة',t:'ادعاء انتحال فكرة "تطبيق الزراعة الذكية"',m:'المدّعي: Amara J. · المدّعى عليه: GreenTech Ltd.',jury:['👨‍⚖️ محمد','👩‍⚖️ Lisa','🧑‍⚖️ أحمد'],votes:[{l:'للمدّعي',c:'var(--c-green)',b:'var(--c-green-dim)'},{l:'للمدّعى عليه',c:'var(--c-red)',b:'rgba(239,68,68,.1)'},{l:'تسوية',c:'var(--c-gold)',b:'var(--c-gold-dim)'}]}].map(c=>`<div class="case-card"><div class="case-header"><span class="case-id">${c.id}</span><span class="badge ${c.st}">${c.stl}</span></div><div class="case-title">${c.t}</div><div class="case-meta">${c.m}</div><div class="case-jury">${c.jury.map(j=>`<div class="jury-chip">${j}</div>`).join('')}</div><div class="case-votes">${c.votes.map(v=>`<div class="vote-option" style="color:${v.c};border-color:${v.c};background:${v.b}" onclick="toast('تم تسجيل رأيك ✅')">${v.l}</div>`).join('')}</div></div>`).join('');
 
 // ── AMBASSADORS ──
