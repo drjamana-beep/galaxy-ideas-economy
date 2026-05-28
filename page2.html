@@ -1831,7 +1831,45 @@ async function createGID(){const name=document.getElementById('gid-name').value.
 
 // ── GALAXY MAP ──
 const PLANETS=[{icon:'💡',name:'اقتصاد الأفكار',c:'#F5C842'},{icon:'🎓',name:'الأكاديمية',c:'#06B6D4'},{icon:'🌍',name:'واجهة العطاء',c:'#10B981'},{icon:'🧠',name:'الفكر',c:'#EC4899'},{icon:'🕊️',name:'الروح',c:'#A78BBE'},{icon:'🔬',name:'العلوم',c:'#22D3EE'},{icon:'🌱',name:'البيئة',c:'#84CC16'},{icon:'🏭',name:'الصناعة',c:'#F97316'},{icon:'💼',name:'العمل',c:'#FCD34D'},{icon:'👵',name:'الرعاية',c:'#F472B6'},{icon:'🛡️',name:'الحماية',c:'#6366F1'},{icon:'🚨',name:'الإغاثة',c:'#EF4444'},{icon:'🩺',name:'الطب',c:'#14B8A6'},{icon:'🎨',name:'الفنون',c:'#C084FC'}];
-(function(){const map=document.getElementById('galaxy-map');if(!map)return;const cx=map.offsetWidth/2||300,cy=200,r=155;PLANETS.forEach((p,i)=>{const angle=(i/14)*Math.PI*2-Math.PI/2;const x=cx+r*Math.cos(angle)-21,y=cy+r*Math.sin(angle)-21;const node=document.createElement('div');node.className='planet-node';node.style.cssText=`left:${x}px;top:${y}px;border-color:${p.c}40;box-shadow:0 0 12px ${p.c}30`;node.innerHTML=`${p.icon}<div class="pt">${p.name}</div>`;node.onmouseenter=()=>{node.style.borderColor=p.c;node.style.boxShadow=`0 0 20px ${p.c}60`;};node.onmouseleave=()=>{node.style.borderColor=p.c+'40';node.style.boxShadow=`0 0 12px ${p.c}30`;};map.appendChild(node);});})();
+function buildGalaxyMap(){
+  var map=document.getElementById('galaxy-map');
+  if(!map||map.dataset.built)return;
+  map.dataset.built='1';
+  var W=map.offsetWidth||window.innerWidth-48||900;
+  var cx=W/2,cy=200,r=Math.min(W/2-60,170);
+  // حذف أي كواكب قديمة
+  map.querySelectorAll('.planet-node').forEach(function(n){n.remove();});
+  PLANETS.forEach(function(p,i){
+    var angle=(i/PLANETS.length)*Math.PI*2-Math.PI/2;
+    var x=cx+r*Math.cos(angle)-21;
+    var y=cy+r*Math.sin(angle)-21;
+    var node=document.createElement('div');
+    node.className='planet-node';
+    node.style.cssText='left:'+x+'px;top:'+y+'px;border-color:'+p.c+'40;box-shadow:0 0 12px '+p.c+'30;opacity:0;transition:opacity .5s ease '+(i*0.05)+'s, transform .3s ease, border-color .3s, box-shadow .3s';
+    node.innerHTML=p.icon+'<div class="pt">'+p.name+'</div>';
+    node.onmouseenter=function(){node.style.borderColor=p.c;node.style.boxShadow='0 0 20px '+p.c+'60';};
+    node.onmouseleave=function(){node.style.borderColor=p.c+'40';node.style.boxShadow='0 0 12px '+p.c+'30';};
+    map.appendChild(node);
+    setTimeout(function(){node.style.opacity='1';},50+i*50);
+  });
+}
+// تشغيل عند الظهور في الشاشة
+(function(){
+  var sec=document.getElementById('galaxy-sec');
+  if(!sec)return;
+  var obs=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting){buildGalaxyMap();obs.disconnect();}
+  },{threshold:0.1});
+  obs.observe(sec);
+  // fallback بعد 2 ثانية
+  setTimeout(buildGalaxyMap,2000);
+  // إعادة البناء عند تغيير حجم النافذة
+  window.addEventListener('resize',function(){
+    var m=document.getElementById('galaxy-map');
+    if(m)m.dataset.built='';
+    buildGalaxyMap();
+  });
+})();
 
 // ── COINS ──
 const EARN=[{icon:'💡',title:'نشر فكرة',coins:'+50'},{icon:'🤖',title:'تحليل AI',coins:'+20'},{icon:'👥',title:'دعوة صديق',coins:'+100'},{icon:'⭐',title:'تصويت يومي',coins:'+5'},{icon:'📚',title:'إتمام دورة',coins:'+200'},{icon:'🩺',title:'استشارة طبية',coins:'+150'}];
