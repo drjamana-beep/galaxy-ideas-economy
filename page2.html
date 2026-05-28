@@ -1401,9 +1401,10 @@ document.addEventListener('click', function(e) {
     <h2 class="section__title u-grad-pink">خريطة المجرة التفاعلية</h2>
     <p class="section__subtitle">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق أي كوكب لاكتشافه</p>
   </div>
-  <div class="galaxy-map-wrap" id="galaxy-map">
-    <div class="orbit-ring" style="width:310px;height:310px"></div>
-    <div class="galaxy-core">🌌</div>
+  <div class="galaxy-map-wrap" id="galaxy-map" style="overflow:visible">
+    <div id="planets-container" style="position:absolute;inset:0;z-index:2"></div>
+    <div class="orbit-ring" style="width:340px;height:340px"></div>
+    <div class="galaxy-core" style="z-index:5">🌌</div>
   </div>
   <div class="grid-3">
     <div class="card card--gold"><div style="color:var(--c-gold);font-weight:700;font-size:.86rem;margin-bottom:.6rem">⚙️ Galaxy Core Engine</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">إدارة البيانات الموحدة<br>نقل الموارد بين الكواكب<br>إدارة الذكاء الاصطناعي<br>تحليل الاحتياجات العالمية</div></div>
@@ -1832,25 +1833,22 @@ async function createGID(){const name=document.getElementById('gid-name').value.
 // ── GALAXY MAP ──
 const PLANETS=[{icon:'💡',name:'اقتصاد الأفكار',c:'#F5C842'},{icon:'🎓',name:'الأكاديمية',c:'#06B6D4'},{icon:'🌍',name:'واجهة العطاء',c:'#10B981'},{icon:'🧠',name:'الفكر',c:'#EC4899'},{icon:'🕊️',name:'الروح',c:'#A78BBE'},{icon:'🔬',name:'العلوم',c:'#22D3EE'},{icon:'🌱',name:'البيئة',c:'#84CC16'},{icon:'🏭',name:'الصناعة',c:'#F97316'},{icon:'💼',name:'العمل',c:'#FCD34D'},{icon:'👵',name:'الرعاية',c:'#F472B6'},{icon:'🛡️',name:'الحماية',c:'#6366F1'},{icon:'🚨',name:'الإغاثة',c:'#EF4444'},{icon:'🩺',name:'الطب',c:'#14B8A6'},{icon:'🎨',name:'الفنون',c:'#C084FC'}];
 function buildGalaxyMap(){
-  var map=document.getElementById('galaxy-map');
-  if(!map||map.dataset.built)return;
-  map.dataset.built='1';
-  var W=map.offsetWidth||window.innerWidth-48||900;
-  var cx=W/2,cy=200,r=Math.min(W/2-60,170);
-  // حذف أي كواكب قديمة
-  map.querySelectorAll('.planet-node').forEach(function(n){n.remove();});
+  var container=document.getElementById('planets-container');
+  if(!container||container.dataset.built)return;
+  container.dataset.built='1';
+  container.innerHTML='';
   PLANETS.forEach(function(p,i){
-    var angle=(i/PLANETS.length)*Math.PI*2-Math.PI/2;
-    var x=cx+r*Math.cos(angle)-21;
-    var y=cy+r*Math.sin(angle)-21;
+    var angle=(i/PLANETS.length)*Math.PI*2 - Math.PI/2;
+    var cx = 50 + 43*Math.cos(angle);
+    var cy = 50 + 40*Math.sin(angle);
     var node=document.createElement('div');
     node.className='planet-node';
-    node.style.cssText='left:'+x+'px;top:'+y+'px;border-color:'+p.c+'40;box-shadow:0 0 12px '+p.c+'30;opacity:0;transition:opacity .5s ease '+(i*0.05)+'s, transform .3s ease, border-color .3s, box-shadow .3s';
+    node.style.cssText='left:calc('+cx+'% - 21px);top:calc('+cy+'% - 21px);border-color:'+p.c+'50;box-shadow:0 0 14px '+p.c+'40;opacity:0;transition:opacity .4s ease '+(i*0.06)+'s,transform .3s ease,border-color .3s,box-shadow .3s';
     node.innerHTML=p.icon+'<div class="pt">'+p.name+'</div>';
-    node.onmouseenter=function(){node.style.borderColor=p.c;node.style.boxShadow='0 0 20px '+p.c+'60';};
-    node.onmouseleave=function(){node.style.borderColor=p.c+'40';node.style.boxShadow='0 0 12px '+p.c+'30';};
-    map.appendChild(node);
-    setTimeout(function(){node.style.opacity='1';},50+i*50);
+    node.onmouseenter=function(){node.style.borderColor=p.c;node.style.boxShadow='0 0 24px '+p.c+'80';};
+    node.onmouseleave=function(){node.style.borderColor=p.c+'50';node.style.boxShadow='0 0 14px '+p.c+'40';};
+    container.appendChild(node);
+    setTimeout(function(){node.style.opacity='1';},100+i*60);
   });
 }
 // تشغيل عند الظهور في الشاشة
@@ -1865,8 +1863,8 @@ function buildGalaxyMap(){
   setTimeout(buildGalaxyMap,2000);
   // إعادة البناء عند تغيير حجم النافذة
   window.addEventListener('resize',function(){
-    var m=document.getElementById('galaxy-map');
-    if(m)m.dataset.built='';
+    var c=document.getElementById('planets-container');
+    if(c)c.dataset.built='';
     buildGalaxyMap();
   });
 })();
