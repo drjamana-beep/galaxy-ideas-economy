@@ -1401,111 +1401,142 @@ document.addEventListener('click', function(e) {
     <h2 class="section__title u-grad-pink">خريطة المجرة التفاعلية</h2>
     <p class="section__subtitle">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق أي كوكب لاكتشافه</p>
   </div>
-    <div style="position:relative;margin-bottom:1.5rem;background:rgba(8,0,16,.3);border:1px solid rgba(139,92,246,.15);border-radius:20px">
-    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;min-height:300px;display:block">
-      <defs>
-        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="rgba(245,200,66,.4)"/>
-          <stop offset="50%" stop-color="rgba(109,40,217,.2)"/>
-          <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
-        </radialGradient>
-      </defs>
-      <!-- توهج المركز -->
-      <ellipse cx="400" cy="200" rx="120" ry="120" fill="url(#cg)"/>
-      <!-- حلقات المدار -->
-      <ellipse cx="400" cy="200" rx="310" ry="170" fill="none" stroke="rgba(139,92,246,.2)" stroke-dasharray="6,4" stroke-width="1"/>
-      <ellipse cx="400" cy="200" rx="180" ry="100" fill="none" stroke="rgba(245,200,66,.08)" stroke-dasharray="4,6" stroke-width="1"/>
-      <!-- الكواكب -->
-  <g transform="translate(400.0,30.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#F5C842" stroke-width="2" style="filter:drop-shadow(0 0 8px #F5C84260)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">💡</text>
-    <title>اقتصاد الأفكار</title>
-  </g>
-  <g transform="translate(534.5,46.8)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#06B6D4" stroke-width="2" style="filter:drop-shadow(0 0 8px #06B6D460)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🎓</text>
-    <title>الأكاديمية</title>
-  </g>
-  <g transform="translate(642.4,94.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#10B981" stroke-width="2" style="filter:drop-shadow(0 0 8px #10B98160)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🌍</text>
-    <title>واجهة العطاء</title>
-  </g>
-  <g transform="translate(702.2,162.2)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#EC4899" stroke-width="2" style="filter:drop-shadow(0 0 8px #EC489960)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🧠</text>
-    <title>الفكر</title>
-  </g>
-  <g transform="translate(702.2,237.8)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#A78BBE" stroke-width="2" style="filter:drop-shadow(0 0 8px #A78BBE60)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🕊️</text>
-    <title>الروح</title>
-  </g>
-  <g transform="translate(642.4,306.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#22D3EE" stroke-width="2" style="filter:drop-shadow(0 0 8px #22D3EE60)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🔬</text>
-    <title>العلوم</title>
-  </g>
-  <g transform="translate(534.5,353.2)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#84CC16" stroke-width="2" style="filter:drop-shadow(0 0 8px #84CC1660)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🌱</text>
-    <title>البيئة</title>
-  </g>
-  <g transform="translate(400.0,370.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#F97316" stroke-width="2" style="filter:drop-shadow(0 0 8px #F9731660)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🏭</text>
-    <title>الصناعة</title>
-  </g>
-  <g transform="translate(265.5,353.2)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#FCD34D" stroke-width="2" style="filter:drop-shadow(0 0 8px #FCD34D60)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">💼</text>
-    <title>العمل</title>
-  </g>
-  <g transform="translate(157.6,306.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#F472B6" stroke-width="2" style="filter:drop-shadow(0 0 8px #F472B660)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">👵</text>
-    <title>الرعاية</title>
-  </g>
-  <g transform="translate(97.8,237.8)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#6366F1" stroke-width="2" style="filter:drop-shadow(0 0 8px #6366F160)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🛡️</text>
-    <title>الحماية</title>
-  </g>
-  <g transform="translate(97.8,162.2)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#EF4444" stroke-width="2" style="filter:drop-shadow(0 0 8px #EF444460)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🚨</text>
-    <title>الإغاثة</title>
-  </g>
-  <g transform="translate(157.6,94.0)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#14B8A6" stroke-width="2" style="filter:drop-shadow(0 0 8px #14B8A660)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🩺</text>
-    <title>الطب</title>
-  </g>
-  <g transform="translate(265.5,46.8)" style="cursor:pointer" onmouseenter="this.querySelector('circle').setAttribute('r','26');this.querySelector('text').setAttribute('font-size','20')" onmouseleave="this.querySelector('circle').setAttribute('r','22');this.querySelector('text').setAttribute('font-size','17')">
-    <circle r="22" fill="rgba(8,0,16,.85)" stroke="#C084FC" stroke-width="2" style="filter:drop-shadow(0 0 8px #C084FC60)"/>
-    <text text-anchor="middle" dominant-baseline="central" font-size="17" style="user-select:none">🎨</text>
-    <title>الفنون</title>
-  </g>
-      <!-- المركز -->
-      <circle cx="400" cy="200" r="40" fill="none" stroke="rgba(245,200,66,.3)" stroke-width="1.5"/>
-      <circle cx="400" cy="200" r="36" fill="rgba(8,0,16,.9)"/>
-      <text x="400" y="200" text-anchor="middle" dominant-baseline="central" font-size="26">🌌</text>
-    </svg>
-  </div>
-    <div class="planet-node" style="left:calc(68.66% - 21px);top:calc(13.96% - 21px);border-color:#06B6D450;box-shadow:0 0 14px #06B6D440;animation:fade-in 0.4s ease 0.06s both" onmouseenter="this.style.borderColor='#06B6D4';this.style.boxShadow='0 0 24px #06B6D480';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#06B6D450';this.style.boxShadow='0 0 14px #06B6D440';this.style.transform='scale(1)'">🎓<div class="pt">الأكاديمية</div></div>
-    <div class="planet-node" style="left:calc(83.62% - 21px);top:calc(25.06% - 21px);border-color:#10B98150;box-shadow:0 0 14px #10B98140;animation:fade-in 0.4s ease 0.12s both" onmouseenter="this.style.borderColor='#10B981';this.style.boxShadow='0 0 24px #10B98180';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#10B98150';this.style.boxShadow='0 0 14px #10B98140';this.style.transform='scale(1)'">🌍<div class="pt">واجهة العطاء</div></div>
-    <div class="planet-node" style="left:calc(91.92% - 21px);top:calc(41.10% - 21px);border-color:#EC489950;box-shadow:0 0 14px #EC489940;animation:fade-in 0.4s ease 0.18s both" onmouseenter="this.style.borderColor='#EC4899';this.style.boxShadow='0 0 24px #EC489980';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#EC489950';this.style.boxShadow='0 0 14px #EC489940';this.style.transform='scale(1)'">🧠<div class="pt">الفكر</div></div>
-    <div class="planet-node" style="left:calc(91.92% - 21px);top:calc(58.90% - 21px);border-color:#A78BBE50;box-shadow:0 0 14px #A78BBE40;animation:fade-in 0.4s ease 0.24s both" onmouseenter="this.style.borderColor='#A78BBE';this.style.boxShadow='0 0 24px #A78BBE80';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#A78BBE50';this.style.boxShadow='0 0 14px #A78BBE40';this.style.transform='scale(1)'">🕊️<div class="pt">الروح</div></div>
-    <div class="planet-node" style="left:calc(83.62% - 21px);top:calc(74.94% - 21px);border-color:#22D3EE50;box-shadow:0 0 14px #22D3EE40;animation:fade-in 0.4s ease 0.30s both" onmouseenter="this.style.borderColor='#22D3EE';this.style.boxShadow='0 0 24px #22D3EE80';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#22D3EE50';this.style.boxShadow='0 0 14px #22D3EE40';this.style.transform='scale(1)'">🔬<div class="pt">العلوم</div></div>
-    <div class="planet-node" style="left:calc(68.66% - 21px);top:calc(86.04% - 21px);border-color:#84CC1650;box-shadow:0 0 14px #84CC1640;animation:fade-in 0.4s ease 0.36s both" onmouseenter="this.style.borderColor='#84CC16';this.style.boxShadow='0 0 24px #84CC1680';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#84CC1650';this.style.boxShadow='0 0 14px #84CC1640';this.style.transform='scale(1)'">🌱<div class="pt">البيئة</div></div>
-    <div class="planet-node" style="left:calc(50.00% - 21px);top:calc(90.00% - 21px);border-color:#F9731650;box-shadow:0 0 14px #F9731640;animation:fade-in 0.4s ease 0.42s both" onmouseenter="this.style.borderColor='#F97316';this.style.boxShadow='0 0 24px #F9731680';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#F9731650';this.style.boxShadow='0 0 14px #F9731640';this.style.transform='scale(1)'">🏭<div class="pt">الصناعة</div></div>
-    <div class="planet-node" style="left:calc(31.34% - 21px);top:calc(86.04% - 21px);border-color:#FCD34D50;box-shadow:0 0 14px #FCD34D40;animation:fade-in 0.4s ease 0.48s both" onmouseenter="this.style.borderColor='#FCD34D';this.style.boxShadow='0 0 24px #FCD34D80';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#FCD34D50';this.style.boxShadow='0 0 14px #FCD34D40';this.style.transform='scale(1)'">💼<div class="pt">العمل</div></div>
-    <div class="planet-node" style="left:calc(16.38% - 21px);top:calc(74.94% - 21px);border-color:#F472B650;box-shadow:0 0 14px #F472B640;animation:fade-in 0.4s ease 0.54s both" onmouseenter="this.style.borderColor='#F472B6';this.style.boxShadow='0 0 24px #F472B680';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#F472B650';this.style.boxShadow='0 0 14px #F472B640';this.style.transform='scale(1)'">👵<div class="pt">الرعاية</div></div>
-    <div class="planet-node" style="left:calc(8.08% - 21px);top:calc(58.90% - 21px);border-color:#6366F150;box-shadow:0 0 14px #6366F140;animation:fade-in 0.4s ease 0.60s both" onmouseenter="this.style.borderColor='#6366F1';this.style.boxShadow='0 0 24px #6366F180';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#6366F150';this.style.boxShadow='0 0 14px #6366F140';this.style.transform='scale(1)'">🛡️<div class="pt">الحماية</div></div>
-    <div class="planet-node" style="left:calc(8.08% - 21px);top:calc(41.10% - 21px);border-color:#EF444450;box-shadow:0 0 14px #EF444440;animation:fade-in 0.4s ease 0.66s both" onmouseenter="this.style.borderColor='#EF4444';this.style.boxShadow='0 0 24px #EF444480';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#EF444450';this.style.boxShadow='0 0 14px #EF444440';this.style.transform='scale(1)'">🚨<div class="pt">الإغاثة</div></div>
-    <div class="planet-node" style="left:calc(16.38% - 21px);top:calc(25.06% - 21px);border-color:#14B8A650;box-shadow:0 0 14px #14B8A640;animation:fade-in 0.4s ease 0.72s both" onmouseenter="this.style.borderColor='#14B8A6';this.style.boxShadow='0 0 24px #14B8A680';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#14B8A650';this.style.boxShadow='0 0 14px #14B8A640';this.style.transform='scale(1)'">🩺<div class="pt">الطب</div></div>
-    <div class="planet-node" style="left:calc(31.34% - 21px);top:calc(13.96% - 21px);border-color:#C084FC50;box-shadow:0 0 14px #C084FC40;animation:fade-in 0.4s ease 0.78s both" onmouseenter="this.style.borderColor='#C084FC';this.style.boxShadow='0 0 24px #C084FC80';this.style.transform='scale(1.35)'" onmouseleave="this.style.borderColor='#C084FC50';this.style.boxShadow='0 0 14px #C084FC40';this.style.transform='scale(1)'">🎨<div class="pt">الفنون</div></div>
-  </div>
+    <div style="margin-bottom:1.5rem">
+  <canvas id="galaxy-canvas" style="width:100%;height:auto;display:block;border-radius:16px;background:rgba(8,0,16,.4);border:1px solid rgba(139,92,246,.15)"></canvas>
+</div>
+<script>
+(function(){
+  var canvas = document.getElementById('galaxy-canvas');
+  if(!canvas) return;
+  var W = 900, H = 420;
+  canvas.width = W;
+  canvas.height = H;
+  var ctx = canvas.getContext('2d');
+  var cx = W/2, cy = H/2;
+
+  var PLANETS = [
+    {icon:'💡',name:'اقتصاد الأفكار',c:'#F5C842'},
+    {icon:'🎓',name:'الأكاديمية',c:'#06B6D4'},
+    {icon:'🌍',name:'واجهة العطاء',c:'#10B981'},
+    {icon:'🧠',name:'الفكر',c:'#EC4899'},
+    {icon:'🕊️',name:'الروح',c:'#A78BBE'},
+    {icon:'🔬',name:'العلوم',c:'#22D3EE'},
+    {icon:'🌱',name:'البيئة',c:'#84CC16'},
+    {icon:'🏭',name:'الصناعة',c:'#F97316'},
+    {icon:'💼',name:'العمل',c:'#FCD34D'},
+    {icon:'👵',name:'الرعاية',c:'#F472B6'},
+    {icon:'🛡️',name:'الحماية',c:'#6366F1'},
+    {icon:'🚨',name:'الإغاثة',c:'#EF4444'},
+    {icon:'🩺',name:'الطب',c:'#14B8A6'},
+    {icon:'🎨',name:'الفنون',c:'#C084FC'}
+  ];
+
+  function hexToRgb(hex){
+    var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return r+','+g+','+b;
+  }
+
+  function draw(hoverIdx){
+    ctx.clearRect(0,0,W,H);
+
+    // توهج المركز
+    var grd = ctx.createRadialGradient(cx,cy,0,cx,cy,130);
+    grd.addColorStop(0,'rgba(245,200,66,.35)');
+    grd.addColorStop(0.5,'rgba(109,40,217,.2)');
+    grd.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath(); ctx.ellipse(cx,cy,130,130,0,0,Math.PI*2);
+    ctx.fillStyle=grd; ctx.fill();
+
+    // حلقة خارجية
+    ctx.beginPath(); ctx.ellipse(cx,cy,380,190,0,0,Math.PI*2);
+    ctx.strokeStyle='rgba(139,92,246,.2)'; ctx.setLineDash([6,4]); ctx.lineWidth=1; ctx.stroke();
+    // حلقة داخلية
+    ctx.beginPath(); ctx.ellipse(cx,cy,200,110,0,0,Math.PI*2);
+    ctx.strokeStyle='rgba(245,200,66,.08)'; ctx.setLineDash([4,6]); ctx.stroke();
+    ctx.setLineDash([]);
+
+    // المركز
+    ctx.beginPath(); ctx.arc(cx,cy,38,0,Math.PI*2);
+    ctx.fillStyle='rgba(8,0,16,.9)'; ctx.fill();
+    ctx.strokeStyle='rgba(245,200,66,.4)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.font='26px serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('🌌',cx,cy);
+
+    // الكواكب
+    PLANETS.forEach(function(p,i){
+      var angle=(i/PLANETS.length)*Math.PI*2-Math.PI/2;
+      var px=cx+380*Math.cos(angle);
+      var py=cy+190*Math.sin(angle);
+      var r = hoverIdx===i ? 28 : 22;
+      var rgb = hexToRgb(p.c);
+
+      // توهج
+      if(hoverIdx===i){
+        var g2=ctx.createRadialGradient(px,py,0,px,py,45);
+        g2.addColorStop(0,'rgba('+rgb+',.3)');
+        g2.addColorStop(1,'rgba('+rgb+',0)');
+        ctx.beginPath(); ctx.arc(px,py,45,0,Math.PI*2);
+        ctx.fillStyle=g2; ctx.fill();
+      }
+
+      // دائرة
+      ctx.beginPath(); ctx.arc(px,py,r,0,Math.PI*2);
+      ctx.fillStyle='rgba(8,0,16,.88)'; ctx.fill();
+      ctx.strokeStyle=p.c; ctx.lineWidth=2; ctx.stroke();
+
+      // إيموجي
+      ctx.font=(hoverIdx===i?'20px':'16px')+' serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText(p.icon,px,py);
+
+      // اسم عند hover
+      if(hoverIdx===i){
+        ctx.font='bold 12px Tajawal,sans-serif';
+        ctx.textAlign='center';
+        var tw=ctx.measureText(p.name).width+16;
+        var tx=px, ty=py-r-18;
+        if(ty<20) ty=py+r+18;
+        ctx.fillStyle='rgba(8,0,16,.92)';
+        ctx.beginPath();
+        ctx.roundRect(tx-tw/2,ty-10,tw,22,6);
+        ctx.fill();
+        ctx.strokeStyle=p.c; ctx.lineWidth=1; ctx.stroke();
+        ctx.fillStyle=p.c;
+        ctx.fillText(p.name,tx,ty+1);
+      }
+    });
+  }
+
+  draw(-1);
+
+  // تفاعل
+  function getHover(mx,my){
+    for(var i=0;i<PLANETS.length;i++){
+      var angle=(i/PLANETS.length)*Math.PI*2-Math.PI/2;
+      var px=cx+380*Math.cos(angle);
+      var py=cy+190*Math.sin(angle);
+      var dx=mx-px, dy=my-py;
+      if(Math.sqrt(dx*dx+dy*dy)<28) return i;
+    }
+    return -1;
+  }
+
+  var lastHover=-1;
+  canvas.addEventListener('mousemove',function(e){
+    var rect=canvas.getBoundingClientRect();
+    var scaleX=W/rect.width, scaleY=H/rect.height;
+    var mx=(e.clientX-rect.left)*scaleX;
+    var my=(e.clientY-rect.top)*scaleY;
+    var h=getHover(mx,my);
+    canvas.style.cursor=h>=0?'pointer':'default';
+    if(h!==lastHover){lastHover=h;draw(h);}
+  });
+  canvas.addEventListener('mouseleave',function(){lastHover=-1;draw(-1);});
+
+  // تحديث عند تغيير الحجم
+  window.addEventListener('resize',function(){draw(lastHover);});
+})();
+</script>
   <div class="grid-3">
     <div class="card card--gold"><div style="color:var(--c-gold);font-weight:700;font-size:.86rem;margin-bottom:.6rem">⚙️ Galaxy Core Engine</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">إدارة البيانات الموحدة<br>نقل الموارد بين الكواكب<br>إدارة الذكاء الاصطناعي<br>تحليل الاحتياجات العالمية</div></div>
     <div class="card card--cyan"><div style="color:var(--c-cyan);font-weight:700;font-size:.86rem;margin-bottom:.6rem">🔗 نموذج الربط الذكي</div><div style="color:var(--t-muted);font-size:.78rem;line-height:1.9;direction:rtl">استقلالية تشغيلية لكل كوكب<br>قاعدة معرفة موحدة مشتركة<br>AI يربط الفرص تلقائياً<br>تدفق الموارد في الوقت الفعلي</div></div>
