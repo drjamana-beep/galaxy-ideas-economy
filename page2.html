@@ -1404,7 +1404,7 @@ document.addEventListener('click', function(e) {
     <div style="margin-bottom:1.5rem">
   <canvas id="galaxy-canvas" style="width:100%;height:auto;display:block;border-radius:16px;background:rgba(8,0,16,.4);border:1px solid rgba(139,92,246,.15)"></canvas>
 </div>
-<script>
+<script defer>
 (function(){
   var canvas = document.getElementById('galaxy-canvas');
   if(!canvas) return;
@@ -1507,7 +1507,8 @@ document.addEventListener('click', function(e) {
     });
   }
 
-  draw(-1);
+  // رسم عند تحميل الصفحة
+  if(document.readyState==="complete"){draw(-1);}else{window.addEventListener("load",function(){draw(-1);});}
 
   // تفاعل
   function getHover(mx,my){
