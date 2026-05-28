@@ -57,7 +57,7 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg-base);color:var(--t-primary);font-family:var(--f-body);font-size:16px;line-height:1.6;overflow-x:hidden;direction:rtl;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg-base)}::-webkit-scrollbar-thumb{background:var(--c-purple);border-radius:2px}
-img,svg{display:block;max-width:100%}
+img,svg{display:block;max-width:100%}#galaxy-sec svg{width:100%;height:auto}
 button,input,select,textarea{font-family:var(--f-body)}
 a{text-decoration:none}
 @keyframes star-pulse{0%,100%{opacity:.15;transform:scale(1)}50%{opacity:.9;transform:scale(1.3)}}
@@ -1401,8 +1401,8 @@ document.addEventListener('click', function(e) {
     <h2 class="section__title u-grad-pink">خريطة المجرة التفاعلية</h2>
     <p class="section__subtitle">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق أي كوكب لاكتشافه</p>
   </div>
-    <div style="position:relative;margin-bottom:1.5rem;background:rgba(8,0,16,.3);border:1px solid rgba(139,92,246,.15);border-radius:20px;overflow:hidden">
-    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+    <div style="position:relative;margin-bottom:1.5rem;background:rgba(8,0,16,.3);border:1px solid rgba(139,92,246,.15);border-radius:20px">
+    <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;min-height:300px;display:block">
       <defs>
         <radialGradient id="cg" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stop-color="rgba(245,200,66,.4)"/>
