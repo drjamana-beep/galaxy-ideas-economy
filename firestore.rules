@@ -1,0 +1,94 @@
+rules_version = '2';
+
+// ════════════════════════════════════════════════════════════════
+// قواعد أمان Firestore — مجرة اقتصاد الأفكار
+// ────────────────────────────────────────────────────────────────
+// المبدأ: المستخدم يكتب بياناته فقط، البيانات الحساسة محمية،
+// والمعاملات الحرجة (الفائض) تُكتب عبر Cloud Functions فقط.
+// ════════════════════════════════════════════════════════════════
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ───────── دوال مساعدة ─────────
+    function isAuthed() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return isAuthed() && request.auth.uid == uid;
+    }
+    function hasRole(role) {
+      return isAuthed()
+        && request.auth.token.roles != null
+        && request.auth.token.roles.hasAny([role, 'admin']);
+    }
+    function isVerifier() {
+      return hasRole('verifier');
+    }
+
+    // ───────── الأفكار ─────────
+    match /ideas/{ideaId} {
+      allow read: if true;                                  // الأفكار عامة للبشرية
+      allow create: if isOwner(request.resource.data.authorId);
+      allow update: if isOwner(resource.data.authorId);     // المالك فقط يعدّل
+      allow delete: if isOwner(resource.data.authorId) || hasRole('admin');
+    }
+
+    // ───────── ملفات المستخدمين ─────────
+    match /users/{uid} {
+      allow read: if true;                                  // الملف العام (سمعة، شارات)
+      allow write: if isOwner(uid);
+
+      // البيانات الخاصة — المالك فقط
+      match /private/{doc} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // ───────── أحداث الفائض (بروتوكول إعادة التوزيع) ─────────
+    match /surplus_events/{eventId} {
+      allow create: if isOwner(request.resource.data.producerId);
+      allow read: if isOwner(resource.data.producerId) || isVerifier();
+      allow update, delete: if false;     // Cloud Functions فقط — لا تعديل ولا حذف
+    }
+
+    // ───────── سجل الاحتياجات ─────────
+    match /needs_registry/{needId} {
+      allow create: if isAuthed();
+      allow read: if isOwner(resource.data.requesterId) || isVerifier();
+      allow update: if false;             // Cloud Functions فقط
+
+      // بيانات اللاجئين الشخصية — حماية قصوى
+      match /private_data/{doc} {
+        allow read: if isOwner(get(/databases/$(database)/documents/needs_registry/$(needId)).data.requesterId)
+                    || (isVerifier() && request.auth.token.refugeeAccess == true);
+        allow write: if false;
+      }
+    }
+
+    // ───────── تجميعات ومعاملات التوزيع ─────────
+    match /redistribution_pools/{poolId} {
+      allow read: if isAuthed();
+      allow write: if false;              // Cloud Functions فقط
+    }
+    match /redistribution_transactions/{txId} {
+      allow read: if isAuthed() && (
+        request.auth.uid == resource.data.producerId ||
+        request.auth.uid == resource.data.recipientId ||
+        isVerifier()
+      );
+      allow write: if false;              // Cloud Functions فقط
+    }
+
+    // ───────── سجل التدقيق (غير قابل للحذف) ─────────
+    match /audit_log/{logId} {
+      allow read: if isAuthed();
+      allow write: if false;              // Cloud Functions فقط
+    }
+
+    // ───────── منع أي وصول غير معرّف صراحةً ─────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "hosting": [
+    {
+      "target": "main",
+      "site": "galaxy-main-prod",
+      "public": "apps/main-galaxy/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }],
+      "headers": [
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [{ "key": "Cache-Control", "value": "max-age=31536000, immutable" }]
+        },
+        {
+          "source": "**",
+          "headers": [
+            { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+            { "key": "X-Content-Type-Options", "value": "nosniff" },
+            { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "ideas",
+      "site": "galaxy-ideas-prod",
+      "public": "apps/ideas-portal/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "target": "raghad",
+      "site": "galaxy-raghad-prod",
+      "public": "apps/raghad-alhayah/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    },
+    {
+      "target": "auth",
+      "site": "galaxy-auth-prod",
+      "public": "apps/unified-auth/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [{ "source": "**", "destination": "/index.html" }]
+    }
+  ],
+  "firestore": {
+    "rules": "infra/firebase/firestore.rules",
+    "indexes": "infra/firebase/firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "services/functions",
+      "codebase": "default",
+      "runtime": "nodejs20",
+      "ignore": ["node_modules", ".git", "*.log"]
+    }
+  ],
+  "storage": {
+    "rules": "infra/firebase/storage.rules"
+  },
+  "emulators": {
+    "auth": { "port": 9099 },
+    "functions": { "port": 5001 },
+    "firestore": { "port": 8080 },
+    "hosting": { "port": 5000 },
+    "ui": { "enabled": true }
+  }
+}

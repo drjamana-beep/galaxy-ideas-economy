@@ -1,0 +1,69 @@
+name: CI & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ───────── الجودة: lint + test على كل PR ─────────
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run lint test
+
+  # ───────── النشر: فقط عند الدفع إلى main ─────────
+  deploy-apps:
+    needs: quality
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    # ننشر فقط التطبيقات التي تغيّرت فعلاً
+    strategy:
+      matrix:
+        include:
+          - { app: main-galaxy,    target: main,   filter: '@galaxy/main-galaxy' }
+          - { app: ideas-portal,   target: ideas,  filter: '@galaxy/ideas-portal' }
+          - { app: raghad-alhayah, target: raghad, filter: '@galaxy/raghad-alhayah' }
+          - { app: unified-auth,   target: auth,   filter: '@galaxy/unified-auth' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm turbo run build --filter=${{ matrix.filter }}
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ideagalaxy-84cfc
+          target: ${{ matrix.target }}
+          channelId: live
+
+  # ───────── نشر القواعد و Functions ─────────
+  deploy-backend:
+    needs: quality
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 9 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - name: Deploy Firestore Rules + Functions
+        run: pnpm dlx firebase-tools deploy --only firestore:rules,firestore:indexes,storage,functions --token "${{ secrets.FIREBASE_TOKEN }}"
