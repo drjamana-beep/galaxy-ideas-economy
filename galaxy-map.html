@@ -2,349 +2,307 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="خريطة المجرة التفاعلية — 14 كوكباً يحيط بنواة اقتصاد الأفكار، الكوكب الأم.">
 <title>خريطة المجرة التفاعلية — مجرة اقتصاد الأفكار</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: radial-gradient(ellipse at top, #1a0b2e 0%, #0a0118 55%, #050010 100%);
-    min-height: 100vh;
-    font-family: 'Tajawal', sans-serif;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    overflow-x: hidden;
+  :root{
+    --c-gold:#F5C842; --c-purple:#6D28D9; --c-purple-bright:#8B5CF6;
+    --bg-base:#080010; --t-primary:#F1ECF9; --t-secondary:#A78BBE;
+    --f-display:'Amiri',serif; --f-body:'Tajawal',sans-serif;
   }
-  /* نجوم خلفية خفيفة */
-  body::before {
-    content:''; position:fixed; inset:0; z-index:-1;
-    background-image:
-      radial-gradient(1.5px 1.5px at 20% 30%, #fff, transparent),
-      radial-gradient(1px 1px at 60% 70%, #fff, transparent),
-      radial-gradient(1.5px 1.5px at 80% 20%, #fff, transparent),
-      radial-gradient(1px 1px at 35% 85%, #fff, transparent),
-      radial-gradient(1px 1px at 90% 60%, #fff, transparent);
-    opacity:.4;
-  }
-  .gm-header { text-align:center; margin-bottom:.5rem; }
-  .gm-eyebrow { color:#A78BFA; font-size:.85rem; letter-spacing:1px; }
-  .gm-title {
-    font-size: clamp(1.4rem, 5vmin, 2.2rem); font-weight:900;
-    background: linear-gradient(135deg, #F5C842, #EC4899);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-    margin:.3rem 0;
-  }
-  .gm-sub { color:rgba(255,255,255,.6); font-size:.85rem; max-width:480px; }
-
-  /* ════════════════════════════════════════════════════════════════
-     GalaxyMap.css — خريطة المجرة التفاعلية الدائرية
-     ────────────────────────────────────────────────────────────────
-     المبدأ الهندسي:
-     - كل كوكب يوضع بـ rotate(زاويته) ثم translate(نصف القطر) ثم
-       rotate العكسي ليبقى الكوكب نفسه قائماً (غير مائل).
-     - الزاوية تُمرَّر عبر متغير --angle لكل كوكب من الـ HTML.
-     - نصف القطر يتجاوب عبر clamp() فلا يخرج عن الإطار أبداً.
-     ════════════════════════════════════════════════════════════════ */
-  
-  .galaxy-map {
-    /* متغيرات قابلة للضبط من الخارج (Design Tokens) */
-    --gm-size: clamp(300px, 80vmin, 620px);   /* قطر المدار الكلي */
-    --gm-radius: calc(var(--gm-size) / 2.5);  /* نصف قطر الحلقة */
-    --gm-planet: clamp(46px, 11vmin, 76px);   /* حجم الكوكب */
-    --gm-core: clamp(74px, 17vmin, 116px);    /* حجم النواة */
-    --gm-bg: #0a0118;
-    --gm-orbit-line: rgba(139, 92, 246, .22);
-  
-    position: relative;
-    width: var(--gm-size);
-    height: var(--gm-size);
-    margin: 2rem auto;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    /* توهج المركز الكوني */
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
     background:
-      radial-gradient(circle at center,
-        rgba(245, 200, 66, .12) 0%,
-        rgba(109, 40, 217, .08) 35%,
-        transparent 68%);
-    isolation: isolate;
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(109,40,217,.25), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 25%, rgba(6,182,212,.12), transparent 55%),
+      radial-gradient(ellipse 70% 60% at 15% 85%, rgba(236,72,153,.10), transparent 55%),
+      var(--bg-base);
+    background-attachment:fixed;
+    min-height:100vh; color:var(--t-primary); font-family:var(--f-body);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:clamp(1rem,4vmin,2.5rem); overflow-x:hidden; direction:rtl;
+    -webkit-font-smoothing:antialiased;
   }
-  
-  /* الحلقات المدارية الزخرفية */
-  .galaxy-map__orbit {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px dashed var(--gm-orbit-line);
-    pointer-events: none;
+
+  /* غبار النجوم */
+  .gm-stardust{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .gm-stardust::before,.gm-stardust::after{
+    content:'';position:absolute;inset:-50%;
+    background-image:
+      radial-gradient(1.5px 1.5px at 10% 20%, rgba(255,255,255,.9), transparent),
+      radial-gradient(1px 1px at 30% 70%, rgba(245,200,66,.7), transparent),
+      radial-gradient(1.5px 1.5px at 55% 35%, rgba(255,255,255,.8), transparent),
+      radial-gradient(1px 1px at 75% 60%, rgba(139,92,246,.8), transparent),
+      radial-gradient(1.5px 1.5px at 90% 25%, rgba(255,255,255,.7), transparent),
+      radial-gradient(1px 1px at 45% 85%, rgba(6,182,212,.7), transparent),
+      radial-gradient(1px 1px at 20% 50%, rgba(255,255,255,.6), transparent),
+      radial-gradient(1.5px 1.5px at 65% 15%, rgba(255,255,255,.8), transparent);
+    background-size:60% 60%;animation:gm-drift 90s linear infinite;opacity:.5;
   }
-  .galaxy-map__orbit--outer {
-    width: calc(var(--gm-radius) * 2 + var(--gm-planet));
-    height: calc(var(--gm-radius) * 2 + var(--gm-planet));
-    animation: gm-spin 120s linear infinite;
+  .gm-stardust::after{background-size:45% 45%;animation-duration:140s;animation-direction:reverse;opacity:.3}
+  @keyframes gm-drift{from{transform:translate(0,0)}to{transform:translate(8%,6%)}}
+
+  .gm-header{text-align:center;margin-bottom:1rem;position:relative;z-index:2}
+  .gm-eyebrow{color:var(--c-purple-bright);font-size:clamp(.75rem,2vmin,.9rem);letter-spacing:1px;font-weight:700}
+  .gm-title{
+    font-family:var(--f-display);
+    font-size:clamp(1.6rem,6vmin,2.6rem);font-weight:700;margin:.3rem 0;
+    background:linear-gradient(135deg,#F5C842,#EC4899 70%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
   }
-  .galaxy-map__orbit--inner {
-    width: calc(var(--gm-radius) * 1.15);
-    height: calc(var(--gm-radius) * 1.15);
-    border-color: rgba(245, 200, 66, .1);
-    animation: gm-spin 90s linear infinite reverse;
+  .gm-sub{color:var(--t-secondary);font-size:clamp(.8rem,2.2vmin,.95rem);max-width:520px;margin:0 auto;line-height:1.7}
+
+  /* ═══ خريطة المجرة ═══ */
+  .galaxy-map{
+    --gm-size:clamp(300px,82vmin,640px);
+    --gm-radius:calc(var(--gm-size)/2.5);
+    --gm-planet:clamp(46px,11vmin,76px);
+    --gm-core:clamp(76px,18vmin,120px);
+    position:relative;width:var(--gm-size);height:var(--gm-size);
+    margin:clamp(1rem,3vmin,2rem) auto;border-radius:50%;
+    display:grid;place-items:center;isolation:isolate;z-index:2;
+    background:radial-gradient(circle at center,rgba(245,200,66,.12) 0%,rgba(109,40,217,.08) 35%,transparent 68%);
   }
-  
-  @keyframes gm-spin {
-    to { transform: rotate(360deg); }
+  .galaxy-map__orbit{position:absolute;border-radius:50%;border:1px dashed rgba(139,92,246,.22);pointer-events:none}
+  .galaxy-map__orbit--outer{width:calc(var(--gm-radius)*2 + var(--gm-planet));height:calc(var(--gm-radius)*2 + var(--gm-planet));animation:gm-spin 120s linear infinite}
+  .galaxy-map__orbit--inner{width:calc(var(--gm-radius)*1.15);height:calc(var(--gm-radius)*1.15);border-color:rgba(245,200,66,.1);animation:gm-spin 90s linear infinite reverse}
+  @keyframes gm-spin{to{transform:rotate(360deg)}}
+
+  /* النواة المركزية — الكوكب الأم */
+  .galaxy-map__core{
+    position:absolute;z-index:6;width:var(--gm-core);height:var(--gm-core);
+    border-radius:50%;display:grid;place-items:center;
+    font-size:calc(var(--gm-core)*.42);text-decoration:none;cursor:pointer;
+    background:radial-gradient(circle at 35% 30%,#ffe9a8,#F5C842 45%,#6D28D9 130%);
+    box-shadow:0 0 30px rgba(245,200,66,.55),0 0 70px rgba(109,40,217,.4),inset 0 0 20px rgba(255,255,255,.3);
+    animation:gm-core-pulse 4s ease-in-out infinite;
+    transition:transform .4s cubic-bezier(.34,1.56,.64,1);
   }
-  
-  /* ───────── النواة المركزية ───────── */
-  .galaxy-map__core {
-    position: absolute;
-    z-index: 5;
-    width: var(--gm-core);
-    height: var(--gm-core);
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: calc(var(--gm-core) * .42);
-    text-decoration: none;
-    background: radial-gradient(circle at 35% 30%, #ffe9a8, #F5C842 45%, #6D28D9 130%);
+  .galaxy-map__core:hover,.galaxy-map__core:focus-visible{transform:scale(1.1);outline:none}
+  .galaxy-map__core-label{
+    position:absolute;bottom:-1.7em;font-size:clamp(.6rem,1.6vmin,.82rem);font-weight:700;
+    color:#F5C842;white-space:nowrap;font-family:var(--f-body);text-shadow:0 0 10px rgba(245,200,66,.5);
+  }
+  @keyframes gm-core-pulse{
+    0%,100%{box-shadow:0 0 30px rgba(245,200,66,.55),0 0 70px rgba(109,40,217,.4),inset 0 0 20px rgba(255,255,255,.3)}
+    50%{box-shadow:0 0 45px rgba(245,200,66,.78),0 0 110px rgba(109,40,217,.55),inset 0 0 26px rgba(255,255,255,.45)}
+  }
+
+  /* ═══ بطاقة فلسفة الكوكب الأم (Glassmorphism) ═══ */
+  .gm-core-philosophy{
+    position:absolute;z-index:40;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(.85);
+    width:clamp(260px,42vmin,340px);
+    padding:clamp(1.1rem,3vmin,1.6rem);
+    border-radius:24px;
+    background:rgba(20,8,40,.55);
+    backdrop-filter:blur(20px) saturate(160%);
+    -webkit-backdrop-filter:blur(20px) saturate(160%);
+    border:1px solid rgba(245,200,66,.35);
     box-shadow:
-      0 0 30px rgba(245, 200, 66, .55),
-      0 0 70px rgba(109, 40, 217, .4),
-      inset 0 0 20px rgba(255, 255, 255, .3);
-    animation: gm-core-pulse 4s ease-in-out infinite;
-    cursor: pointer;
-    transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+      0 20px 60px rgba(0,0,0,.6),
+      0 0 50px rgba(245,200,66,.2),
+      inset 0 1px 0 rgba(255,255,255,.12);
+    text-align:center;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .45s ease,transform .45s cubic-bezier(.34,1.56,.64,1),visibility .45s;
   }
-  .galaxy-map__core:hover {
-    transform: scale(1.08);
+  .galaxy-map__core:hover ~ .gm-core-philosophy,
+  .galaxy-map__core:focus-visible ~ .gm-core-philosophy,
+  .gm-core-philosophy:hover,
+  .gm-core-philosophy.gm-pinned{
+    opacity:1;visibility:visible;pointer-events:auto;
+    transform:translate(-50%,-50%) scale(1);
   }
-  .galaxy-map__core-label {
-    position: absolute;
-    bottom: -1.6em;
-    font-size: clamp(.6rem, 1.6vmin, .8rem);
-    font-weight: 700;
-    color: #F5C842;
-    white-space: nowrap;
-    font-family: var(--gm-font, 'Tajawal', sans-serif);
-    text-shadow: 0 0 10px rgba(245, 200, 66, .5);
+  .gm-cp-badge{
+    display:inline-block;font-size:clamp(.62rem,1.6vmin,.72rem);font-weight:700;
+    color:#0a0118;background:linear-gradient(135deg,#F5C842,#ffd96b);
+    padding:.3em 1em;border-radius:999px;margin-bottom:.7rem;letter-spacing:.5px;
+    box-shadow:0 4px 14px rgba(245,200,66,.4);
   }
-  
-  @keyframes gm-core-pulse {
-    0%, 100% { box-shadow: 0 0 30px rgba(245,200,66,.55), 0 0 70px rgba(109,40,217,.4), inset 0 0 20px rgba(255,255,255,.3); }
-    50%      { box-shadow: 0 0 45px rgba(245,200,66,.75), 0 0 100px rgba(109,40,217,.55), inset 0 0 24px rgba(255,255,255,.45); }
+  .gm-cp-icon{font-size:clamp(1.8rem,5vmin,2.4rem);margin-bottom:.4rem;filter:drop-shadow(0 0 14px rgba(245,200,66,.6))}
+  .gm-cp-title{
+    font-family:var(--f-display);font-weight:700;
+    font-size:clamp(1.05rem,3vmin,1.35rem);color:#fff;margin-bottom:.5rem;
   }
-  
-  /* ───────── الكوكب المداري ───────── */
-  .galaxy-map__planet {
-    position: absolute;
-    width: var(--gm-planet);
-    height: var(--gm-planet);
-    /* المعادلة الهندسية الأساسية:
-       ندور بزاوية الكوكب، ندفعه للخارج بنصف القطر،
-       ثم ندوّره عكسياً ليقف الكوكب قائماً */
-    transform:
-      rotate(var(--angle))
-      translate(var(--gm-radius))
-      rotate(calc(-1 * var(--angle)));
-    transition: transform .45s cubic-bezier(.34, 1.56, .64, 1);
+  .gm-cp-text{
+    font-size:clamp(.74rem,2vmin,.86rem);line-height:1.85;color:#E8DEF7;
   }
-  
-  /* الزر الفعلي داخل الكوكب */
-  .galaxy-map__planet-btn {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 2px solid var(--planet-color);
-    background: radial-gradient(circle at 35% 30%,
-      color-mix(in srgb, var(--planet-color) 35%, #0a0118),
-      #0a0118 75%);
-    display: grid;
-    place-items: center;
-    font-size: calc(var(--gm-planet) * .42);
-    cursor: pointer;
-    text-decoration: none;
-    box-shadow: 0 0 12px color-mix(in srgb, var(--planet-color) 40%, transparent);
-    transition:
-      transform .35s cubic-bezier(.34, 1.56, .64, 1),
-      box-shadow .35s ease,
-      border-width .2s ease;
+  .gm-cp-text strong{color:#F5C842;font-weight:700}
+  .gm-cp-divider{
+    height:1px;margin:.85rem auto;width:70%;
+    background:linear-gradient(90deg,transparent,rgba(245,200,66,.5),transparent);
   }
-  
-  /* اسم الكوكب — مخفي حتى الـ hover */
-  .galaxy-map__planet-name {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(.7);
-    white-space: nowrap;
-    padding: .25em .7em;
-    border-radius: 999px;
-    font-size: clamp(.62rem, 1.5vmin, .8rem);
-    font-weight: 700;
-    font-family: var(--gm-font, 'Tajawal', sans-serif);
-    color: #fff;
-    background: rgba(10, 1, 24, .94);
-    border: 1px solid var(--planet-color);
-    box-shadow: 0 0 18px color-mix(in srgb, var(--planet-color) 60%, transparent);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 20;
-    transition: opacity .3s ease, transform .3s cubic-bezier(.34,1.56,.64,1);
+  .gm-cp-meta{font-size:clamp(.66rem,1.7vmin,.76rem);color:var(--t-secondary);font-style:italic}
+
+  /* الكواكب المدارية */
+  .galaxy-map__ring{list-style:none;margin:0;padding:0}
+  .galaxy-map__planet{
+    position:absolute;width:var(--gm-planet);height:var(--gm-planet);
+    transform:rotate(var(--angle)) translate(var(--gm-radius)) rotate(calc(-1 * var(--angle)));
+    transition:transform .45s cubic-bezier(.34,1.56,.64,1);
   }
-  
-  /* ───────── تفاعلات الـ Hover & Focus ───────── */
-  .galaxy-map__planet:hover,
-  .galaxy-map__planet:focus-within {
-    z-index: 30;
+  .galaxy-map__planet-btn{
+    position:relative;width:100%;height:100%;border-radius:50%;
+    border:2px solid var(--planet-color);
+    background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--planet-color) 35%,#0a0118),#0a0118 75%);
+    display:grid;place-items:center;font-size:calc(var(--gm-planet)*.42);
+    cursor:pointer;text-decoration:none;
+    box-shadow:0 0 12px color-mix(in srgb,var(--planet-color) 40%,transparent);
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease,border-width .2s ease;
   }
-  
+  .galaxy-map__planet-name{
+    position:absolute;top:50%;left:50%;
+    transform:translate(-50%,-50%) scale(.7);white-space:nowrap;
+    padding:.25em .7em;border-radius:999px;
+    font-size:clamp(.62rem,1.5vmin,.8rem);font-weight:700;font-family:var(--f-body);
+    color:#fff;background:rgba(10,1,24,.94);border:1px solid var(--planet-color);
+    box-shadow:0 0 18px color-mix(in srgb,var(--planet-color) 60%,transparent);
+    opacity:0;pointer-events:none;z-index:20;
+    transition:opacity .3s ease,transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .galaxy-map__planet:hover,.galaxy-map__planet:focus-within{z-index:30}
   .galaxy-map__planet:hover .galaxy-map__planet-btn,
-  .galaxy-map__planet:focus-within .galaxy-map__planet-btn {
-    transform: scale(1.4);
-    border-width: 3px;
-    box-shadow:
-      0 0 28px var(--planet-color),
-      0 0 55px color-mix(in srgb, var(--planet-color) 50%, transparent);
-    animation: gm-planet-pulse 1.4s ease-in-out infinite;
+  .galaxy-map__planet:focus-within .galaxy-map__planet-btn{
+    transform:scale(1.4);border-width:3px;
+    box-shadow:0 0 28px var(--planet-color),0 0 55px color-mix(in srgb,var(--planet-color) 50%,transparent);
+    animation:gm-planet-pulse 1.4s ease-in-out infinite;
   }
-  
   .galaxy-map__planet:hover .galaxy-map__planet-name,
-  .galaxy-map__planet:focus-within .galaxy-map__planet-name {
-    opacity: 1;
-    transform: translate(-50%, calc(-50% - var(--gm-planet) * .85)) scale(1);
+  .galaxy-map__planet:focus-within .galaxy-map__planet-name{
+    opacity:1;transform:translate(-50%,calc(-50% - var(--gm-planet)*.85)) scale(1);
   }
-  
-  @keyframes gm-planet-pulse {
-    0%, 100% { box-shadow: 0 0 28px var(--planet-color), 0 0 55px color-mix(in srgb, var(--planet-color) 50%, transparent); }
-    50%      { box-shadow: 0 0 40px var(--planet-color), 0 0 80px color-mix(in srgb, var(--planet-color) 70%, transparent); }
+  @keyframes gm-planet-pulse{
+    0%,100%{box-shadow:0 0 28px var(--planet-color),0 0 55px color-mix(in srgb,var(--planet-color) 50%,transparent)}
+    50%{box-shadow:0 0 40px var(--planet-color),0 0 80px color-mix(in srgb,var(--planet-color) 70%,transparent)}
   }
-  
-  /* ───────── إتاحة الوصول (Accessibility) ───────── */
-  .galaxy-map__planet-btn:focus-visible {
-    outline: 3px solid #fff;
-    outline-offset: 3px;
+  .galaxy-map__planet-btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+  .gm-hint{margin-top:1.5rem;color:var(--t-secondary);font-size:clamp(.72rem,2vmin,.82rem);text-align:center;position:relative;z-index:2;opacity:.8}
+
+  @media (prefers-reduced-motion:reduce){
+    .galaxy-map__orbit,.galaxy-map__core,.gm-stardust::before,.gm-stardust::after,
+    .galaxy-map__planet:hover .galaxy-map__planet-btn{animation:none}
   }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .galaxy-map__orbit--outer,
-    .galaxy-map__orbit--inner,
-    .galaxy-map__core,
-    .galaxy-map__planet:hover .galaxy-map__planet-btn {
-      animation: none;
-    }
+  @media (max-width:480px){
+    .galaxy-map{--gm-size:clamp(280px,94vmin,400px);--gm-radius:calc(var(--gm-size)/2.6)}
   }
-  
-  /* ───────── التجاوب للهواتف ───────── */
-  @media (max-width: 480px) {
-    .galaxy-map {
-      --gm-size: clamp(280px, 92vmin, 380px);
-      --gm-radius: calc(var(--gm-size) / 2.6);
-    }
-    /* على الجوال نُبقي الاسم ظاهراً دائماً بشكل صغير لتحسين الـ UX اللمسي */
-    .galaxy-map__planet-name {
-      font-size: .58rem;
-    }
-  }
-  
 </style>
 </head>
 <body>
+  <div class="gm-stardust" aria-hidden="true"></div>
 
   <header class="gm-header">
     <div class="gm-eyebrow">🪐 الهيكل المترابط</div>
     <h1 class="gm-title">خريطة المجرة التفاعلية</h1>
-    <p class="gm-sub">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق أي كوكب لاكتشافه</p>
+    <p class="gm-sub">14 كوكباً مترابطاً بذكاء اصطناعي موحد — مرّر فوق النواة لتكتشف سر الكوكب الأم</p>
   </header>
 
   <nav class="galaxy-map" aria-label="خريطة المجرة التفاعلية — 14 كوكباً">
     <div class="galaxy-map__orbit galaxy-map__orbit--outer" aria-hidden="true"></div>
     <div class="galaxy-map__orbit galaxy-map__orbit--inner" aria-hidden="true"></div>
 
-    <a class="galaxy-map__core" href="/planets/ideas-economy" aria-label="اقتصاد الأفكار — النواة المركزية">
+    <a class="galaxy-map__core" href="#core" aria-label="اقتصاد الأفكار — الكوكب الأم، النواة المركزية"
+       onclick="this.nextElementSibling.classList.toggle('gm-pinned');return false;">
       <span aria-hidden="true">💡</span>
       <span class="galaxy-map__core-label">اقتصاد الأفكار</span>
     </a>
 
-    <ul class="galaxy-map__ring" style="list-style:none;margin:0;padding:0">
+    <!-- بطاقة فلسفة الكوكب الأم -->
+    <div class="gm-core-philosophy" role="tooltip">
+      <span class="gm-cp-badge">الكوكب الـ14 — الكوكب الأم</span>
+      <div class="gm-cp-icon" aria-hidden="true">💡</div>
+      <div class="gm-cp-title">اقتصاد الأفكار</div>
+      <div class="gm-cp-text">
+        ليست النواة كوكباً بين الكواكب، بل هي <strong>الأم التي تحتضنها جميعاً</strong>.
+        منها تنبثق الأفكار، وإليها يعود الفائض، وبها تتوازن الكواكب الـ13 وتترابط في
+        منظومة <strong>واحدة عادلة</strong>.
+      </div>
+      <div class="gm-cp-divider"></div>
+      <div class="gm-cp-meta">«تحتوي، وتوازن، وتربط» 🌌</div>
+    </div>
+
+    <ul class="galaxy-map__ring">
       <li class="galaxy-map__planet" style="--angle:-90deg;--planet-color:#06B6D4">
-        <a class="galaxy-map__planet-btn" href="/planets/academy" aria-label="الأكاديمية" data-planet-id="p02-academy">
+        <a class="galaxy-map__planet-btn" href="page2.html#academy-sec" aria-label="الأكاديمية" data-planet-id="p02-academy">
           <span aria-hidden="true">🎓</span>
           <span class="galaxy-map__planet-name">الأكاديمية</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:-62.30769230769231deg;--planet-color:#10B981">
-        <a class="galaxy-map__planet-btn" href="/planets/giving" aria-label="واجهة العطاء" data-planet-id="p03-giving">
+        <a class="galaxy-map__planet-btn" href="page2.html#impact-sec" aria-label="واجهة العطاء" data-planet-id="p03-giving">
           <span aria-hidden="true">🌍</span>
           <span class="galaxy-map__planet-name">واجهة العطاء</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:-34.61538461538461deg;--planet-color:#EC4899">
-        <a class="galaxy-map__planet-btn" href="/planets/thought" aria-label="الفكر" data-planet-id="p04-thought">
+        <a class="galaxy-map__planet-btn" href="page2.html#charter-sec" aria-label="الفكر" data-planet-id="p04-thought">
           <span aria-hidden="true">🧠</span>
           <span class="galaxy-map__planet-name">الفكر</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:-6.92307692307692deg;--planet-color:#A78BFA">
-        <a class="galaxy-map__planet-btn" href="/planets/spirit" aria-label="الروح" data-planet-id="p05-spirit">
+        <a class="galaxy-map__planet-btn" href="page2.html#charter-sec" aria-label="الروح" data-planet-id="p05-spirit">
           <span aria-hidden="true">🕊️</span>
           <span class="galaxy-map__planet-name">الروح</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:20.769230769230774deg;--planet-color:#22D3EE">
-        <a class="galaxy-map__planet-btn" href="/planets/sciences" aria-label="العلوم" data-planet-id="p06-sciences">
+        <a class="galaxy-map__planet-btn" href="page2.html#tech-sec" aria-label="العلوم" data-planet-id="p06-sciences">
           <span aria-hidden="true">🔬</span>
           <span class="galaxy-map__planet-name">العلوم</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:48.46153846153845deg;--planet-color:#84CC16">
-        <a class="galaxy-map__planet-btn" href="/planets/environment" aria-label="البيئة" data-planet-id="p07-environment">
+        <a class="galaxy-map__planet-btn" href="page2.html#impact-sec" aria-label="البيئة" data-planet-id="p07-environment">
           <span aria-hidden="true">🌱</span>
           <span class="galaxy-map__planet-name">البيئة</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:76.15384615384616deg;--planet-color:#F97316">
-        <a class="galaxy-map__planet-btn" href="/planets/industry" aria-label="الصناعة" data-planet-id="p08-industry">
+        <a class="galaxy-map__planet-btn" href="page2.html#auto-produce-sec" aria-label="الصناعة" data-planet-id="p08-industry">
           <span aria-hidden="true">🏭</span>
           <span class="galaxy-map__planet-name">الصناعة</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:103.84615384615387deg;--planet-color:#FCD34D">
-        <a class="galaxy-map__planet-btn" href="/planets/work" aria-label="العمل" data-planet-id="p09-work">
+        <a class="galaxy-map__planet-btn" href="page2.html#galaxy-invest-sec" aria-label="العمل" data-planet-id="p09-work">
           <span aria-hidden="true">💼</span>
           <span class="galaxy-map__planet-name">العمل</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:131.53846153846155deg;--planet-color:#F472B6">
-        <a class="galaxy-map__planet-btn" href="/planets/care" aria-label="الرعاية" data-planet-id="p10-care">
+        <a class="galaxy-map__planet-btn" href="page2.html#crisis-sec" aria-label="الرعاية" data-planet-id="p10-care">
           <span aria-hidden="true">👵</span>
           <span class="galaxy-map__planet-name">الرعاية</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:159.23076923076923deg;--planet-color:#6366F1">
-        <a class="galaxy-map__planet-btn" href="/planets/protection" aria-label="الحماية" data-planet-id="p11-protection">
+        <a class="galaxy-map__planet-btn" href="page2.html#arb-sec" aria-label="الحماية" data-planet-id="p11-protection">
           <span aria-hidden="true">🛡️</span>
           <span class="galaxy-map__planet-name">الحماية</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:186.9230769230769deg;--planet-color:#EF4444">
-        <a class="galaxy-map__planet-btn" href="/planets/relief" aria-label="الإغاثة" data-planet-id="p12-relief">
+        <a class="galaxy-map__planet-btn" href="page2.html#crisis-sec" aria-label="الإغاثة" data-planet-id="p12-relief">
           <span aria-hidden="true">🚨</span>
           <span class="galaxy-map__planet-name">الإغاثة</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:214.61538461538464deg;--planet-color:#14B8A6">
-        <a class="galaxy-map__planet-btn" href="/planets/medicine" aria-label="الطب" data-planet-id="p13-medicine">
+        <a class="galaxy-map__planet-btn" href="page2.html#cert-sec" aria-label="الطب" data-planet-id="p13-medicine">
           <span aria-hidden="true">🩺</span>
           <span class="galaxy-map__planet-name">الطب</span>
         </a>
       </li>
       <li class="galaxy-map__planet" style="--angle:242.30769230769232deg;--planet-color:#C084FC">
-        <a class="galaxy-map__planet-btn" href="/planets/arts" aria-label="الفنون" data-planet-id="p14-arts">
+        <a class="galaxy-map__planet-btn" href="page2.html#room-sec" aria-label="الفنون" data-planet-id="p14-arts">
           <span aria-hidden="true">🎨</span>
           <span class="galaxy-map__planet-name">الفنون</span>
         </a>
@@ -352,5 +310,6 @@
     </ul>
   </nav>
 
+  <p class="gm-hint">اضغط على النواة لتثبيت البطاقة · مرّر فوق أي كوكب لاكتشافه</p>
 </body>
 </html>
